@@ -813,7 +813,7 @@ class Api extends CI_Controller {
             $result['status'] = error;
             $result['msg'] = 'Fridge Id required';
         } else {
-            $res = $this->Home_model->updateRecord('items', ['item_id' => $this->input->post('fridgeId')], ['status' => 'Needs Refilled']);
+            $res = $this->Home_model->updateRecord('items', ['item_id' => $this->input->post('fridgeId')], ['status' => 'Needs Refill']);
             if ($res == 0) {
                 $result['status'] = success;
                 $result['msg'] = 'No Change';

@@ -20,8 +20,8 @@ class Home extends CI_Controller {
     public function index() {
 
         if($this->session->userdata('latitude') == FALSE){
-            $ip = $_SERVER['REMOTE_ADDR'];
-//            $ip = '103.255.4.251';
+//            $ip = $_SERVER['REMOTE_ADDR'];
+            $ip = '103.255.4.251';
             $json = json_decode(file_get_contents("http://ip-api.com/json/$ip"));
             
             $this->session->set_userdata('country', $json->country);
