@@ -9,16 +9,50 @@ body {
 	line-height: 24px;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+
 p {
 	margin:0 0 10px 0;
 }
+
+a {
+	color:#8e555d;
+	text-decoration:underline;
+}
+
+a:hover {
+	text-decoration:none;
+}
+
 h1 {
 	text-align: center;
 	font-weight: normal;
 	margin-bottom:30px;
 }
+		
 #wrapper {
 	width:90%;
 	padding:5%;
 	margin:0 auto;
+}
+
+.question {
+	background: #666 none repeat scroll 0 0;
+	color: #fff;
+	display: block;
+	margin: 0 0 10px;
+	padding: 10px;
+	text-align: left;
+}
+.answer {
+	display: block;
+	margin: 0 0 20px;
+	text-align: left;
+}
+
+.logo {
+	display:block;
+	text-align: center;
+}
+.logo img {
+	margin: 0 auto;
 }
