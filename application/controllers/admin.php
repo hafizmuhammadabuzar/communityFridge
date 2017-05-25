@@ -184,13 +184,12 @@ class Admin extends CI_Controller {
 
         $result['managers'] = $this->Admin_model->getAllManagers();
 
-        $limit = 5;
+        $limit = 20;
         $result['items'] = $this->Admin_model->getAllFridges($limit);
 
         $total_row = $this->Admin_model->countRecord('items');
 
         $config['base_url'] = base_url() . '/admin/view_fridges/page/';
-        $config['total_rows'] = $total_row;
         $config['per_page'] = $limit;
         $config['uri_segment'] = 4;
 
@@ -264,20 +263,27 @@ class Admin extends CI_Controller {
 
         $fridge = $_POST['fridge_id'];
         $manager = $_POST['manager'];
-        $updateArray = array();
-        for ($i = 0; $i < sizeof($fridge); $i++) {
-
-            if($manager[$i] != ''){
-                $updateArray[] = array(
-                    'item_id' => pack("H*", $fridge[$i]),
-                    'manager_id' => pack("H*", $manager[$i]),
-                );
-            }
-        }
-       
-        $res = $this->db->update_batch('items', $updateArray, 'item_id');
         
-        $this->session->set_userdata('msg', "Successfully Assigned!");
+        if(count(array_filter($manager)) > 0){
+            $updateArray = array();
+            for ($i = 0; $i < sizeof($fridge); $i++) {
+
+                if($manager[$i] != ''){
+                    $updateArray[] = array(
+                        'item_id' => pack("H*", $fridge[$i]),
+                        'manager_id' => pack("H*", $manager[$i]),
+                    );
+                }
+            }
+
+            $res = $this->db->update_batch('items', $updateArray, 'item_id');
+
+            $this->session->set_userdata('msg', "Successfully Assigned!");
+        }
+        else{
+            $this->session->set_userdata('msg', "No Manager selected!");
+        }
+        
         redirect('admin/view_fridges');
     }
 

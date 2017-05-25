@@ -12,16 +12,14 @@
                     <form id="loginForm" role="form" action="<?php echo base_url('admin/login'); ?>" method="post">
                         <fieldset>
                             <div class="form-group">
-                                <input class="form-control" placeholder="Username" name="username" type="text" autofocus>
+                                <input class="form-control" placeholder="Username" name="username" type="text" required="required" autofocus>
                             </div>
                             <div class="form-group">
-                                <input class="form-control" placeholder="Password" name="password" type="password"
-                                       value="">
+                                <input class="form-control" placeholder="Password" name="password" type="password" required="required">
                             </div>
                             <!-- Change this to a button or input when using this as a form -->
 
                             <button class="btn btn-lg btn-success btn-block">Submit</button>
-                            <!--<a href="#" class="btn btn-lg btn-success btn-block" onclick="submit();">Login</a>-->
                         </fieldset>
                     </form>
                 </div>

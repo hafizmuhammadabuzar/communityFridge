@@ -30,7 +30,7 @@ class Api extends CI_Controller {
             $result['msg'] = 'Required fields must not be empty';
         } else {
             if ($account_type == 'facebook') {
-                $check_fb = $this->Home_model->checkRecord('users', ['email' => $email, 'account_type' => 'facebook']);
+                $check_fb = $this->Home_model->checkRecord('users', ['email' => $email]);
                 if ($check_fb) {
                     $this->Home_model->updateRecord('tokens', ['token' => "$token"], ['user_email' => $email]);
 
@@ -505,7 +505,6 @@ class Api extends CI_Controller {
                     'address' => $this->input->post('streetAddress'),
                     'access_time' => $this->input->post('accessTime'),
                     'preferred_filling_time' => $this->input->post('preferredFillTime'),
-                    'is_active' => $this->input->post('isActive'),
                     'user_id' => $check->user_id
                 );
 
@@ -640,7 +639,7 @@ class Api extends CI_Controller {
 
         $items = $this->Api_model->getUserItems($check->user_id);
         if (count($items) == 0) {
-            $result['status'] = error;
+            $result['status'] = success;
             $result['msg'] = 'No record found';
         } else {
             $result['status'] = success;
@@ -988,21 +987,17 @@ class Api extends CI_Controller {
         echo json_encode($result);
     }
 
-    public function test_android_push() {
+    /*public function test_android_push() {
 
-        $tokens = $this->Api_model->getTokens();
-
-        foreach ($tokens as $tk) {
-            $ids[] = $tk['token'];
-        }
+        $ids[] = 'APA91bFQRtY8SCD4e6j1YeGKX-4GOQrF-2teOUF7TPuVhKmLNkLkMtAEdYnGyiqtaJwp7Opo5mDqANc7-SeuNrw5Cz5gIfl3E3MxEQa4SdvhB-Et_5RmtK7NoI9i99DjuPrGGfjZxh4V';
 
         define('API_ACCESS_KEY', 'AIzaSyAq208nQaq4tYa5ODrfbyiINwxfKO0qrwg');
         $registrationIds = $ids;
 
         $msg['notification'] = array
             (
-            'title' => $_POST['title'],
-            'message' => $_POST['msg']
+            'title' => $_GET['title'],
+            'message' => $_GET['msg']
         );
 
         $fields = array
@@ -1027,6 +1022,80 @@ class Api extends CI_Controller {
         $result = curl_exec($ch);
         curl_close($ch);
         echo $result;
+    }*/    
+    
+    
+    /*public function test_save_token() {
+
+        $fields = array(
+            'app_id' => "3f639b9a-f9cd-4c81-8bc9-80ff744ec0c4",
+            'identifier' => '5da8a29523bcd16ae5508cf58cb3b3f4e6ee459d4588503e4fe22e2e36565624',
+            'language' => "en",
+            'timezone' => "-28800",
+            'game_version' => "1.0",
+            'device_os' => "",
+            'device_type' => "0",
+            'device_model' => "iPhone",
+            'test_type' => 1
+        );
+
+        $fields = json_encode($fields);
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "https://onesignal.com/api/v1/players");
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        curl_setopt($ch, CURLOPT_HEADER, FALSE);
+        curl_setopt($ch, CURLOPT_POST, TRUE);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+
+        $response = curl_exec($ch);
+        curl_close($ch);
+
+        header('Content-Type: application/json');
+        echo json_encode($response);
     }
+
+    
+    
+    public function test_ios_notification() {
+
+        $noti_title = 'Dear User';
+        $msg = 'Welcome to Fridge App';
+        
+        $title = array(
+            "en" => $noti_title
+        );
+        $content = array(
+            "en" => $msg
+        );
+
+        $fields = array(
+            'app_id' => "3f639b9a-f9cd-4c81-8bc9-80ff744ec0c4",
+            'include_ios_tokens' => ['5da8a29523bcd16ae5508cf58cb3b3f4e6ee459d4588503e4fe22e2e36565624'],
+            'contents' => $content,
+            'heading' => $title,
+            'data' => ['title' => $noti_title, 'body' => $msg],
+            'ios_badgeType' => 'SetTo',
+            'ios_badgeCount' => 1
+        );
+
+        $fields = json_encode($fields);
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "https://onesignal.com/api/v1/notifications");
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json',
+            'Authorization: Basic ZThlM2Q3YzYtZjAyYy00YWU0LWE3NWEtMWRlZmU4NTE0ZGIw'));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        curl_setopt($ch, CURLOPT_HEADER, FALSE);
+        curl_setopt($ch, CURLOPT_POST, TRUE);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+
+        $response = curl_exec($ch);
+        curl_close($ch);
+        echo $response;
+    }*/
 
 }

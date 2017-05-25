@@ -124,7 +124,7 @@ class Admin_model extends CI_Model {
 
         $this->db->select('*');
         $this->db->join('users', 'users.user_id = items.user_id', 'inner');
-        $this->db->order_by("country, item_id");
+        $this->db->order_by("item_id DESC");
         if($this->session->userdata('manager_id')){
             $this->db->where('manager_id', $this->session->userdata('manager_id'));
         }

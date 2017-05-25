@@ -8,7 +8,7 @@ class Home_model extends CI_Model {
 
     function checkUserRegister($username, $email) {
            
-        $both_check = $this->db->get_where('users', array('username' => "$username", 'email' => "$email", 'account_type' => "normal"));
+        $both_check = $this->db->get_where('users', array('username' => "$username", 'email' => "$email"));
 
         if ($both_check->num_rows() > 0) {
             $result['message'] = 'Username and Email already exist';

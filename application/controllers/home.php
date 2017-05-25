@@ -22,6 +22,7 @@ class Home extends CI_Controller {
         if($this->session->userdata('latitude') == FALSE){
 //            $ip = $_SERVER['REMOTE_ADDR'];
             $ip = '103.255.4.251';
+            
             $json = json_decode(file_get_contents("http://ip-api.com/json/$ip"));
             
             $this->session->set_userdata('country', $json->country);
@@ -36,12 +37,7 @@ class Home extends CI_Controller {
         $config['scrollwheel'] = FALSE;
         $config['sensor'] = FALSE;
         $this->googlemaps->initialize($config);
-        
-//        $circle = array();
-//        $circle['center'] = $this->session->userdata('latitude').','.$this->session->userdata('longitude');
-//        $circle['radius'] = '100';
-//        $this->googlemaps->add_circle($circle);  
-        
+               
         $marker = array();
         $marker['position'] = $this->session->userdata('latitude').','.$this->session->userdata('longitude');
         $marker['infowindow_content'] = 'Current Location';
@@ -49,9 +45,11 @@ class Home extends CI_Controller {
         $this->googlemaps->add_marker($marker);
         
         foreach ($pins as $pin) {
+            
             $marker = array();
             $marker['position'] = $pin['latitude'] . ',' . $pin['longitude'];
-            $marker['infowindow_content'] = '<b>'.$pin['area'].'</b><br>'.ucfirst(str_replace('null', '', $pin['address'])).'<br>'.join(', ', array_map('ucfirst', explode(',', $pin['services']))) . '<br>' . $pin['latitude'] . ', ' . $pin['longitude'];
+            $marker['infowindow_content'] = '<div><b>'.$pin['area'].'</b><br>'.ucfirst(str_replace('null', '', $pin['address'])).'<br>'.join(', ', array_map('ucfirst', explode(',', $pin['services']))) . '<br>' . $pin['latitude'] . ', ' . $pin['longitude'].'<br/><a href="'.base_url().'get_direction?sLat='.$this->session->userdata('latitude').'&sLng='.$this->session->userdata('longitude').'&eLat='.$pin['latitude'].'&eLng='.$pin['longitude'].'" target="_blank">Get Direction</a>';
+                        
             $marker['icon'] = 'assets/images/icon-fridge.png';
             $this->googlemaps->add_marker($marker);
         }
@@ -60,6 +58,21 @@ class Home extends CI_Controller {
         $data['countries'] = $this->Home_model->getFridgeCountries();
         
         $this->load->view('index', $data);
+    }
+
+    public function get_direction() {
+
+        $this->load->library('googlemaps');
+        $config['center'] = $_GET['latLng'];
+        $config['zoom'] = 'auto';
+        $config['directions'] = TRUE;
+        $config['directionsStart'] = 'empire state building';
+        $config['directionsEnd'] = 'statue of liberty';
+        $config['directionsDivID'] = 'directionsDiv';
+        $this->googlemaps->initialize($config);
+        $data['map'] = $this->googlemaps->create_map();
+        
+        $this->load->view('get_direction', $data);
     }
 
     function get_cities_by_country($country) {
