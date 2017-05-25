@@ -48,8 +48,9 @@ class Home extends CI_Controller {
             
             $marker = array();
             $marker['position'] = $pin['latitude'] . ',' . $pin['longitude'];
-            $marker['infowindow_content'] = '<div><b>'.$pin['area'].'</b><br>'.ucfirst(str_replace('null', '', $pin['address'])).'<br>'.join(', ', array_map('ucfirst', explode(',', $pin['services']))) . '<br>' . $pin['latitude'] . ', ' . $pin['longitude'].'<br/><a href="'.base_url().'get_direction?sLat='.$this->session->userdata('latitude').'&sLng='.$this->session->userdata('longitude').'&eLat='.$pin['latitude'].'&eLng='.$pin['longitude'].'" target="_blank">Get Direction</a>';
-                        
+
+            $marker['infowindow_content'] = '<b><a href="#" class="Direction"><img src="assets/images/sign-direction.png" alt="Direction"/></a>'.$pin['area'].'</b><br>'.ucfirst(str_replace('null', '', $pin['address'])).'<br>'.join(', ', array_map('ucfirst', explode(',', $pin['services']))) . '<br>' . $pin['latitude'] . ', ' . $pin['longitude'];
+            
             $marker['icon'] = 'assets/images/icon-fridge.png';
             $this->googlemaps->add_marker($marker);
         }
