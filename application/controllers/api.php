@@ -402,25 +402,25 @@ class Api extends CI_Controller {
         $mail->IsSMTP();
 
         // local
-        $mail->Host = "ssl://smtp.googlemail.com";
-        $mail->SMTPDebug = 0;
-        $mail->SMTPAuth = true;
-        $mail->Port = 465;
-        $mail->Username = "hamzasynergistics@gmail.com";
-        $mail->Password = "synergistics";
-        $mail->AddReplyTo('do-not-reply@fridge.ae', '');
+//        $mail->Host = "ssl://smtp.googlemail.com";
+//        $mail->SMTPDebug = 0;
+//        $mail->SMTPAuth = true;
+//        $mail->Port = 465;
+//        $mail->Username = "hamzasynergistics@gmail.com";
+//        $mail->Password = "synergistics";
+//        $mail->AddReplyTo('do-not-reply@communityfridge.org', '');
 
         // live                            
-//        $mail->Host = "localhost";
-//        $mail->SMTPAuth = true;
-//        $mail->SMTPSecure = "ssl";
-//        $mail->Username = "info@sayarti.ae";
-//        $mail->Password = 'gh0)mJ^*';
-//        $mail->Port = "465";
-//        $mail->AddReplyTo('do-not-reply@sayarti.ae', '');
+        $mail->Host = "localhost";
+        $mail->SMTPAuth = true;
+        $mail->SMTPSecure = "ssl";
+        $mail->Username = "info@communityfridge.org";
+        $mail->Password = 'info_123@';
+        $mail->Port = "465";
+        $mail->AddReplyTo('do-not-reply@communityfridge.org', '');
 
         $mail->AddAddress($to, $f_name);
-        $mail->SetFrom('info@fridge.ae', 'Fridge App');
+        $mail->SetFrom('do-not-reply@communityfridge.org', 'Fridge App');
         $mail->Subject = $subject;
         $body = $msg;
 
@@ -790,7 +790,17 @@ class Api extends CI_Controller {
 
             $check = $this->Home_model->getUserByFridgeId($fridge_id);
             if ($check) {
-                $this->send_email($check->email, '', ucwords($type), $message);
+                if (strpos($type, 'eport') !== false) {
+                    $body = "Dear User,<br/><br/>Your listed fridge is &#8220; $message &#8221;. Kindly check.<br/><br/>
+                            Regards,Community Fridge";
+                }
+                else{
+                    $body = "Dear User,<br/><br/>Someone wrote regarding your fridge. Below is the message:<br/>
+                            &#8220;$message&#8221;<br/><br/>
+                            Regards,Community Fridge";
+                }
+                
+                $this->send_email($check->email, '', ucwords($type), $body);
 
                 $result['status'] = success;
                 $result['msg'] = 'Email Sent';
