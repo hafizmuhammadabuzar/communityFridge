@@ -3,6 +3,7 @@
     padding: 0;
     box-sizing: border-box;
 }
+
 @font-face {
     font-family: 'open_sansregular';
     src: url('../fonts/opensans-regular-webfont.woff2') format('woff2'), url('../fonts/opensans-regular-webfont.woff') format('woff');
