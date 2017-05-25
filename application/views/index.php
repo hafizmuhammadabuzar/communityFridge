@@ -35,7 +35,7 @@
                             </ul>
                         </div>
                     </div>
-                </div>                
+                </div>  
                 <div class="map">
                     <?php echo $map['html']; ?>
                 </div>

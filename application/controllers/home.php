@@ -51,7 +51,7 @@ class Home extends CI_Controller {
         foreach ($pins as $pin) {
             $marker = array();
             $marker['position'] = $pin['latitude'] . ',' . $pin['longitude'];
-            $marker['infowindow_content'] = '<b>'.$pin['area'].'</b><br>'.ucfirst(str_replace('null', '', $pin['address'])).'<br>'.join(', ', array_map('ucfirst', explode(',', $pin['services']))) . '<br>' . $pin['latitude'] . ', ' . $pin['longitude'];
+            $marker['infowindow_content'] = '<b><a href="#" class="Direction"><img src="assets/images/sign-direction.png" alt="Direction"/></a>'.$pin['area'].'</b><br>'.ucfirst(str_replace('null', '', $pin['address'])).'<br>'.join(', ', array_map('ucfirst', explode(',', $pin['services']))) . '<br>' . $pin['latitude'] . ', ' . $pin['longitude'];
             $marker['icon'] = 'assets/images/icon-fridge.png';
             $this->googlemaps->add_marker($marker);
         }
