@@ -7,7 +7,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="<?php echo base_url().'areamanager/dashboard' ?>">Community Fridge</a>
+        <a class="navbar-brand" href="<?php echo base_url().'areamanager/dashboard' ?>">City Area Manager - Community Fridge</a>
     </div>
     <!-- /.navbar-header -->
 
@@ -40,10 +40,10 @@
                     <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Managers<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="<?php echo base_url().'areamanager/add_manager'; ?>" <?php if($method=='add_manager') echo "class='active'" ?>>Add Manager</a>
+                            <a href="<?php echo base_url().'areamanager/add_manager'; ?>" <?php if($method=='add_manager') echo "class='active'" ?>>Add Zone Manager</a>
                         </li>
                         <li>
-                            <a href="<?php echo base_url().'areamanager/view_managers'; ?>" <?php if($method=='view_managers') echo "class='active'" ?>>View Managers</a>
+                            <a href="<?php echo base_url().'areamanager/view_managers'; ?>" <?php if($method=='view_managers') echo "class='active'" ?>>View Zone Managers</a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->

@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Dashboard - Community Fridge</title>
+    <title>Zone Manager Dashboard - Community Fridge</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="<?php echo base_url(); ?>assets/dashboard/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">

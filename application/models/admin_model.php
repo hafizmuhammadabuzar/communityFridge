@@ -17,7 +17,7 @@ class Admin_model extends CI_Model {
         
         $this->db->where('status', 0);
         $this->db->or_where('status', 1);
-        $this->db->order_by('username', 'ASC');
+        $this->db->order_by("username, created_at DESC");
         if ($limit != '') {
             $offset = $this->uri->segment(4);
             $query = $this->db->limit($limit, $offset);
@@ -152,7 +152,7 @@ class Admin_model extends CI_Model {
         }
         $query = $this->db->get('items');
         
-        die($this->db->last_query());
+//        die($this->db->last_query());
 
         return $query->result_array();
     }
@@ -215,14 +215,15 @@ class Admin_model extends CI_Model {
 
     function getAllSubManagers($limit = ''){
 
-        $this->db->select('*');
-        $this->db->where('is_area_manager', 0);
-        $this->db->order_by('name', 'ASC');
+        $this->db->select('m1.manager_id, m1.name, m1.email, m2.name as created_by');
+        $this->db->join('managers as m2', 'm1.manager_id = m2.super_manager', 'inner');
+        $this->db->where('m1.is_area_manager', 0);
+        $this->db->order_by('m1.name', 'ASC');
         if ($limit != '') {
             $offset = $this->uri->segment(4);
             $query = $this->db->limit($limit, $offset);
         }
-        $query = $this->db->get('managers');
+        $query = $this->db->get('manager as m1');
 
         return $query->result_array();
     }

@@ -14,7 +14,7 @@
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                View Managers
+                View Zone Managers
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
@@ -28,6 +28,7 @@
                                 <tr role="row">
                                     <th>Name</th>
                                     <th>Email</th>
+                                    <th>Created By</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -37,6 +38,7 @@
                                     <tr class="gradeA odd" role="row">
                                         <td><?php echo ucwords($row['name']); ?></td>
                                         <td><?php echo $row['email']; ?></td>
+                                        <td><?php echo $row['created_by']; ?></td>
                                         <td>
                                             <a href="<?php echo base_url().'admin/edit_manager/'.bin2hex($row['manager_id']);?>" title="edit">
                                                 <i class="fa fa-edit"></i>

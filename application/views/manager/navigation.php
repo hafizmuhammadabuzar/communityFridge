@@ -7,7 +7,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="<?php echo base_url().'manager/dashboard' ?>">Community Fridge</a>
+        <a class="navbar-brand" href="<?php echo base_url().'manager/dashboard' ?>">Zone Manager - Community Fridge</a>
     </div>
     <!-- /.navbar-header -->
 
