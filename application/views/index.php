@@ -7,10 +7,10 @@
         <meta name="description" content="Community Fridge">
         <meta name="keywords" content="Community Fridge">
         <meta name="author" content="Synergistics FZ LLC">
-        <meta property="og:url" content="http://www.mygpacalc.com"/>
+        <meta property="og:url" content="http://www.communityfridge.org"/>
         <meta property="og:title" content="Community Fridge" />
         <meta property="og:description" content="Community Fridge" />
-        <meta property="og:image" content="<?php echo base_url(); ?>assets/images/fb-logo.png" />
+        <meta property="og:image" content="<?php echo base_url(); ?>assets/images/facebooklogo.JPG" />
         <meta name = "format-detection" content = "telephone=no">
         <link rel="icon" type="image/png" sizes="32x32" href="<?php echo base_url(); ?>assets/images/favicon.png">
         <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/style.css">
