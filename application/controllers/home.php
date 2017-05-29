@@ -20,8 +20,8 @@ class Home extends CI_Controller {
     public function index() {
 
         if($this->session->userdata('latitude') == FALSE){
-//            $ip = $_SERVER['REMOTE_ADDR'];
-            $ip = '103.255.4.251';
+            $ip = $_SERVER['REMOTE_ADDR'];
+//            $ip = '103.255.4.251';
             
             $json = json_decode(file_get_contents("http://ip-api.com/json/$ip"));
             
@@ -87,8 +87,8 @@ class Home extends CI_Controller {
         $pins = $this->Home_model->getFridges($_POST['country'], $_POST['city']);
         $data['countries'] = $this->Home_model->getFridgeCountries();
 
-        $config['center'] = $this->session->userdata('latitude') . ',' . $this->session->userdata('longitude');
-        $config['zoom'] = 'auto';
+        $config['center'] = $pins[0]['latitude'] . ',' . $pins[0]['longitude'];
+        $config['zoom'] = '12';
         $config['scrollwheel'] = FALSE;
         $config['sensor'] = FALSE;
         $this->googlemaps->initialize($config);
@@ -96,7 +96,7 @@ class Home extends CI_Controller {
         foreach ($pins as $pin) {
             $marker = array();
             $marker['position'] = $pin['latitude'] . ',' . $pin['longitude'];
-            $marker['infowindow_content'] = '<b>'.$pin['area'].'</b><br>'.ucfirst(str_replace('null', '', $pin['address'])).'<br>'.join(', ', array_map('ucfirst', explode(',', $pin['services']))) . '<br>' . $pin['latitude'] . ', ' . $pin['longitude'];
+            $marker['infowindow_content'] = '<b><a href="'. base_url().'get_direction?sLat='.$this->session->userdata('latitude').'&sLng='.$this->session->userdata('longitude').'&eLat='.$pin['latitude'].'&eLng='.$pin['longitude'].'" class="Direction" target="_blank"><img src="assets/images/sign-direction.png" alt="Direction"/></a>'.$pin['area'].'</b><br>'.ucfirst(str_replace('null', '', $pin['address'])).'<br>'.join(', ', array_map('ucfirst', explode(',', $pin['services']))) . '<br>' . $pin['latitude'] . ', ' . $pin['longitude'];
             $marker['icon'] = 'assets/images/icon-fridge.png';
             $this->googlemaps->add_marker($marker);
         }

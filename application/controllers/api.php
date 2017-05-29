@@ -505,7 +505,7 @@ class Api extends CI_Controller {
                 $services = implode(',', $this->input->post('services'));
                 $point = "GeomFromText('POINT($lat $lng)')";
 
-                $item_data = $this->db->set(array(
+                $item_data = array(
                     'condition' => $this->input->post('condition'),
                     'services' => $services,
                     'status' => $this->input->post('status'),
@@ -517,24 +517,21 @@ class Api extends CI_Controller {
                     'access_time' => $this->input->post('accessTime'),
                     'preferred_filling_time' => $this->input->post('preferredFillTime'),
                     'user_id' => $check->user_id
-                ), true);
-//                $item_data = $this->db->set(array('point' => 'Point(34.5 55.5)'), true);
-                
-//                echo'<pre>'; print_r($item_data); die;
+                );
 
                 if ($fridge_id != '-1') {
                     $res = $this->Home_model->updateRecord('items', ['item_id' => $fridge_id], $item_data);
                     $this->Api_model->deleteItem($fridge_id);
                 } else {
-                    $item_data = array('created_at' => date('Y-m-d H:i:s'));
+                    $date = ['created_at' => date('Y-m-d H:i:s')];
+                    $item_data = array_merge($date, $item_data);
                     $res = $this->Home_model->saveRecord('items', $item_data);
-                    
-                    $this->Home_model->updateGEom($point, $res);
                 }
 
                 if ($res > 0) {
 
                     $res = ($fridge_id != '-1') ? $fridge_id : $res;
+                    $this->Home_model->updateGEom($point, $res);
 
                     for ($i = 0; $i < 10; $i++) {
                         if (!empty($_FILES['image_' . $i]['name'])) {
@@ -558,9 +555,6 @@ class Api extends CI_Controller {
                     $result['status'] = success;
                     $result['msg'] = 'Successfully Saved';
                     $result['images'] = $img_res;
-
-//                    $msg = 'Dear User,<br>Your have requested a quote successfully.';
-//                    $this->send_email($check->email, '', 'Sayarti Quote', $msg);
                 } else {
                     $result['status'] = error;
                     $result['msg'] = 'Could not be Saved';
@@ -656,6 +650,7 @@ class Api extends CI_Controller {
         if (count($items) == 0) {
             $result['status'] = success;
             $result['msg'] = 'No record found';
+            $result['items'][0] = '';
         } else {
             $result['status'] = success;
             $result['msg'] = 'Items List';
