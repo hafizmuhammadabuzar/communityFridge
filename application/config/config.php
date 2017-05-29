@@ -18,7 +18,7 @@ if (!defined('BASEPATH'))
   |
  */
 //local
-$config['base_url'] = 'http://localhost/projects/cf/';
+$config['base_url'] = 'http://localhost/communityFridge/';
 //live
 //$config['base_url']	= 'http://communityfridge.org/';
 
