@@ -11,9 +11,13 @@
         <meta property="og:title" content="Community Fridge" />
         <meta property="og:description" content="Community Fridge" />
         <meta property="og:image" content="<?php echo base_url(); ?>assets/images/facebooklogo.JPG" />-->
-        <meta property="og:title" content="Community Fridge"/>
-        <meta property="og:image" content="http://communityfridge.org/assets/images/facebooklogo.JPG"/>
-        <meta property="og:site_name" content="Community Fridge"/>
+        
+        <meta property="og:type" content="website"/>
+	<meta property="og:url" content="http://www.communityfridge.org/"/>
+	<meta property="og:title" content="Community Fridge"/>
+	<meta property="og:description" content="Community Fridge"/>
+	<meta property="og:site_name" content="Community Fridge" />
+	<meta property="og:image" content="http://communityfridge.org/assets/images/facebookimg.jpg"/>
         <meta name = "format-detection" content = "telephone=no">
         <link rel="icon" type="image/png" href="<?php echo base_url(); ?>assets/images/favicon.ico">
         <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/style.css">
