@@ -17,7 +17,6 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 View Fridges
-                <span style="float: right;"><?php echo '<b>Total:</b> '.number_format($total); ?></span>
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">

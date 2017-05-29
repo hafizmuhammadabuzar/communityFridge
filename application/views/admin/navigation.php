@@ -34,19 +34,25 @@
                     <a href="<?php echo base_url().'admin/dashboard'; ?>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url().'admin/view_fridges'; ?>"><i class="fa fa-dashboard fa-fw"></i> Fridges</a>
+                    <a href="<?php echo base_url().'admin/view_fridges'; ?>"><i class="fa fa-list-ul fa-fw"></i> Fridges</a>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Managers<span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Area Managers<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="<?php echo base_url().'admin/add_manager'; ?>" <?php if($method=='add_manager') echo "class='active'" ?>>Add Manager</a>
+                            <a href="<?php echo base_url().'admin/add_manager'; ?>" <?php if($method=='add_manager') echo "class='active'" ?>>Add Area Manager</a>
                         </li>
                         <li>
-                            <a href="<?php echo base_url().'admin/view_managers'; ?>" <?php if($method=='view_managers') echo "class='active'" ?>>View Managers</a>
+                            <a href="<?php echo base_url().'admin/view_managers'; ?>" <?php if($method=='view_managers') echo "class='active'" ?>>View Area Managers</a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->
+                </li>
+                <li>
+                    <a href="<?php echo base_url().'admin/view_users'; ?>"><i class="fa fa-list-ul fa-fw"></i> Users</a>
+                </li>
+                <li>
+                    <a href="<?php echo base_url().'push_form'; ?>" <?php if($method=='push_form') echo "class='active'" ?>><i class="fa fa-bell fa-fw"></i> Push Notification</a>
                 </li>
             </ul>
         </div>

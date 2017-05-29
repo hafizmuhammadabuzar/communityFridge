@@ -17,11 +17,10 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 View Fridges
-                <span style="float: right;"><?php echo '<b>Total:</b> '.number_format($total); ?></span>
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
-                <form action="<?php echo base_url('admin/save_fridge_manager'); ?>" method="post">
+                <form action="<?php echo base_url('areamanager/save_fridge_manager'); ?>" method="post">
                 
                 <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
                     <div class="row">
@@ -37,6 +36,7 @@
                                         <th>Services</th>
                                         <th>Username</th>
                                         <th>Status</th>
+                                        <th>Manager</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -60,10 +60,19 @@
                                                 </a>
                                             </td>
                                             <td>
-                                                <a href="<?php echo base_url() . 'admin/edit_fridge/' . bin2hex($item['item_id']); ?>" title="Edit">
+                                                <input type="hidden" name="fridge_id[]" value="<?php echo bin2hex($item['item_id']); ?>" />
+                                                <select name="manager[]">
+                                                    <option value="">- - -  Select Manager - - -</option>
+                                                    <?php foreach($managers as $mng){ ?>
+                                                    <option value="<?php echo bin2hex($mng['manager_id']); ?>" <?php if($mng['manager_id'] == $item['manager_id']){echo "selected='selected'";} ?>><?php echo ucwords($mng['name']); ?></option>
+                                                    <?php } ?>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <a href="<?php echo base_url() . 'areamanager/edit_fridge/' . bin2hex($item['item_id']); ?>" title="Edit">
                                                     <i class="fa fa-edit"></i>
                                                 </a> |
-                                                <a href="<?php echo base_url() . 'admin/delete_fridge/' . bin2hex($item['item_id']); ?>" title="Delete">
+                                                <a href="<?php echo base_url() . 'areamanager/delete_fridge/' . bin2hex($item['item_id']); ?>" title="Delete">
                                                     <i class="fa fa-remove" style="color: #880000"></i>
                                                 </a>
                                             </td>

@@ -13,11 +13,17 @@ class Admin_model extends CI_Model {
         return $query->row();      
     }
     
-    function getAllUsers(){
+    function getAllUsers($limit = ''){
         
         $this->db->where('status', 0);
         $this->db->or_where('status', 1);
+        $this->db->order_by('username', 'ASC');
+        if ($limit != '') {
+            $offset = $this->uri->segment(4);
+            $query = $this->db->limit($limit, $offset);
+        }
         $query = $this->db->get('users');
+        
         return $query->result_array();
     }
             
@@ -113,19 +119,48 @@ class Admin_model extends CI_Model {
         $this->db->select('count(*) as count');
         $this->db->join('users', 'users.user_id = items.user_id', 'inner');
         if($this->session->userdata('manager_id')){
-            $this->db->where('manager_id', $this->session->userdata('manager_id'));
+            $this->db->where('manager_id', $this->session->userdata('areamanager_id'));
         }
         $query = $this->db->get('items');
 
         return $query->row();
     }
 
-    function getAllFridges($limit = ''){
+    function getPolygon(){
+        
+        $this->db->select('polygon');
+        $this->db->where('manager_id', $this->session->userdata('areamanager_id'));
+        $query = $this->db->get('managers');
 
+        return $query->row();
+    }
+    
+    function getFridgesByPolygon($limit = '', $polygon=''){
+       
+//      SET @bbox = 'POLYGON((0 0, 10 0, 10 10, 0 10, 0 0))'; 
+//      SELECT name, AsText(location) FROM Points WHERE Intersects( location, GeomFromText(@bbox) )
+        
+        $this->db->select('*, AsText(point)');
+        $this->db->order_by("item_id DESC");
+        if($this->session->userdata('manager_id')){
+            $this->db->where('manager_id', $this->session->userdata('manager_id'));
+        }
+        $this->db->where("Intersects(point, GeomFromText('POLYGON(($polygon))'))");
+        if ($limit != '') {
+            $offset = $this->uri->segment(4);
+            $query = $this->db->limit($limit, $offset);
+        }
+        $query = $this->db->get('items');
+
+        return $query->result_array();
+    }
+    
+    function getAllFridges($limit = ''){
+       
         $this->db->select('*');
         $this->db->join('users', 'users.user_id = items.user_id', 'inner');
         $this->db->order_by("item_id DESC");
-        if($this->session->userdata('manager_id')){
+        if($this->session->userdata('manager_id') == TRUE){
             $this->db->where('manager_id', $this->session->userdata('manager_id'));
         }
         if ($limit != '') {
@@ -133,7 +168,7 @@ class Admin_model extends CI_Model {
             $query = $this->db->limit($limit, $offset);
         }
         $query = $this->db->get('items');
-
+        
         return $query->result_array();
     }
 
@@ -148,13 +183,24 @@ class Admin_model extends CI_Model {
         return $query->result_array();
     }
 
-    function getAllManagers(){
+    function getAllManagers($limit = ''){
 
         $this->db->select('*');
+        if($this->session->userdata('admin_username') == TRUE){
+            $this->db->where('is_area_manager', 1);
+        }
+        if($this->session->userdata('areamanager_id') == TRUE){
+            $this->db->where('super_manager', $this->session->userdata('areamanager_id'));
+        }
         $this->db->order_by('name', 'ASC');
+        if ($limit != '') {
+            $offset = $this->uri->segment(4);
+            $query = $this->db->limit($limit, $offset);
+        }
         $query = $this->db->get('managers');
 
         return $query->result_array();
     }
+
     
 }

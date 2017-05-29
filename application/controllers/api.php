@@ -125,7 +125,7 @@ class Api extends CI_Controller {
                             </body>
                             </html>';
 
-                    $this->send_email($email, $username, 'Fridge Account Verification', $msg);
+                    $this->new_send_email($email, $username, 'Fridge Account Verification', $msg);
                 }
 
                 $result['status'] = success;
@@ -320,7 +320,7 @@ class Api extends CI_Controller {
                             <a href="' . base_url() . 'password/reset/?status=' . $check->remember_token . '" targer="blank">
                                 <img src="' . base_url() . 'assets/images/reset.png" width="120" height="40" /></a>';
 
-                    $this->send_email($email, $check->username, 'Fridge Reset Password', $msg);
+                    $this->new_send_email($email, $check->username, 'Fridge Reset Password', $msg);
 
                     $result['status'] = success;
                     $result['msg'] = 'Email Sent';
@@ -393,11 +393,21 @@ class Api extends CI_Controller {
             }
         }
     }
+    
+    protected function new_send_email($to, $f_name='', $subject, $msg) {
+
+        $headers = 'From: do-not-reply@communityfridge.org' . "\r\n" .
+                'Reply-To: do-not-reply@communityfridge.org'."\r\n" .
+                'Content-type: text/html; charset=iso-8859-1' . "\r\n" .
+                'X-Mailer: PHP/' . phpversion();
+
+        mail($to, $subject, $msg, $headers);
+    }
 
     protected function send_email($to, $f_name = '', $subject, $msg, $attachment = '') {
 
         $this->load->library('phpmailer');
-        $mail = new PHPMailer(true);
+        $mail = new PHPMailer(false);
         $mail->CharSet = "utf-8";
         $mail->IsSMTP();
 
@@ -446,7 +456,7 @@ class Api extends CI_Controller {
                         </body>
                         </html>';
 
-                $this->send_email($email, $check->username, 'Sayarti Account Verification', $msg);
+                $this->new_send_email($email, $check->username, 'Sayarti Account Verification', $msg);
 
                 $result['status'] = success;
                 $result['msg'] = 'Please check your email';
@@ -461,7 +471,7 @@ class Api extends CI_Controller {
     }
 
     public function save_item() {
-
+        
         $this->form_validation->set_rules('condition', 'Condition', 'required');
         $this->form_validation->set_rules('services', 'Services', 'required');
         $this->form_validation->set_rules('status', 'Status', 'required');
@@ -493,28 +503,33 @@ class Api extends CI_Controller {
                 $country = json_decode(file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lng&sensor=true"));
 
                 $services = implode(',', $this->input->post('services'));
+                $point = "GeomFromText('POINT($lat $lng)')";
 
-                $item_data = array(
+                $item_data = $this->db->set(array(
                     'condition' => $this->input->post('condition'),
                     'services' => $services,
                     'status' => $this->input->post('status'),
-                    'latitude' => $this->input->post('lat'),
-                    'longitude' => $this->input->post('lng'),
+                    'latitude' => $lat,
+                    'longitude' => $lng,
                     'country' => $country->results[count($country->results) - 1]->formatted_address,
                     'area' => $this->input->post('area'),
                     'address' => $this->input->post('streetAddress'),
                     'access_time' => $this->input->post('accessTime'),
                     'preferred_filling_time' => $this->input->post('preferredFillTime'),
                     'user_id' => $check->user_id
-                );
+                ), true);
+//                $item_data = $this->db->set(array('point' => 'Point(34.5 55.5)'), true);
+                
+//                echo'<pre>'; print_r($item_data); die;
 
                 if ($fridge_id != '-1') {
                     $res = $this->Home_model->updateRecord('items', ['item_id' => $fridge_id], $item_data);
                     $this->Api_model->deleteItem($fridge_id);
                 } else {
-                    $cr_date = ['created_at' => date('Y-m-d H:i:s')];
-                    $item_data = array_merge($cr_date, $item_data);
+                    $item_data = array('created_at' => date('Y-m-d H:i:s'));
                     $res = $this->Home_model->saveRecord('items', $item_data);
+                    
+                    $this->Home_model->updateGEom($point, $res);
                 }
 
                 if ($res > 0) {
@@ -791,16 +806,16 @@ class Api extends CI_Controller {
             $check = $this->Home_model->getUserByFridgeId($fridge_id);
             if ($check) {
                 if (strpos($type, 'eport') !== false) {
-                    $body = "Dear User,<br/><br/>Your listed fridge is &#8220; $message &#8221;. Kindly check.<br/><br/>
-                            Regards,Community Fridge";
+                    $body = "Dear User,<br/><br/>Your listed fridge is &#8220;$message&#8221;. Kindly check.<br/><br/><br/>
+                            Regards,<br/>Community Fridge";
                 }
                 else{
-                    $body = "Dear User,<br/><br/>Someone wrote regarding your fridge. Below is the message:<br/>
-                            &#8220;$message&#8221;<br/><br/>
-                            Regards,Community Fridge";
+                    $body = "Dear User,<br/><br/>Someone wrote regarding your fridge.<br/>
+                            &#8220;$message&#8221;<br/><br/><br/>
+                            Regards,<br/>Community Fridge";
                 }
                 
-                $this->send_email($check->email, '', ucwords($type), $body);
+                $this->new_send_email($check->email, '', ucwords($type), $body);
 
                 $result['status'] = success;
                 $result['msg'] = 'Email Sent';
@@ -1107,5 +1122,6 @@ class Api extends CI_Controller {
         curl_close($ch);
         echo $response;
     }*/
-
+    
+    
 }

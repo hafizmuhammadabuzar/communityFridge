@@ -20,7 +20,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-lg-6">
-                        <form role="form" action="<?php echo base_url().'admin/'.$url; ?>" method="post">
+                        <form role="form" action="<?php echo base_url().'areamanager/'.$url; ?>" method="post">
                             <div class="form-group">
                                 <label>Name *</label>
                                 <input class="form-control" name="username" value="<?php echo $manager->name; ?>" required="required">
@@ -32,24 +32,11 @@
                             <div class="form-group">
                                 <label>Password <?php if(!isset($manager)){ echo '*'; }?></label>
                                 <input type="password" class="form-control" name="password" value="" <?php if(!isset($manager)){echo "required='required'";} ?>>
-                            </div>    
+                            </div>  
                             <div class="form-group">
                                 <label>Mobile *</label>
                                 <input class="form-control" name="mobile" value="<?php echo $manager->mobile; ?>" required="required">
-                            </div>                         
-                            <div class="form-group">
-                                <label>Polygon*</label>
-                                <textarea id="polygon" name="polygon" class="form-control" rows="5" placeholder="Latitude <space> Longitude, Latiude <space> Longitude" required='required'><?php echo $manager->polygon; ?></textarea>
                             </div>
-                            
-                            <!--<div class="field-wrap polygon-main">
-                                <h4>Add Polygon</h4>
-                                <a href="#" style="display: block; margin: 0 0 10px;"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add more</a>
-                                <div id="polygon-clone">
-                                    <input class="form-control" name="polygon[]" id="polygon" required="required">
-                                    <i class="fa fa-times clone-remove" aria-hidden="true"></i>
-                                </div>										
-                            </div>-->
                             <?php if(isset($manager)){ ?>
                             <input type="hidden" name="manager_id" value="<?php echo bin2hex($manager->manager_id); ?>">
                             <?php } ?>

@@ -57,6 +57,8 @@ class Home_model extends CI_Model {
         
         $query = $this->db->query("select items.*, ( 3959 * acos( cos( radians(" . $lat . ") ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(" . $lng . ") ) + sin( radians(" . $lat . ") ) * sin( radians( latitude ) ) ) ) as distance
                 from items
+                where items.condition = 'Active' 
+                and is_active = 1
                 having distance <= 30
             ");
          
@@ -94,6 +96,8 @@ class Home_model extends CI_Model {
         if(!empty($area)){
             $this->db->where('area', $area);
         }
+        $this->db->where('items.condition', 'Active');
+        $this->db->where('is_active', 1);
         $query = $this->db->get('items');
         
         return $query->result_array();
@@ -117,6 +121,12 @@ class Home_model extends CI_Model {
         $query = $this->db->get('items');
         
         return $query->row();
+    }
+    
+    function updateGEom($point, $item_id){
+        
+        $this->db->query("update items set point = $point where item_id = $item_id");
+        
     }
 
 }

@@ -48,7 +48,7 @@ class Manager extends CI_Controller {
             $this->load->view('manager/footer');
         }
 
-        $res = $this->Home_model->checkRecord('managers', ['email' => $_POST['email'], 'password' => $_POST['password']]);
+        $res = $this->Home_model->checkRecord('managers', ['email' => $_POST['email'], 'password' => $_POST['password'], 'is_area_manager' => 0]);
         if ($res) {
             $this->session->set_userdata('manager_id', $res->manager_id);
             $this->session->set_userdata('manager_username', $res->name);
@@ -75,21 +75,21 @@ class Manager extends CI_Controller {
 
     function view_fridges() {
         $this->login_check();
-
-        $limit = 5;
-        $result['items'] = $this->Admin_model->getAllFridges($limit);
-
-        $total_row = $this->Admin_model->countFridges();
+        
+        $limit = 20;
+        $total_items = $this->Admin_model->getAllFridges();
+        $total_row = count($total_items);
         
         $config['base_url'] = base_url() . '/manager/view_fridges/page/';
-        $config['total_rows'] = $total_row->count;
+        $config['total_rows'] = $total_row;
         $config['per_page'] = $limit;
         $config['uri_segment'] = 4;
 
         $this->pagination->initialize($config);
 
+        $result['items'] = $this->Admin_model->getAllFridges($limit);
         $result['links'] = $this->pagination->create_links();
-        $result['total'] = $total_row->count;
+        $result['total'] = $total_row;
 
         $this->load->view('manager/header');
         $this->load->view('manager/view_fridges', $result);

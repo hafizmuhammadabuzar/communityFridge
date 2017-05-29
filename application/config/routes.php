@@ -67,10 +67,10 @@ $route['get_direction'] = "home/get_direction";
 
 //Admin
 $route['dashboard'] = "admin/dashboard";
-$route['push_form'] = "home/push_form";
-$route['product_notification'] = "home/product_notification";
-$route['ind_push_form'] = "home/ind_push_form";
-$route['ind_product_notification'] = "home/ind_product_notification";
+$route['push_form'] = "admin/push_form";
+$route['product_notification'] = "admin/product_notification";
+$route['ind_push_form'] = "admin/ind_push_form";
+$route['ind_product_notification'] = "admin/ind_product_notification";
 
 
 /*$route['admin'] = "home/admin_index";

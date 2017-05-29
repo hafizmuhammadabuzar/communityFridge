@@ -4,7 +4,7 @@ if (!defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
-class Admin extends CI_Controller {
+class AreaManager extends CI_Controller {
 
     public function __construct() {
 
@@ -18,66 +18,68 @@ class Admin extends CI_Controller {
         $this->load->helper(array('form', 'url'));
         $this->load->library('form_validation');
         $this->load->library('pagination');
-//        $this->load->library('encrypt');
 
         date_default_timezone_set('America/New_York');
     }
 
     public function index() {
 
-        $this->load->view('admin/header');
-        $this->load->view('admin/admin_login');
-        $this->load->view('admin/footer');
+        $this->load->view('areamanager/header');
+        $this->load->view('areamanager/manager_login');
+        $this->load->view('areamanager/footer');
     }
 
     public function login_check() {
 
-        if ($this->session->userdata('admin_username') == FALSE) {
+        if ($this->session->userdata('areamanager_username') == FALSE) {
             $this->session->set_userdata('error', 'You are not Logged In, Please Login First !');
-            redirect('admin/index');
+            redirect('areamanager/index');
         }
     }
 
     public function login() {
 
-        $this->form_validation->set_rules('username', 'Username', 'required');
+        $this->form_validation->set_rules('email', 'Email', 'required');
         $this->form_validation->set_rules('password', 'Password', 'required');
 
         if ($this->form_validation->run() == FALSE) {
-            $this->load->view('admin/header');
-            $this->load->view('admin/admin_login');
-            $this->load->view('admin/footer');
+            $this->load->view('areamanager/header');
+            $this->load->view('areamanager/manager_login');
+            $this->load->view('areamanager/footer');
         }
 
-        if ($_POST['password'] == 'admin') {
-            $this->session->set_userdata('admin_username', $_POST['username']);
-            redirect('admin/dashboard');
+        $res = $this->Home_model->checkRecord('managers', ['email' => $_POST['email'], 'password' => $_POST['password'], 'is_area_manager' => 1]);
+        if ($res) {
+            $this->session->set_userdata('areamanager_id', $res->manager_id);
+            $this->session->set_userdata('areamanager_username', $res->name);
+            redirect('areamanager/dashboard');
         } else {
             $this->session->set_userdata('error', 'Incorrect Username or Password');
-            redirect('admin/index');
+            redirect('areamanager/index');
         }
     }
 
     public function logout() {
-        $this->session->unset_userdata('admin_username');
+        $this->session->unset_userdata('areamanager_username');
+        $this->session->unset_userdata('areamanager_id');
         $this->session->sess_destroy();
-        redirect('admin/index');
+        redirect('areamanager/index');
     }
 
     public function dashboard() {
         $this->login_check();
 
-        $this->load->view('admin/header');
-        $this->load->view('admin/dashboard');
-        $this->load->view('admin/footer');
+        $this->load->view('areamanager/header');
+        $this->load->view('areamanager/dashboard');
+        $this->load->view('areamanager/footer');
     }
     
     function add_manager() {
         $this->login_check();
 
-        $this->load->view('admin/header');
-        $this->load->view('admin/add_manager', $result);
-        $this->load->view('admin/footer');
+        $this->load->view('areamanager/header');
+        $this->load->view('areamanager/add_manager', $result);
+        $this->load->view('areamanager/footer');
     }
 
     function view_managers() {
@@ -85,9 +87,9 @@ class Admin extends CI_Controller {
 
         $result['managers'] = $this->Admin_model->getAllManagers();
 
-        $this->load->view('admin/header');
-        $this->load->view('admin/view_managers', $result);
-        $this->load->view('admin/footer');
+        $this->load->view('areamanager/header');
+        $this->load->view('areamanager/view_managers', $result);
+        $this->load->view('areamanager/footer');
     }
 
     public function save_manager() {
@@ -96,21 +98,18 @@ class Admin extends CI_Controller {
         $this->form_validation->set_rules('email', 'Email', 'required');
         $this->form_validation->set_rules('password', 'Password', 'required');
         $this->form_validation->set_rules('mobile', 'Mobile', 'required');
-        $this->form_validation->set_rules('polygon', 'Polygon', 'required');
 
         if ($this->form_validation->run() == FALSE) {
 
-            redirect('admin/add_manager');
+            redirect('areamanager/add_manager');
         } 
         else {            
-            $polygon_end_point = explode(',', $this->input->post('polygon')); 
             $manager_data = array(
                 'name' => $this->input->post('username'),
                 'email' => $this->input->post('email'),
                 'password' => $this->input->post('password'),
                 'mobile' => $this->input->post('mobile'),
-                'polygon' => $this->input->post('polygon').', '.$polygon_end_point[0],
-                'is_area_manager' => 1,
+                'super_manager' => $this->session->userdata('areamanager_id'),
                 'created_at' => date('Y-m-d H:i:s'),
             );
 
@@ -118,10 +117,10 @@ class Admin extends CI_Controller {
 
             if ($res > 0) {
                 $this->session->set_userdata('msg', "Successfully saved!");
-                redirect('admin/view_managers');
+                redirect('areamanager/view_managers');
             } else {
                 $this->session->set_userdata('msg', "Could not be saved!");
-                redirect('admin/add_manager');
+                redirect('areamanager/add_manager');
             }
         }
     }
@@ -132,21 +131,20 @@ class Admin extends CI_Controller {
         $id = pack("H*", $id);
 
         $result['manager'] = $this->Home_model->checkRecord('managers', array('manager_id' => $id));
-        $this->load->view('admin/header');
-        $this->load->view('admin/add_manager', $result);
-        $this->load->view('admin/footer');
+        $this->load->view('areamanager/header');
+        $this->load->view('areamanager/add_manager', $result);
+        $this->load->view('areamanager/footer');
     }
 
     public function update_manager() {
 
         $this->form_validation->set_rules('username', 'Manager Name', 'required');
         $this->form_validation->set_rules('email', 'Email', 'required');
-        $this->form_validation->set_rules('polygon', 'Polygon', 'required');
         $this->form_validation->set_rules('mobile', 'Mobile', 'required');
 
         if ($this->form_validation->run() == FALSE) {
 
-            redirect('admin/edit_manager/' . $_POST['manager_id']);
+            redirect('areamanager/edit_areaareamanager/' . $_POST['manager_id']);
         } else {            
             $polygon_end_point = explode(',', $this->input->post('polygon'));
             $id = pack("H*", $_POST['manager_id']);
@@ -155,7 +153,6 @@ class Admin extends CI_Controller {
                 'name' => $this->input->post('username'),
                 'email' => $this->input->post('email'),
                 'mobile' => $this->input->post('mobile'),
-                'polygon' => $this->input->post('polygon').', '.$polygon_end_point[0],
                 'updated_at' => date('Y-m-d H:i:s'),
             );
 
@@ -168,10 +165,10 @@ class Admin extends CI_Controller {
 
             if ($res > 0) {
                 $this->session->set_userdata('msg', "Successfully saved!");
-                redirect('admin/view_managers');
+                redirect('areamanager/view_managers');
             } else {
                 $this->session->set_userdata('msg', "Could not be saved!");
-                redirect('admin/edit_manager/' . $_POST['manager_id']);
+                redirect('areamanager/edit_areaareamanager/' . $_POST['manager_id']);
             }
         }
     }
@@ -187,56 +184,33 @@ class Admin extends CI_Controller {
         } else {
             $this->session->set_userdata('msg', "Could not be Deleted!");
         }
-        redirect('admin/view_managers');
+        redirect('areamanager/view_managers');
     }
-        
-    function view_users() {
-        $this->login_check();
-
-        $limit = 10;
-        $result['users'] = $this->Admin_model->getAllUsers($limit);
-
-        $total_row = $this->Admin_model->countRecord('users');
-
-        $config['base_url'] = base_url() . '/admin/view_users/page/';
-        $config['total_rows'] = $total_row;
-        $config['per_page'] = $limit;
-        $config['uri_segment'] = 4;
-
-        $this->pagination->initialize($config);
-
-        $result['links'] = $this->pagination->create_links();
-        $result['total'] = $total_row;
-
-        $this->load->view('admin/header');
-        $this->load->view('admin/view_users', $result);
-        $this->load->view('admin/footer');
-    }
-    
 
     function view_fridges() {
         $this->login_check();
 
-//        $result['managers'] = $this->Admin_model->getAllManagers();
-
+        $result['managers'] = $this->Admin_model->getAllManagers();
+        
         $limit = 20;
-        $result['items'] = $this->Admin_model->getAllFridges($limit);
+        $polygon = $this->Admin_model->getPolygon();
+        $total_items = $this->Admin_model->getFridgesByPolygon('', $polygon->polygon);
+        $total_row = count($total_items);
 
-        $total_row = $this->Admin_model->countRecord('items');
-
-        $config['base_url'] = base_url() . '/admin/view_fridges/page/';
+        $config['base_url'] = base_url() . '/areamanager/view_fridges/page/';
         $config['total_rows'] = $total_row;
         $config['per_page'] = $limit;
         $config['uri_segment'] = 4;
 
         $this->pagination->initialize($config);
 
+        $result['items'] = $this->Admin_model->getFridgesByPolygon($limit, $polygon->polygon);
         $result['links'] = $this->pagination->create_links();
         $result['total'] = $total_row;
-
-        $this->load->view('admin/header');
-        $this->load->view('admin/view_fridges', $result);
-        $this->load->view('admin/footer');
+        
+        $this->load->view('areamanager/header');
+        $this->load->view('areamanager/view_fridges', $result);
+        $this->load->view('areamanager/footer');
     }
 
     function edit_fridge($id) {
@@ -245,9 +219,9 @@ class Admin extends CI_Controller {
         $id = pack("H*", $id);
 
         $result['fridge'] = $this->Home_model->checkRecord('items', ['item_id' => $id]);
-        $this->load->view('admin/header');
-        $this->load->view('admin/edit_fridge', $result);
-        $this->load->view('admin/footer');
+        $this->load->view('areamanager/header');
+        $this->load->view('areamanager/edit_fridge', $result);
+        $this->load->view('areamanager/footer');
     }
 
     public function update_fridge() {
@@ -262,7 +236,7 @@ class Admin extends CI_Controller {
 
         if ($this->form_validation->run() == FALSE) {
 
-            redirect('admin/edit_fridge/' . $_POST['firdge_id']);
+            redirect('areamanager/edit_fridge/' . $_POST['firdge_id']);
         } else {
             $fridge_id = pack("H*", $_POST['fridge_id']);
 
@@ -287,10 +261,10 @@ class Admin extends CI_Controller {
 
             if ($res > 0) {
                 $this->session->set_userdata('msg', "Successfully updated!");
-                redirect('admin/view_fridges');
+                redirect('areamanager/view_fridges');
             } else {
                 $this->session->set_userdata('msg', "Could not be updated!");
-                redirect('admin/edit_fridge/' . $id);
+                redirect('areamanager/edit_fridge/' . $id);
             }
         }
     }
@@ -320,7 +294,7 @@ class Admin extends CI_Controller {
             $this->session->set_userdata('msg', "No Manager selected!");
         }
         
-        redirect('admin/view_fridges');
+        redirect('areamanager/view_fridges');
     }
 
     function delete_fridge($id) {
@@ -334,7 +308,7 @@ class Admin extends CI_Controller {
         } else {
             $this->session->set_userdata('msg', "Could not be Deleted!");
         }
-        redirect('admin/view_fridges');
+        redirect('areamanager/view_fridges');
     }
 
     public function fridge_status() {
@@ -393,41 +367,42 @@ class Admin extends CI_Controller {
         
         if(!isset($_POST['submit'])){    
             
-            $this->load->view('admin/header');
-            $this->load->view('admin/admin_login', $result);
-            $this->load->view('admin/footer');
+            $this->load->view('areamanager/header');
+            $this->load->view('areamanager/manager_login', $result);
+            $this->load->view('areamanager/footer');
         } 
         else{
             $this->form_validation->set_rules('email', 'Email', 'required');
             $this->form_validation->set_rules('password', 'Password', 'required');
 
             if ($this->form_validation->run() == FALSE) {
-                $this->load->view('admin/header');
-                $this->load->view('admin/admin_login', $result);
-                $this->load->view('admin/footer');
+                $this->load->view('areamanager/header');
+                $this->load->view('areamanager/admin_login', $result);
+                $this->load->view('areamanager/footer');
             }else{
                 
-                $res = $this->Home_model->checkRecord('managers', ['email' => $_POST['email'], 'password' => $_POST['password']]);
+                $res = $this->Home_model->checkRecord('managers', ['email' => $_POST['email'], 'password' => $_POST['password'], 'is_area_manager' => 1]);
                 if($res){
-                    $this->session->set_userdata('manager_username', $_POST['username']);
-                    redirect('manager/');
+                    $this->session->set_userdata('areamanager_username', $_POST['username']);
+                    $this->session->set_userdata('areamanager_id', $res->manager_id);
+                    redirect('areaareamanager/');
                 }
             }
 
             if ($_POST['password'] == 'admin') {
-                redirect('admin/dashboard');
+                redirect('areamanager/dashboard');
             } else {
                 $this->session->set_userdata('error', 'Incorrect Username or Password');
-                redirect('admin/index');
+                redirect('areamanager/index');
             }
         }
     }
     
     public function push_form() {
 
-        $this->load->view('admin/header');
-        $this->load->view('admin/push_notification');
-        $this->load->view('admin/footer');
+        $this->load->view('areamanager/header');
+        $this->load->view('areamanager/push_notification');
+        $this->load->view('areamanager/footer');
     }
 
     public function product_notification() {
@@ -436,9 +411,9 @@ class Admin extends CI_Controller {
         $this->form_validation->set_rules('msg', 'Message', 'trim|required');
 
         if ($this->form_validation->run() == FALSE) {
-            $this->load->view('admin/header');
-            $this->load->view('admin/push_notification');
-            $this->load->view('admin/footer');
+            $this->load->view('areamanager/header');
+            $this->load->view('areamanager/push_notification');
+            $this->load->view('areamanager/footer');
         } else {
             $title = $_POST['title'];
             $msg = $_POST['msg'];
