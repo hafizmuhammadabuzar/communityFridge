@@ -12,7 +12,7 @@
         <meta property="og:description" content="Community Fridge" />
         <meta property="og:image" content="<?php echo base_url(); ?>assets/images/facebooklogo.JPG" />
         <meta name = "format-detection" content = "telephone=no">
-        <link rel="icon" type="image/png" sizes="32x32" href="<?php echo base_url(); ?>assets/images/favicon.png">
+        <link rel="icon" type="image/png" href="<?php echo base_url(); ?>assets/images/favicon.ico">
         <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/style.css">
         <script type="application/javascript" src="<?php echo base_url(); ?>assets/js/jquery.js"></script>
         <script type="application/javascript" src="<?php echo base_url(); ?>assets/js/custom.js"></script> 
@@ -101,40 +101,56 @@
                         <span class="text">Download and print Quote for motivate peoples to help improve community fridge idea</span>
                         <ul>
                             <li>
-                                <img src="<?php echo base_url(); ?>assets/images/img1.jpg" alt="quote image">
-                                <a href="images/img1.jpg" class="link-download" download>Download</a>
+                                <img src="<?php echo base_url(); ?>assets/images/thumb-img-1.jpg" alt="quote image">
+                                <a href="<?php echo base_url(); ?>assets/images/poster-img-1.jpg" class="link-download" download>Download</a>
                             </li>
                             <li>
-                                <img src="<?php echo base_url(); ?>assets/images/img2.jpg" alt="quote image">
-                                <a href="images/img2.jpg" class="link-download" download>Download</a>
+                                <img src="<?php echo base_url(); ?>assets/images/thumb-img-2.jpg" alt="quote image">
+                                <a href="<?php echo base_url(); ?>assets/images/poster-img-2.jpg" class="link-download" download>Download</a>
                             </li>
                             <li>
-                                <img src="<?php echo base_url(); ?>assets/images/img9.jpg" alt="quote image">
-                                <a href="images/img9.jpg" class="link-download" download>Download</a>
+                                <img src="<?php echo base_url(); ?>assets/images/thumb-img-3.jpg" alt="quote image">
+                                <a href="<?php echo base_url(); ?>assets/images/poster-img-3.jpg" class="link-download" download>Download</a>
                             </li>
                             <li>
-                                <img src="<?php echo base_url(); ?>assets/images/img1.jpg" alt="quote image">
-                                <a href="images/img1.jpg" class="link-download" download>Download</a>
+                                <img src="<?php echo base_url(); ?>assets/images/thumb-img-4.jpg" alt="quote image">
+                                <a href="<?php echo base_url(); ?>assets/images/poster-img-4.jpg" class="link-download" download>Download</a>
                             </li>
                             <li>
-                                <img src="<?php echo base_url(); ?>assets/images/img2.jpg" alt="quote image">
-                                <a href="images/img2.jpg" class="link-download" download>Download</a>
+                                <img src="<?php echo base_url(); ?>assets/images/thumb-img-5.jpg" alt="quote image">
+                                <a href="<?php echo base_url(); ?>assets/images/poster-img-5.jpg" class="link-download" download>Download</a>
                             </li>
                             <li>
-                                <img src="<?php echo base_url(); ?>assets/images/img9.jpg" alt="quote image">
-                                <a href="images/img9.jpg" class="link-download" download>Download</a>
+                                <img src="<?php echo base_url(); ?>assets/images/thumb-img-6.jpg" alt="quote image">
+                                <a href="<?php echo base_url(); ?>assets/images/poster-img-6.jpg" class="link-download" download>Download</a>
                             </li>
                             <li>
-                                <img src="<?php echo base_url(); ?>assets/images/img1.jpg" alt="quote image">
-                                <a href="images/img1.jpg" class="link-download" download>Download</a>
+                                <img src="<?php echo base_url(); ?>assets/images/thumb-img-7.jpg" alt="quote image">
+                                <a href="<?php echo base_url(); ?>assets/images/poster-img-7.jpg" class="link-download" download>Download</a>
                             </li>
                             <li>
-                                <img src="<?php echo base_url(); ?>assets/images/img2.jpg" alt="quote image">
-                                <a href="images/img2.jpg" class="link-download" download>Download</a>
+                                <img src="<?php echo base_url(); ?>assets/images/thumb-img-8.jpg" alt="quote image">
+                                <a href="<?php echo base_url(); ?>assets/images/poster-img-8.jpg" class="link-download" download>Download</a>
                             </li>
                             <li>
-                                <img src="<?php echo base_url(); ?>assets/images/img9.jpg" alt="quote image">
-                                <a href="images/img9.jpg" class="link-download" download>Download</a>
+                                <img src="<?php echo base_url(); ?>assets/images/thumb-img-9.jpg" alt="quote image">
+                                <a href="<?php echo base_url(); ?>assets/images/poster-img-9.jpg" class="link-download" download>Download</a>
+                            </li>
+                            <li>
+                                <img src="<?php echo base_url(); ?>assets/images/thumb-img-10.jpg" alt="quote image">
+                                <a href="<?php echo base_url(); ?>assets/images/poster-img-10.jpg" class="link-download" download>Download</a>
+                            </li>
+                            <li>
+                                <img src="<?php echo base_url(); ?>assets/images/thumb-img-11.jpg" alt="quote image">
+                                <a href="<?php echo base_url(); ?>assets/images/poster-img-11.jpg" class="link-download" download>Download</a>
+                            </li>
+                            <li>
+                                <img src="<?php echo base_url(); ?>assets/images/thumb-img-12.jpg" alt="quote image">
+                                <a href="<?php echo base_url(); ?>assets/images/poster-img-12.jpg" class="link-download" download>Download</a>
+                            </li>
+                            <li>
+                                <img src="<?php echo base_url(); ?>assets/images/thumb-img-13.jpg" alt="quote image">
+                                <a href="<?php echo base_url(); ?>assets/images/poster-img-13.jpg" class="link-download" download>Download</a>
                             </li>
                         </ul>
                     </div>
@@ -152,7 +168,7 @@
                                 <h3>Contact Us</h3>
                                 <address>Synergistics FZ LLC <br><br> P.O.Box. 51999, <br><br> Dubai, United Arab Emirates.</address><br>
 <!--                        <span class="phone">+971(000) 123-4567</span>-->
-                                <a href="mailto:hello@example.com">info@synergistis.ae</a>
+                                <a href="mailto:hello@example.com">info@communityfridge.org</a>
                             </div>
                         </div>
                     </div>
