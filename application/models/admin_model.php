@@ -17,7 +17,7 @@ class Admin_model extends CI_Model {
         
         $this->db->where('status', 0);
         $this->db->or_where('status', 1);
-        $this->db->order_by('username', 'ASC');
+        $this->db->order_by("username, created_at DESC");
         if ($limit != '') {
             $offset = $this->uri->segment(4);
             $query = $this->db->limit($limit, $offset);
@@ -142,7 +142,7 @@ class Admin_model extends CI_Model {
         
         $this->db->select('*, AsText(point)');
         $this->db->order_by("item_id DESC");
-        if($this->session->userdata('manager_id')){
+        if($this->session->userdata('manager_id') == TRUE){
             $this->db->where('manager_id', $this->session->userdata('manager_id'));
         }
         $this->db->where("Intersects(point, GeomFromText('POLYGON(($polygon))'))");
@@ -151,6 +151,8 @@ class Admin_model extends CI_Model {
             $query = $this->db->limit($limit, $offset);
         }
         $query = $this->db->get('items');
+        
+//        die($this->db->last_query());
 
         return $query->result_array();
     }
@@ -186,12 +188,21 @@ class Admin_model extends CI_Model {
     function getAllManagers($limit = ''){
 
         $this->db->select('*');
-        if($this->session->userdata('admin_username') == TRUE){
-            $this->db->where('is_area_manager', 1);
+        $this->db->where('is_area_manager', 1);
+        $this->db->order_by('name', 'ASC');
+        if ($limit != '') {
+            $offset = $this->uri->segment(4);
+            $query = $this->db->limit($limit, $offset);
         }
-        if($this->session->userdata('areamanager_id') == TRUE){
-            $this->db->where('super_manager', $this->session->userdata('areamanager_id'));
-        }
+        $query = $this->db->get('managers');
+
+        return $query->result_array();
+    }
+
+    function getAllManagersBySuperManager($limit = ''){
+
+        $this->db->select('*');
+        $this->db->where('super_manager', $this->session->userdata('areamanager_id'));
         $this->db->order_by('name', 'ASC');
         if ($limit != '') {
             $offset = $this->uri->segment(4);
@@ -204,14 +215,15 @@ class Admin_model extends CI_Model {
 
     function getAllSubManagers($limit = ''){
 
-        $this->db->select('*');
-        $this->db->where('is_area_manager', 0);
-        $this->db->order_by('name', 'ASC');
+        $this->db->select('m1.manager_id, m1.name, m1.email, m2.name as created_by');
+        $this->db->join('managers as m2', 'm1.manager_id = m2.super_manager', 'inner');
+        $this->db->where('m1.is_area_manager', 0);
+        $this->db->order_by('m1.name', 'ASC');
         if ($limit != '') {
             $offset = $this->uri->segment(4);
             $query = $this->db->limit($limit, $offset);
         }
-        $query = $this->db->get('managers');
+        $query = $this->db->get('manager as m1');
 
         return $query->result_array();
     }

@@ -650,7 +650,7 @@ class Api extends CI_Controller {
         if (count($items) == 0) {
             $result['status'] = success;
             $result['msg'] = 'No record found';
-            $result['items'][0] = '';
+            $result['items'] = array();
         } else {
             $result['status'] = success;
             $result['msg'] = 'Items List';

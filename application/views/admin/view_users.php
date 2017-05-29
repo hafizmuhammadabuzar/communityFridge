@@ -28,7 +28,9 @@
                                 <tr role="row">
                                     <th>Name</th>
                                     <th>Email</th>
+                                    <th>Account Type</th>
                                     <th>Status</th>
+                                    <th>Created at</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -37,7 +39,9 @@
                                     <tr class="gradeA odd" role="row">
                                         <td><?php echo ucwords($row['username']); ?></td>
                                         <td><?php echo $row['email']; ?></td>
-                                        <td><?php if($row['status'] == 1){ echo 'Active'; }else{ echo 'Pending'; } ?></td>
+                                        <td><?php echo $row['account_type']; ?></td>
+                                        <td><?php if($row['status'] == 1 || $row['account_type'] == 'facebook'){ echo 'Active'; }else{ echo 'Pending'; } ?></td>
+                                        <td><?php echo date('d-m-Y h:i a', strtotime($row['created_at'])); ?></td>
                                     </tr>
                                 <?php endforeach; ?>
                                 </tbody>

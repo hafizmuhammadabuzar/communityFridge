@@ -18,43 +18,43 @@ class Home extends CI_Controller {
     }
 
     public function index() {
-
-        //if($this->session->userdata('latitude') == FALSE){
+        
+        if($this->session->userdata('latitude') == FALSE){
 //            $ip = $_SERVER['REMOTE_ADDR'];
-////            $ip = '103.255.4.251';
-//            
-//            $json = json_decode(file_get_contents("http://ip-api.com/json/$ip"));
-//            
-//            $this->session->set_userdata('country', $json->country);
-//            $this->session->set_userdata('latitude', $json->lat);
-//            $this->session->set_userdata('longitude', $json->lon);
-//        }
-//        
-//        $pins = $this->Home_model->getFridgesByRadius($this->session->userdata('latitude'), $this->session->userdata('longitude'));
-//        
-//        $config['center'] = $this->session->userdata('latitude').','.$this->session->userdata('longitude');
-//        $config['zoom'] = '14';
-//        $config['scrollwheel'] = FALSE;
-//        $config['sensor'] = FALSE;
-//        $this->googlemaps->initialize($config);
-//               
-//        $marker = array();
-//        $marker['position'] = $this->session->userdata('latitude').','.$this->session->userdata('longitude');
-//        $marker['infowindow_content'] = 'Current Location';
-//        $marker['animation'] = 'DROP';
-//        $this->googlemaps->add_marker($marker);
-//        
-//        foreach ($pins as $pin) {
-//            
-//            $marker = array();
-//            $marker['position'] = $pin['latitude'] . ',' . $pin['longitude'];
-//
-//            $marker['infowindow_content'] = '<b><a href="'. base_url().'get_direction?sLat='.$this->session->userdata('latitude').'&sLng='.$this->session->userdata('longitude').'&eLat='.$pin['latitude'].'&eLng='.$pin['longitude'].'" class="Direction" target="_blank"><img src="assets/images/sign-direction.png" alt="Direction"/></a>'.$pin['area'].'</b><br>'.ucfirst(str_replace('null', '', $pin['address'])).'<br>'.join(', ', array_map('ucfirst', explode(',', $pin['services']))) . '<br>' . $pin['latitude'] . ', ' . $pin['longitude'];
-//            
-//            $marker['icon'] = 'assets/images/icon-fridge.png';
-//            $this->googlemaps->add_marker($marker);
-//        }
-//        $data['map'] = $this->googlemaps->create_map();
+            $ip = '103.255.4.251';
+            
+            $json = json_decode(file_get_contents("http://ip-api.com/json/$ip"));
+            
+            $this->session->set_userdata('country', $json->country);
+            $this->session->set_userdata('latitude', $json->lat);
+            $this->session->set_userdata('longitude', $json->lon);
+        }
+        
+        $pins = $this->Home_model->getFridgesByRadius($this->session->userdata('latitude'), $this->session->userdata('longitude'));
+        
+        $config['center'] = $this->session->userdata('latitude').','.$this->session->userdata('longitude');
+        $config['zoom'] = '14';
+        $config['scrollwheel'] = FALSE;
+        $config['sensor'] = FALSE;
+        $this->googlemaps->initialize($config);
+               
+        $marker = array();
+        $marker['position'] = $this->session->userdata('latitude').','.$this->session->userdata('longitude');
+        $marker['infowindow_content'] = 'Current Location';
+        $marker['animation'] = 'DROP';
+        $this->googlemaps->add_marker($marker);
+        
+        foreach ($pins as $pin) {
+            
+            $marker = array();
+            $marker['position'] = $pin['latitude'] . ',' . $pin['longitude'];
+
+            $marker['infowindow_content'] = '<b><a href="'. base_url().'get_direction?sLat='.$this->session->userdata('latitude').'&sLng='.$this->session->userdata('longitude').'&eLat='.$pin['latitude'].'&eLng='.$pin['longitude'].'" class="Direction" target="_blank"><img src="assets/images/sign-direction.png" alt="Direction"/></a>'.$pin['area'].'</b><br>'.ucfirst(str_replace('null', '', $pin['address'])).'<br>'.join(', ', array_map('ucfirst', explode(',', $pin['services']))) . '<br>' . $pin['latitude'] . ', ' . $pin['longitude'];
+            
+            $marker['icon'] = 'assets/images/icon-fridge.png';
+            $this->googlemaps->add_marker($marker);
+        }
+        $data['map'] = $this->googlemaps->create_map();
 
         $data['countries'] = $this->Home_model->getFridgeCountries();
         

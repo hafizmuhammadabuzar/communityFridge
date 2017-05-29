@@ -7,7 +7,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="<?php echo base_url().'admin/dashboard' ?>">Community Fridge</a>
+        <a class="navbar-brand" href="<?php echo base_url().'admin/dashboard' ?>">Admin - Community Fridge</a>
     </div>
     <!-- /.navbar-header -->
 
@@ -37,19 +37,19 @@
                     <a href="<?php echo base_url().'admin/view_fridges'; ?>"><i class="fa fa-list-ul fa-fw"></i> Fridges</a>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Area Managers<span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> City Area Manager<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="<?php echo base_url().'admin/add_manager'; ?>" <?php if($method=='add_manager') echo "class='active'" ?>>Add Area Manager</a>
+                            <a href="<?php echo base_url().'admin/add_manager'; ?>" <?php if($method=='add_manager') echo "class='active'" ?>>Add City Area Manager</a>
                         </li>
                         <li>
-                            <a href="<?php echo base_url().'admin/view_managers'; ?>" <?php if($method=='view_managers') echo "class='active'" ?>>View Area Managers</a>
+                            <a href="<?php echo base_url().'admin/view_managers'; ?>" <?php if($method=='view_managers') echo "class='active'" ?>>View City Area Managers</a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>
                 <li>
-                    <a href="<?php echo base_url().'admin/view_sub_managers'; ?>"><i class="fa fa-list-ul fa-fw"></i> View Zone Manager</a>
+                    <a href="<?php echo base_url().'admin/view_sub_managers'; ?>"><i class="fa fa-list-ul fa-fw"></i> View Zone Managers</a>
                 </li>
                 <li>
                     <a href="<?php echo base_url().'admin/view_users'; ?>"><i class="fa fa-list-ul fa-fw"></i> Users</a>

@@ -85,7 +85,7 @@ class AreaManager extends CI_Controller {
     function view_managers() {
         $this->login_check();
 
-        $result['managers'] = $this->Admin_model->getAllManagers();
+        $result['managers'] = $this->Admin_model->getAllManagersBySuperManager();
 
         $this->load->view('areamanager/header');
         $this->load->view('areamanager/view_managers', $result);
@@ -190,7 +190,7 @@ class AreaManager extends CI_Controller {
     function view_fridges() {
         $this->login_check();
 
-        $result['managers'] = $this->Admin_model->getAllManagers();
+        $result['managers'] = $this->Admin_model->getAllManagersBySuperManager();
         
         $limit = 20;
         $polygon = $this->Admin_model->getPolygon();
