@@ -14,7 +14,7 @@
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                View Managers
+                View Users
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
@@ -28,23 +28,16 @@
                                 <tr role="row">
                                     <th>Name</th>
                                     <th>Email</th>
-                                    <th>Action</th>
+                                    <th>Status</th>
                                 </tr>
                                 </thead>
                                 <tbody>
 
-                                <?php foreach( $managers as $row ): ?>
+                                <?php foreach( $users as $row ): ?>
                                     <tr class="gradeA odd" role="row">
-                                        <td><?php echo ucwords($row['name']); ?></td>
+                                        <td><?php echo ucwords($row['username']); ?></td>
                                         <td><?php echo $row['email']; ?></td>
-                                        <td>
-                                            <a href="<?php echo base_url().'admin/edit_manager/'.bin2hex($row['manager_id']);?>" title="edit">
-                                                <i class="fa fa-edit"></i>
-                                            </a> |
-                                            <a href="<?php echo base_url().'admin/delete_manager/'.bin2hex($row['manager_id']);?>" title="delete">
-                                                <i class="fa fa-remove" style="color: #880000"></i>
-                                            </a>
-                                        </td>
+                                        <td><?php if($row['status'] == 1){ echo 'Active'; }else{ echo 'Pending'; } ?></td>
                                     </tr>
                                 <?php endforeach; ?>
                                 </tbody>

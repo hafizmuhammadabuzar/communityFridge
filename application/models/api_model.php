@@ -111,7 +111,7 @@ class Api_model extends CI_Model {
 
     function getiOSTokens($email = '') {
         $email = (!empty($email)) ? "and user_email = '" . $email  . "'" : '';
-        $query = $this->db->query("select token from tokens where player_id is not null and date(`updated_date`) > '2016-05-01' $email");
+        $query = $this->db->query("select token, player_id from tokens where player_id is not null and date(`updated_date`) > '2016-05-01' $email");
         return $query->result_array();
     }
     

@@ -38,10 +38,10 @@
                                         <td><?php echo ucwords($row['name']); ?></td>
                                         <td><?php echo $row['email']; ?></td>
                                         <td>
-                                            <a href="<?php echo base_url().'admin/edit_manager/'.bin2hex($row['manager_id']);?>" title="edit">
+                                            <a href="<?php echo base_url().'areamanager/edit_manager/'.bin2hex($row['manager_id']);?>" title="edit">
                                                 <i class="fa fa-edit"></i>
                                             </a> |
-                                            <a href="<?php echo base_url().'admin/delete_manager/'.bin2hex($row['manager_id']);?>" title="delete">
+                                            <a href="<?php echo base_url().'areamanager/delete_manager/'.bin2hex($row['manager_id']);?>" title="delete">
                                                 <i class="fa fa-remove" style="color: #880000"></i>
                                             </a>
                                         </td>
@@ -53,9 +53,6 @@
                         <!-- /.table-responsive -->
 
                     <!-- /.panel-body -->
-                </div>
-                <div style="text-align: right;">
-                    <?php echo $links; ?>
                 </div>
 
             </div>
