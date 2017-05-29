@@ -7,10 +7,13 @@
         <meta name="description" content="Community Fridge">
         <meta name="keywords" content="Community Fridge">
         <meta name="author" content="Synergistics FZ LLC">
-        <meta property="og:url" content="http://www.communityfridge.org"/>
+        <!--<meta property="og:url" content="http://www.communityfridge.org"/>
         <meta property="og:title" content="Community Fridge" />
         <meta property="og:description" content="Community Fridge" />
-        <meta property="og:image" content="<?php echo base_url(); ?>assets/images/facebooklogo.JPG" />
+        <meta property="og:image" content="<?php echo base_url(); ?>assets/images/facebooklogo.JPG" />-->
+        <meta property="og:title" content="Community Fridge"/>
+        <meta property="og:image" content="http://communityfridge.org/assets/images/facebooklogo.JPG"/>
+        <meta property="og:site_name" content="Community Fridge"/>
         <meta name = "format-detection" content = "telephone=no">
         <link rel="icon" type="image/png" href="<?php echo base_url(); ?>assets/images/favicon.ico">
         <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/style.css">
