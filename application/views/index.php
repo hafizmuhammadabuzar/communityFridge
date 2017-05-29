@@ -163,10 +163,10 @@
                         <h4>To Keep track of every thing which happens around you</h4>
                         <ul>
                             <li>
-                                <a href="#"><img src="<?php echo base_url(); ?>assets/images/playstore.png" alt="googple play link"></a>
+                                <a href="https://play.google.com/store/apps/details?id=com.synergistics.ramadanfridge" target="_blank"><img src="<?php echo base_url(); ?>assets/images/playstore.png" alt="googple play link"></a>
                             </li>
                             <li>
-                                <a href="#"><img src="<?php echo base_url(); ?>assets/images/appstore.png" alt="Apple store link"></a>
+                                <a href="https://appsto.re/pk/pX2Sdb.i" target="_blank"><img src="<?php echo base_url(); ?>assets/images/appstore.png" alt="Apple store link"></a>
                             </li>
                         </ul>
                         <img src="<?php echo base_url(); ?>assets/images/img7.png" alt="mobile image" class="mobile-img">
