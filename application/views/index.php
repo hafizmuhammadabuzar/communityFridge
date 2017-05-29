@@ -12,7 +12,7 @@
         <meta property="og:description" content="Community Fridge" />
         <meta property="og:image" content="<?php echo base_url(); ?>assets/images/facebooklogo.JPG" />
         <meta name = "format-detection" content = "telephone=no">
-        <link rel="icon" type="image/png" sizes="32x32" href="<?php echo base_url(); ?>assets/images/favicon.png">
+        <link rel="icon" type="image/png" href="<?php echo base_url(); ?>assets/images/favicon.ico">
         <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/style.css">
         <script type="application/javascript" src="<?php echo base_url(); ?>assets/js/jquery.js"></script>
         <script type="application/javascript" src="<?php echo base_url(); ?>assets/js/custom.js"></script> 
