@@ -168,7 +168,7 @@
                                 <h3>Contact Us</h3>
                                 <address>Synergistics FZ LLC <br><br> P.O.Box. 51999, <br><br> Dubai, United Arab Emirates.</address><br>
 <!--                        <span class="phone">+971(000) 123-4567</span>-->
-                                <a href="mailto:hello@example.com">info@synergistis.ae</a>
+                                <a href="mailto:hello@example.com">info@communityfridge.org</a>
                             </div>
                         </div>
                     </div>
