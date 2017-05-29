@@ -217,13 +217,12 @@ class Admin_model extends CI_Model {
 
         $this->db->select('m1.manager_id, m1.name, m1.email, m2.name as created_by');
         $this->db->join('managers as m2', 'm1.manager_id = m2.super_manager', 'inner');
-        $this->db->where('m1.is_area_manager', 0);
         $this->db->order_by('m1.name', 'ASC');
         if ($limit != '') {
             $offset = $this->uri->segment(4);
             $query = $this->db->limit($limit, $offset);
         }
-        $query = $this->db->get('manager as m1');
+        $query = $this->db->get('managers as m1');
 
         return $query->result_array();
     }
