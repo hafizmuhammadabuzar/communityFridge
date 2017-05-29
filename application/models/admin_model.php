@@ -202,5 +202,19 @@ class Admin_model extends CI_Model {
         return $query->result_array();
     }
 
+    function getAllSubManagers($limit = ''){
+
+        $this->db->select('*');
+        $this->db->where('is_area_manager', 0);
+        $this->db->order_by('name', 'ASC');
+        if ($limit != '') {
+            $offset = $this->uri->segment(4);
+            $query = $this->db->limit($limit, $offset);
+        }
+        $query = $this->db->get('managers');
+
+        return $query->result_array();
+    }
+
     
 }

@@ -189,6 +189,16 @@ class Admin extends CI_Controller {
         }
         redirect('admin/view_managers');
     }
+    
+    function view_sub_managers() {
+        $this->login_check();
+
+        $result['managers'] = $this->Admin_model->getAllSubManagers();
+
+        $this->load->view('admin/header');
+        $this->load->view('admin/view_sub_managers', $result);
+        $this->load->view('admin/footer');
+    }
         
     function view_users() {
         $this->login_check();
