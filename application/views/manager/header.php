@@ -37,4 +37,4 @@
     <![endif]-->
 </head>
 
-<body>
+<body class="zonemanager">

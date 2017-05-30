@@ -38,4 +38,4 @@
 
 </head>
 
-<body>
+<body class="areamanager">
