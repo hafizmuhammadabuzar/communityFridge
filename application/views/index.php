@@ -66,32 +66,32 @@
             <div id="main">
                 <section id="services">
                     <div class="holder">
-                        <h2 class="section-head">Our Services</h2>
+                        <h2 class="section-head">About Us</h2>
                         <div class="boxes">
                             <div class="box">
                                 <img src="<?php echo base_url(); ?>assets/images/icon1.png" alt="icon">
                                 <div class="text-area">
-                                    <h3>Active Communities</h3>
-                                    <p>Initiatives in Spain, London, USA, India have sprung up in addition to a huge movement in in the UAE. </p>
-                                    <p class="more-text"> This past Ramadan, the UAE Ramadan Fridge Initiative peaked at around 140 shared fridges around the UAE. Post Ramadan, many have kept the fridges going, with about 70 currently operational.</p>
+                                    <h3>How Does it Work  </h3>
+                                    <p>There are many wonderful community sharing fridge / shelve initiatives around the word.</p>
+                                    <p class="more-text">  We just provide an easy platform for them to list their locations with some basic information; so community members can easy know where the locations are.   </p>
                                     <a href="#" class="read-more">Read More >></a>
                                 </div>
                             </div>
                             <div class="box">
                                 <img src="<?php echo base_url(); ?>assets/images/icon2.png" alt="icon">
                                 <div class="text-area">
-                                    <h3>Volunteers for Your Help</h3>
-                                    <p>These initiatives, having started at the grass roots level have no formal structure or support; it is entirely volunteer run.</p>
-                                    <p class="more-text"> The most basic requirement is simply to know where there are active fridges; so volunteers can re-stock them.</p>
+                                    <h3>How Can You Use It </h3>
+                                    <p>If you are part of an organization or group of volunteers, just drop us an email or give us a call, we will setup the system for you to use. </p>
+                                    <p class="more-text">Apps are both on Google and Apple store, the community can download and start using it.  </p>
                                     <a href="#" class="read-more">Read More >></a>
                                 </div>
                             </div>
                             <div class="box">
                                 <img src="<?php echo base_url(); ?>assets/images/icon3.png" alt="icon">
                                 <div class="text-area">
-                                    <h3>24/7 Help</h3>
-                                    <p>For 24/7 help download our app and update and see status of fridge. By using app user can know and track the status of fridge details. </p>
-                                    <p class="more-text">User can also report fridge if it's empty or broken. Not only tracking & reporting but also user can find near by fridges.</p>
+                                    <h3>What If… </h3>
+                                    <p>Who is responsible regarding the food quality, fridge status and such; well the organization and individual who owns the fridge are. </p>
+                                    <p class="more-text">We simply provide a mapping platform and have to direct involvement into the operation of the fridges.</p>
                                     <a href="#" class="read-more">Read More >></a>
                                 </div>
                             </div>
@@ -162,16 +162,24 @@
                     <div class="holder">
                         <div class="boxes">
                             <div class="box">
-                                <h3>About Us</h3>
-                                <p>Synergistics FZ LLC is an innovative and young software development house based in Dubai, United Arab Emirates, with the objective of becoming the region's leading mobile application developer. </p>
-                                <p>An objective that we seek to achieve by being committed to our three principles of design: creativity, functionality and usability.</p>
+                                <h3>Community Fridge</h3>
+                                <p>We started out a need to contribute to such wonderful initiatives around the world. We are a non-profit setup with a simple aim; to provide an easy to use mapping platform.</p>
+                                <p> If you a corporate and wish to support us, please drop us an email.</p>
                                 <!--<a href="#">Read More ></a>-->
                             </div>
                             <div class="box">
-                                <h3>Contact Us</h3>
-                                <address>Synergistics FZ LLC <br><br> P.O.Box. 51999, <br><br> Dubai, United Arab Emirates.</address><br>
-<!--                        <span class="phone">+971(000) 123-4567</span>-->
+                                <h3>Contact Info</h3>
+                                
+								<!--<span class="phone">+971(000) 123-4567</span>-->
+                                
+                                <address>Delaware, USA</address>
                                 <a href="mailto:hello@example.com">info@communityfridge.org</a>
+                            </div>
+                            <div class="box socialLink">
+                                <h3>Social Links</h3>
+                                <a href="http://facebook.com/communityfridge/" class="facebook" target="_blank"></a>
+                                <a href="http://twitter.com/FridgeCommunity" class="twitter" target="_blank"></a>
+                                <a href="http://instagram.com/communityfridge/" class="insta" target="_blank"></a>
                             </div>
                         </div>
                     </div>
