@@ -301,9 +301,18 @@ class AreaManager extends CI_Controller {
         $this->login_check();
 
         $id = pack("H*", $id);
+        
+        $images = $this->Home_model->checkRecord('item_images', array('item_id' => $id));
+        if($images){
+            if(file_exists(strstr($images->image, 'assets'))){
+                echo $images->image;
+                unset($images->image);
+            }
+        }
 
         $res = $this->Home_model->deleteRecord('items', array('item_id' => $id));
         if ($res > 0) {
+            $this->Home_model->deleteRecord('item_images', array('item_id' => $id));
             $this->session->set_userdata('msg', "Successfully Deleted!");
         } else {
             $this->session->set_userdata('msg', "Could not be Deleted!");

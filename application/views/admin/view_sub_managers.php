@@ -40,10 +40,10 @@
                                         <td><?php echo $row['email']; ?></td>
                                         <td><?php echo $row['created_by']; ?></td>
                                         <td>
-                                            <a href="<?php echo base_url().'admin/edit_manager/'.bin2hex($row['manager_id']);?>" title="edit">
+                                            <a href="<?php echo base_url().'admin/edit_sub_manager/'.bin2hex($row['manager_id']);?>" title="edit">
                                                 <i class="fa fa-edit"></i>
                                             </a> |
-                                            <a href="<?php echo base_url().'admin/delete_manager/'.bin2hex($row['manager_id']);?>" title="delete">
+                                            <a href="<?php echo base_url().'admin/delete_sub_manager/'.bin2hex($row['manager_id']);?>" title="delete">
                                                 <i class="fa fa-remove" style="color: #880000"></i>
                                             </a>
                                         </td>

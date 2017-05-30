@@ -37,7 +37,7 @@
                     <a href="<?php echo base_url().'areamanager/view_fridges'; ?>"><i class="fa fa-list-ul fa-fw"></i> Fridges</a>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Managers<span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Zone Managers<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
                             <a href="<?php echo base_url().'areamanager/add_manager'; ?>" <?php if($method=='add_manager') echo "class='active'" ?>>Add Zone Manager</a>

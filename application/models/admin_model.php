@@ -13,11 +13,15 @@ class Admin_model extends CI_Model {
         return $query->row();      
     }
     
-    function getAllUsers($limit = ''){
+    function getAllUsers($limit = '', $sort = ''){
         
         $this->db->where('status', 0);
         $this->db->or_where('status', 1);
-        $this->db->order_by("username, created_at DESC");
+        if(!empty($sort)){
+            $this->db->order_by("$sort");
+        }else{
+            $this->db->order_by("created_at DESC");
+        }
         if ($limit != '') {
             $offset = $this->uri->segment(4);
             $query = $this->db->limit($limit, $offset);
@@ -215,7 +219,7 @@ class Admin_model extends CI_Model {
 
     function getAllSubManagers($limit = ''){
 
-        $this->db->select('m1.manager_id, m1.name, m1.email, m2.name as created_by');
+        $this->db->select('m2.manager_id, m2.name, m2.email, m1.name as created_by');
         $this->db->join('managers as m2', 'm1.manager_id = m2.super_manager', 'inner');
         $this->db->order_by('m1.name', 'ASC');
         if ($limit != '') {

@@ -19,17 +19,33 @@ class Home extends CI_Controller {
 
     public function index() {
         
-        if($this->session->userdata('latitude') == FALSE){
-//            $ip = $_SERVER['REMOTE_ADDR'];
-            $ip = '103.255.4.251';
+//        if($this->session->userdata('latitude') == FALSE){
+            $ipaddress = '';
+            if ($_SERVER['HTTP_CLIENT_IP'])
+                $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
+            else if($_SERVER['HTTP_X_FORWARDED_FOR'])
+                $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+            else if($_SERVER['HTTP_X_FORWARDED'])
+                $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
+            else if($_SERVER['HTTP_FORWARDED_FOR'])
+                $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
+            else if($_SERVER['HTTP_FORWARDED'])
+                $ipaddress = $_SERVER['HTTP_FORWARDED'];
+            else if($_SERVER['REMOTE_ADDR'])
+                $ipaddress = $_SERVER['REMOTE_ADDR'];
+            else
+                $ipaddress = 'UNKNOWN';
+//            $ip = '103.255.4.66';
             
-            $json = json_decode(file_get_contents("http://ip-api.com/json/$ip"));
+//            echo $ipaddress;x
             
+            $json = json_decode(file_get_contents("http://ip-api.com/json/$ipaddress"));
+                        
             $this->session->set_userdata('country', $json->country);
             $this->session->set_userdata('latitude', $json->lat);
             $this->session->set_userdata('longitude', $json->lon);
-        }
-        
+//        }
+                
         $pins = $this->Home_model->getFridgesByRadius($this->session->userdata('latitude'), $this->session->userdata('longitude'));
         
         $config['center'] = $this->session->userdata('latitude').','.$this->session->userdata('longitude');
