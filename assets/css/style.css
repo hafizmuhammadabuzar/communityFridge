@@ -24,7 +24,8 @@ input, textarea, select {
 }
 img {
     display: block;
-    margin: 0;
+	max-width:100%;
+	height:auto;
 }
 h1, h2, h3, h4, h5, h6 {
     font-family: inherit;
@@ -54,12 +55,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 .head-bottom .logo {
     float: left;
-    width: 150px;
-    height: 98px;
 }
 .head-bottom .main-menu {
     float: right;
-    width: 70%;
+    width: 55%;
 }
 .main-menu ul {
     list-style: none;
@@ -183,6 +182,29 @@ h1, h2, h3, h4, h5, h6 {
     width: 28%;
     margin: 0 0 0 8%;
 }
+
+#contact .boxes .box.socialLink a {
+	display:inline-block;
+	margin:0 5px;
+	text-decoration:none;
+	width:50px;
+	height:50px;
+}
+
+#contact .boxes .box.socialLink a.facebook {
+	background: url("../images/facebook-logo.png") no-repeat left top;
+}
+#contact .boxes .box.socialLink a.twitter {
+	background: url("../images/twitter-logo.png") no-repeat left top;
+}
+#contact .boxes .box.socialLink a.insta {
+	background: url("../images/instagram-logo.png") no-repeat left top;
+}
+
+#contact .boxes .box.socialLink a:hover {
+	background-position:bottom;
+}
+
 #contact .box ul li {
     overflow: hidden;
     margin: 0 0 10px;
@@ -340,6 +362,13 @@ h1, h2, h3, h4, h5, h6 {
         float: none;
         margin: 0 auto;
     }
+	.logo {
+		text-align:center;
+	}
+	
+	.logo img {
+		display:inline-block;
+	}
     .head-bottom .main-menu {
         width: 100%;
         text-align: center;
