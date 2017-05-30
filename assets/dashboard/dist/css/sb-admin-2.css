@@ -15,7 +15,7 @@ body {
   background-color: white;
 }
 .areamanager .navbar.navbar-default.navbar-static-top {
-    background-color: #000;
+    background-color: #ac7884;
 }
 .areamanager .navbar.navbar-default.navbar-static-top .navbar-brand,
 .areamanager .navbar.navbar-default.navbar-static-top .navbar-top-links li a.dropdown-toggle {
@@ -30,7 +30,7 @@ body {
 }
 
 .zonemanager .navbar.navbar-default.navbar-static-top {
-    background-color: #3c2b2b;
+    background-color: #8e555d;
 }
 .zonemanager .navbar.navbar-default.navbar-static-top .navbar-brand,
 .zonemanager .navbar.navbar-default.navbar-static-top .navbar-top-links li a.dropdown-toggle {
