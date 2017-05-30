@@ -19,7 +19,7 @@ class Home extends CI_Controller {
 
     public function index() {
         
-//        if($this->session->userdata('latitude') == FALSE){
+        if($this->session->userdata('latitude') == FALSE){
             $ipaddress = '';
             if ($_SERVER['HTTP_CLIENT_IP'])
                 $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
@@ -35,16 +35,15 @@ class Home extends CI_Controller {
                 $ipaddress = $_SERVER['REMOTE_ADDR'];
             else
                 $ipaddress = 'UNKNOWN';
-//            $ip = '103.255.4.66';
             
-//            echo $ipaddress;x
+//            $ipaddress = '103.255.4.66';
             
             $json = json_decode(file_get_contents("http://ip-api.com/json/$ipaddress"));
                         
             $this->session->set_userdata('country', $json->country);
             $this->session->set_userdata('latitude', $json->lat);
             $this->session->set_userdata('longitude', $json->lon);
-//        }
+        }
                 
         $pins = $this->Home_model->getFridgesByRadius($this->session->userdata('latitude'), $this->session->userdata('longitude'));
         

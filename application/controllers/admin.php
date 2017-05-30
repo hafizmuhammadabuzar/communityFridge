@@ -449,7 +449,6 @@ class Admin extends CI_Controller {
         $images = $this->Home_model->checkRecord('item_images', array('item_id' => $id));
         if($images){
             if(file_exists(strstr($images->image, 'assets'))){
-                echo $images->image;
                 unset($images->image);
             }
         }

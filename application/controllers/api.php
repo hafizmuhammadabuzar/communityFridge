@@ -714,8 +714,18 @@ class Api extends CI_Controller {
                     $result['status'] = error;
                     $result['msg'] = 'Requested Item does not exists';
                 } else {
-                    $res = $this->Api_model->deleteItem($item_id, $check_user->user_id);
+                    $images = $this->Home_model->checkRecord('item_images', array('item_id' => $item_id));
+                    if($images){
+                        if(file_exists(strstr($images->image, 'assets'))){
+                            unset($images->image);
+                        }
+                    }
+                    
+                    $res = $this->Home_model->deleteRecord('items', array('item_id' => $item_id, 'user_id' => $check_user->user_id));
+//                    $res = $this->Api_model->deleteItem($item_id, $check_user->user_id);
                     if ($res == 1) {
+                        $this->Home_model->deleteRecord('item_images', array('item_id' => $item_id));
+                        
                         $result['status'] = success;
                         $result['msg'] = 'Successfully Deleted';
                     } else {
