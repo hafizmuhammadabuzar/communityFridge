@@ -14,8 +14,23 @@ body {
   min-height: 568px;
   background-color: white;
 }
+.admin .navbar.navbar-default.navbar-static-top {
+    background-color: #081415;
+}
+.admin .navbar.navbar-default.navbar-static-top .navbar-brand,
+.admin .navbar.navbar-default.navbar-static-top .navbar-top-links li a.dropdown-toggle {
+	color:#fff;
+}
+.admin .navbar.navbar-default.navbar-static-top .nav .open>a,
+.admin .navbar.navbar-default.navbar-static-top .nav .open>a:focus,
+.admin .navbar.navbar-default.navbar-static-top .nav .open>a:hover,
+.admin .navbar.navbar-default.navbar-static-top .nav>li>a:focus,
+.admin .navbar.navbar-default.navbar-static-top .nav>li>a:hover {
+	background-color:#a8a8a8;
+}
+
 .areamanager .navbar.navbar-default.navbar-static-top {
-    background-color: #ac7884;
+    background-color: #7896ac;
 }
 .areamanager .navbar.navbar-default.navbar-static-top .navbar-brand,
 .areamanager .navbar.navbar-default.navbar-static-top .navbar-top-links li a.dropdown-toggle {
