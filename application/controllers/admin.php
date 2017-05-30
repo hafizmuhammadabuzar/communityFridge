@@ -189,6 +189,20 @@ class Admin extends CI_Controller {
         }
         redirect('admin/view_managers');
     }
+
+    function delete_sub_manager($id) {
+        $this->login_check();
+
+        $id = pack("H*", $id);
+
+        $res = $this->Home_model->deleteRecord('managers', array('manager_id' => $id));
+        if ($res) {
+            $this->session->set_userdata('msg', "Successfully Deleted!");
+        } else {
+            $this->session->set_userdata('msg', "Could not be Deleted!");
+        }
+        redirect('admin/view_sub_managers');
+    }
     
     function view_sub_managers() {
         $this->login_check();
@@ -199,12 +213,106 @@ class Admin extends CI_Controller {
         $this->load->view('admin/view_sub_managers', $result);
         $this->load->view('admin/footer');
     }
+
+    public function save_sub_manager() {
+
+        $this->form_validation->set_rules('username', 'Manager Name', 'required');
+        $this->form_validation->set_rules('email', 'Email', 'required');
+        $this->form_validation->set_rules('password', 'Password', 'required');
+        $this->form_validation->set_rules('mobile', 'Mobile', 'required');
+
+        if ($this->form_validation->run() == FALSE) {
+
+            redirect('admin/add_manager');
+        } 
+        else {            
+            $manager_data = array(
+                'name' => $this->input->post('username'),
+                'email' => $this->input->post('email'),
+                'password' => $this->input->post('password'),
+                'mobile' => $this->input->post('mobile'),
+                'created_at' => date('Y-m-d H:i:s'),
+            );
+
+            $res = $this->Home_model->saveRecord('managers', $manager_data);
+
+            if ($res > 0) {
+                $this->session->set_userdata('msg', "Successfully saved!");
+            } else {
+                $this->session->set_userdata('msg', "Could not be saved!");
+            }
+            redirect('admin/view_sub_managers');
+        }
+    }
+
+    function edit_sub_manager($id) {
+        $this->login_check();
+
+        $id = pack("H*", $id);
+
+        $result['manager'] = $this->Home_model->checkRecord('managers', array('manager_id' => $id));
+        $this->load->view('admin/header');
+        $this->load->view('admin/edit_sub_manager', $result);
+        $this->load->view('admin/footer');
+    }
+
+    public function update_sub_manager() {
+
+        $this->form_validation->set_rules('username', 'Manager Name', 'required');
+        $this->form_validation->set_rules('email', 'Email', 'required');
+        $this->form_validation->set_rules('mobile', 'Mobile', 'required');
+
+        if ($this->form_validation->run() == FALSE) {
+
+            redirect('admin/edit_sub_manager/' . $_POST['manager_id']);
+        } else {            
+            $id = pack("H*", $_POST['manager_id']);
+
+            $manager_data = array(
+                'name' => $this->input->post('username'),
+                'email' => $this->input->post('email'),
+                'mobile' => $this->input->post('mobile'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            );
+
+            if (!empty($_POST['password'])) {
+                $password = ['password' => $this->input->post('password')];
+                $manager_data = array_merge($password, $manager_data);
+            }
+
+            $res = $this->Home_model->updateRecord('managers', ['manager_id' => $id], $manager_data);
+
+            if ($res > 0) {
+                $this->session->set_userdata('msg', "Successfully saved!");
+                redirect('admin/view_managers');
+            } else {
+                $this->session->set_userdata('msg', "Could not be saved!");
+                redirect('admin/edit_sub_manager/' . $_POST['manager_id']);
+            }
+        }
+    }
         
     function view_users() {
         $this->login_check();
+        
+        if(isset($_POST['sort_btn'])){
+            if($_POST['sort'] == 'name'){
+                $this->session->set_userdata('sort', "username ASC");
+                $sort = $this->session->userdata('sort');
+            } 
+            else if($_POST['sort'] == 'date'){
+                $this->session->set_userdata('sort', "created_at DESC");
+                $this->session->set_userdata('sorted', $_POST['sort']);
+                $sort = $this->session->userdata('sort');
+            }
+            $this->session->set_userdata('sorted', $_POST['sort']);
+        }
+        else if($this->session->userdata('sort') == TRUE){
+            $sort = $this->session->userdata('sort');
+        }
 
         $limit = 10;
-        $result['users'] = $this->Admin_model->getAllUsers($limit);
+        $result['users'] = $this->Admin_model->getAllUsers($limit, $sort);
 
         $total_row = $this->Admin_model->countRecord('users');
 
@@ -338,8 +446,17 @@ class Admin extends CI_Controller {
 
         $id = pack("H*", $id);
 
+        $images = $this->Home_model->checkRecord('item_images', array('item_id' => $id));
+        if($images){
+            if(file_exists(strstr($images->image, 'assets'))){
+                echo $images->image;
+                unset($images->image);
+            }
+        }
+        
         $res = $this->Home_model->deleteRecord('items', array('item_id' => $id));
         if ($res > 0) {
+            $this->Home_model->deleteRecord('item_images', array('item_id' => $id));
             $this->session->set_userdata('msg', "Successfully Deleted!");
         } else {
             $this->session->set_userdata('msg', "Could not be Deleted!");

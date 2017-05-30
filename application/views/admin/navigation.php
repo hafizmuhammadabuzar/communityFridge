@@ -52,7 +52,7 @@
                     <a href="<?php echo base_url().'admin/view_sub_managers'; ?>"><i class="fa fa-list-ul fa-fw"></i> View Zone Managers</a>
                 </li>
                 <li>
-                    <a href="<?php echo base_url().'admin/view_users'; ?>"><i class="fa fa-list-ul fa-fw"></i> Users</a>
+                    <a href="<?php echo base_url().'admin/view_users'; ?>"><i class="fa fa-users fa-fw"></i> Users</a>
                 </li>
                 <li>
                     <a href="<?php echo base_url().'push_form'; ?>" <?php if($method=='push_form') echo "class='active'" ?>><i class="fa fa-bell fa-fw"></i> Push Notification</a>

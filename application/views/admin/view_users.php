@@ -9,6 +9,17 @@
                 <h1 class="page-header">Dashboard</h1>
             </div>
             <!-- /.col-lg-12 -->
+            
+            <div class="form-group col-lg-3">
+                <form action="<?php echo base_url().strstr($_SERVER['REQUEST_URI'], 'admin'); ?>" method="post">
+                    <select class="form-control" name="sort" id="sort" required="required">
+                        <option value="">Sort By:</option>
+                        <option value="name" <?php if($this->session->userdata('sorted') == 'name') echo 'selected="selected"'; ?>>Name</option>
+                        <option value="date" <?php if($this->session->userdata('sorted') == 'date') echo 'selected="selected"'; ?>>Date</option>
+                    </select>
+                    <button type="submit" class="btn btn-default" name="sort_btn">Submit</button>
+                </form>
+            </div>
         </div>
         <?php echo $this->session->userdata('msg'); $this->session->unset_userdata('msg'); ?>
 
