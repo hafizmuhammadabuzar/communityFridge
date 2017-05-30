@@ -223,7 +223,7 @@ class Admin_model extends CI_Model {
             $offset = $this->uri->segment(4);
             $query = $this->db->limit($limit, $offset);
         }
-        $query = $this->db->get('manager as m1');
+        $query = $this->db->get('managers as m1');
 
         return $query->result_array();
     }
