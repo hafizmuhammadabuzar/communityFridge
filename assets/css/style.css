@@ -45,9 +45,16 @@ h1, h2, h3, h4, h5, h6 {
 }
 .topbar {
     overflow: hidden;
-    background: #165068;
+    background:#8e555d;
     color:#fff;
-    padding: 10px 0;
+    padding: 5px 0;
+    font-size: 12px;
+	text-align:right;
+}
+.topbar img {
+	display:inline-block;
+	vertical-align:top;
+	margin:0 3px;
 }
 .head-bottom {
     overflow: hidden;
