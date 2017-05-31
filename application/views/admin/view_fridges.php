@@ -36,6 +36,7 @@
                                         <th>Address</th>
                                         <th>Services</th>
                                         <th>Username</th>
+                                        <th>Email</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
@@ -49,6 +50,7 @@
                                             <td><?php echo $item['address']; ?></td>
                                             <td><?php echo $item['services']; ?></td>
                                             <td><?php echo ucwords($item['username']); ?></td>
+                                            <td><?php echo $item['email']; ?></td>
                                             <td>
                                                 <a href="javascript:" class="f-status" data-value="<?php echo bin2hex($item['item_id']); ?>">
                                                 <?php if ($item['is_active'] == 0) {

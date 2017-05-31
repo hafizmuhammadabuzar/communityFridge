@@ -477,6 +477,20 @@ class Admin extends CI_Controller {
         }
     }
 
+    public function user_status() {
+
+        $id = pack("H*", $_POST['id']);
+        $status = (trim($_POST['status']) == 'Active') ? 0 : 1;
+
+        $res = $this->Home_model->updateRecord('users', ['user_id' => $id], ['status' => $status]);
+
+        if ($res == 1) {
+            echo '1';
+        } else {
+            echo 'Error';
+        }
+    }
+
     function send_email($to, $f_name, $subject, $msg, $from = '') {
 
         $this->load->library('phpmailer');

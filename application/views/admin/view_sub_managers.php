@@ -28,7 +28,9 @@
                                 <tr role="row">
                                     <th>Name</th>
                                     <th>Email</th>
+                                    <th>Mobile</th>
                                     <th>Created By</th>
+                                    <th>City Area Manager Email</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -38,7 +40,9 @@
                                     <tr class="gradeA odd" role="row">
                                         <td><?php echo ucwords($row['name']); ?></td>
                                         <td><?php echo $row['email']; ?></td>
+                                        <td><?php echo $row['mobile']; ?></td>
                                         <td><?php echo $row['created_by']; ?></td>
+                                        <td><?php echo $row['am_email']; ?></td>
                                         <td>
                                             <a href="<?php echo base_url().'admin/edit_sub_manager/'.bin2hex($row['manager_id']);?>" title="edit">
                                                 <i class="fa fa-edit"></i>
