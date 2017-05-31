@@ -51,7 +51,11 @@
                                         <td><?php echo ucwords($row['username']); ?></td>
                                         <td><?php echo $row['email']; ?></td>
                                         <td><?php echo $row['account_type']; ?></td>
-                                        <td><?php if($row['status'] == 1 || $row['account_type'] == 'facebook'){ echo 'Active'; }else{ echo 'Pending'; } ?></td>
+                                        <td>
+                                            <a href="javascript:" class="f-status" data-value="<?php echo bin2hex($row['user_id']); ?>">
+                                            <?php if($row['status'] == 1 || $row['account_type'] == 'facebook'){ echo 'Active'; }else{ echo 'Pending'; } ?>
+                                            </a>
+                                            </td>
                                         <td><?php echo date('d-m-Y h:i a', strtotime($row['created_at'])); ?></td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -82,7 +86,7 @@
                         $.ajax({
                             method: "POST",
                             data: {status: status, id: id},
-                            url: "<?php echo base_url('admin/fridge_status'); ?>",
+                            url: "<?php echo base_url('admin/user_status'); ?>",
                             success: function (response) {
                                 if (response == 1) {
                                     $(self).removeAttr('href');
