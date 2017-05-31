@@ -36,7 +36,7 @@ class Home extends CI_Controller {
             else
                 $ipaddress = 'UNKNOWN';
             
-//            $ipaddress = '103.255.4.66';
+           $ipaddress = '103.255.4.66';
             
             $json = json_decode(file_get_contents("http://ip-api.com/json/$ipaddress"));
                         

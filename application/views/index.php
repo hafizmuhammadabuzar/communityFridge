@@ -21,9 +21,41 @@
         <script type="application/javascript" src="<?php echo base_url(); ?>assets/js/custom.js"></script> 
         <?php echo $map['js']; ?>
     </head>
+    
+    <script>      
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '95100348886',
+          xfbml      : true,
+          version    : 'v2.6'
+        });
+      };
+
+      (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));      
+    </script>
+
     <body>
         <div id="wrapper">
             <header id="header">
+            	<div class="topbar">
+                	<div class="holder">
+	                	Support :
+                        <div class="fb-messengermessageus" 
+         messenger_app_id="95100348886" 
+         page_id="3A1793141537636725" 
+         color="blue"
+         size="large">
+    </div>
+                        <a href="http://facebook.com/communityfridge/" target="_blank"><img src="<?php echo base_url(); ?>assets/images/support-fb.gif" alt="facebook Support"></a>
+                        <a href="https://chat.whatsapp.com/DggsF1xDMP42aekZRsknUz" target="_blank"><img src="<?php echo base_url(); ?>assets/images/support-whatap.gif" alt="Whatapp Support"></a>
+                    </div>
+                </div>
                 <div class="head-bottom">
                     <div class="holder">
                         <div class="logo">
