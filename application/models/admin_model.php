@@ -220,7 +220,7 @@ class Admin_model extends CI_Model {
 
     function getAllSubManagers($limit = ''){
 
-        $this->db->select('m2.manager_id, m2.name, m2.email, m2.mobile, m1.name as created_by, m1.email as am_email');
+        $this->db->select('m2.manager_id, m2.name, m2.email, m2.mobile m1.name as created_by, m1.email as am_email');
         $this->db->join('managers as m2', 'm1.manager_id = m2.super_manager', 'inner');
         $this->db->order_by('m1.name', 'ASC');
         if ($limit != '') {
