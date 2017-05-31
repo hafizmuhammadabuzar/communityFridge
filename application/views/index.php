@@ -46,13 +46,7 @@
             	<div class="topbar">
                 	<div class="holder">
 	                	Support :
-                        <div class="fb-messengermessageus" 
-         messenger_app_id="95100348886" 
-         page_id="3A1793141537636725" 
-         color="blue"
-         size="large">
-    </div>
-                        <a href="http://facebook.com/communityfridge/" target="_blank"><img src="<?php echo base_url(); ?>assets/images/support-fb.gif" alt="facebook Support"></a>
+                        <div class="fb-messengermessageus" messenger_app_id="95100348886" page_id="1793141537636725" color="blue" size="large"></div>
                         <a href="https://chat.whatsapp.com/DggsF1xDMP42aekZRsknUz" target="_blank"><img src="<?php echo base_url(); ?>assets/images/support-whatap.gif" alt="Whatapp Support"></a>
                     </div>
                 </div>
