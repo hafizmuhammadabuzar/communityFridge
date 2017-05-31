@@ -28,6 +28,7 @@
                                 <tr role="row">
                                     <th>Name</th>
                                     <th>Email</th>
+                                    <th>Mobile</th>
                                     <th>Created By</th>
                                     <th>City Area Manager Email</th>
                                     <th>Action</th>
@@ -39,6 +40,7 @@
                                     <tr class="gradeA odd" role="row">
                                         <td><?php echo ucwords($row['name']); ?></td>
                                         <td><?php echo $row['email']; ?></td>
+                                        <td><?php echo $row['mobile']; ?></td>
                                         <td><?php echo $row['created_by']; ?></td>
                                         <td><?php echo $row['am_email']; ?></td>
                                         <td>
