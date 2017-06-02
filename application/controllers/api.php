@@ -53,10 +53,12 @@ class Api extends CI_Controller {
                     exit;
                 }
             } else {
-                $check = $this->Home_model->checkUserRegister($username, $email);
+                $check = $this->Home_model->checkRecord('users', ['email' => $email]);
+                
+//                $check = $this->Home_model->checkUserRegister($username, $email);
                 if ($check) {
                     $result['status'] = error;
-                    $result['msg'] = $check['message'];
+                    $result['msg'] = 'Email already exists';
 
                     header('Content-Type: application/json');
                     echo json_encode($result);
@@ -546,8 +548,35 @@ class Api extends CI_Controller {
                     $item_data = array_merge($date, $item_data);
                     $res = $this->Home_model->saveRecord('items', $item_data);
                 }
+                
+                if ($fridge_id != '-1' && $res == 0) {
+                                        
+                    for ($i = 0; $i < 10; $i++) {
+                        
+                        if (!empty($_FILES['image_' . $i]['name'])) {
+                            $ext = pathinfo($_FILES['image_' . $i]['name'], PATHINFO_EXTENSION);
+                            $t = uniqid() . '.' . $ext;
+                            $path = 'assets/uploads/' . $t;
+                            move_uploaded_file($_FILES['image_' . $i]['tmp_name'], $path);
 
-                if ($res > 0) {
+                            $img_url = base_url() . $path;
+                            $image = $this->Home_model->saveRecord('item_images', ['image' => $img_url, 'item_id' => $fridge_id]);
+                            if ($image) {
+                                $img_res[] = "Image $i uploaded";
+                            } else {
+                                $img_res[] = "Image $i could not be uploaded";
+                            }
+                        } else {
+                            $i = 11;
+                        }
+                    }
+                    
+                    $result['status'] = success;
+                    $result['msg'] = 'Successfully Saved';
+                    $result['images'] = $img_res;
+                }
+
+                else if ($res > 0) {
 
                     $res = ($fridge_id != '-1') ? $fridge_id : $res;
                     $this->Home_model->updateGEom($point, $res);
