@@ -46,14 +46,14 @@
                                 <img src="<?php echo base_url(); ?>assets/images/thumb-img-10.jpg" alt="quote image">
                                 <a href="<?php echo base_url(); ?>assets/images/poster-img-10.jpg" class="link-download" download>Download</a>
                             </li>
-                            <li>
+                            <!--<li>
                                 <img src="<?php echo base_url(); ?>assets/images/thumb-img-11.jpg" alt="quote image">
                                 <a href="<?php echo base_url(); ?>assets/images/poster-img-11.jpg" class="link-download" download>Download</a>
                             </li>
                             <li>
                                 <img src="<?php echo base_url(); ?>assets/images/thumb-img-12.jpg" alt="quote image">
                                 <a href="<?php echo base_url(); ?>assets/images/poster-img-12.jpg" class="link-download" download>Download</a>
-                            </li>
+                            </li>-->
                             <li>
                                 <img src="<?php echo base_url(); ?>assets/images/thumb-img-13.jpg" alt="quote image">
                                 <a href="<?php echo base_url(); ?>assets/images/poster-img-13.jpg" class="link-download" download>Download</a>
