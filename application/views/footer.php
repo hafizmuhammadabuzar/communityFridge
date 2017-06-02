@@ -1,11 +1,11 @@
 <footer id="footer">
     <div class="holder">
-        <ul>
+        <!--<ul>
             <li><a href="<?php echo base_url('privacy-policy'); ?>">Privacy Policy</a></li>
             <li><a href="<?php echo base_url('faq'); ?>">FAQ's</a></li>
             <li><a href="<?php echo base_url('contact-us'); ?>">Contact Us</a></li>
-        </ul>
-        <p class="copyright">&copy Synergistics.ae All rights reserved.</p>
+        </ul>-->
+        <p class="copyright">&copy; Copyright Community Fridge 2017 - Developed by <a href="http://synergistics.ae" target="_blank">Synergistics FZ LLC</a></p>
     </div>
 </footer>
 <script>

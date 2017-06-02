@@ -43,6 +43,46 @@
                             <p>Once you have downloaded the app, you can sign up using your Facebook account or create a new account from scratch. You can then proceed by tapping on the menu icon on the top-left corner of the screen and simply choosing ‘Add New Fridge’.</p>
                         </div>
                     </div>
+<<<<<<< HEAD
+                </section>
+            </div>
+            <footer id="footer">
+                <div class="holder">
+                	<ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li class="active"><a href="#">FAQ's</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                    <p class="copyright">&copy Synergistics.ae All rights reserved.</p>
+                </div>
+            </footer>
+            <script>
+                (function (i, s, o, g, r, a, m) {
+                    i['GoogleAnalyticsObject'] = r;
+                    i[r] = i[r] || function () {
+                        (i[r].q = i[r].q || []).push(arguments)
+                    }, i[r].l = 1 * new Date();
+                    a = s.createElement(o),
+                            m = s.getElementsByTagName(o)[0];
+                    a.async = 1;
+                    a.src = g;
+                    m.parentNode.insertBefore(a, m)
+                })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+                ga('create', 'UA-84743339-1', 'auto');
+                ga('send', 'pageview');
+
+                $('#country').change(function () {
+                    $.ajax({
+                        type: 'POST',
+                        data: {country: $(this).val()},
+                        url: "<?php echo base_url() . 'getCities' ?>",
+                        success: function (response) {
+                            $('#city').replaceWith(response);
+                        }
+                    })
+                });		
+            </script>
+=======
                 </li>
                 <li>
                     <input type="checkbox" id="checkbox-5" name="checkbox-accordion" />
@@ -99,6 +139,7 @@
                     </div>
                 </li>
             </ul>
+>>>>>>> e1f9f97031600ce6cc1838dbc28acfdc8d5d5e82
         </div>
     </section>
 </div>
