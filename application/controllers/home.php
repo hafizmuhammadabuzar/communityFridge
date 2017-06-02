@@ -75,6 +75,25 @@ class Home extends CI_Controller {
         
         $this->load->view('index', $data);
     }
+	
+	public function about() {
+        $this->load->view('about');
+	}
+	public function resource() {
+        $this->load->view('resource');
+	}
+	public function press_release() {
+        $this->load->view('press_release');
+	}
+	public function faqs() {
+        $this->load->view('faqs');
+	}
+	public function contact() {
+        $this->load->view('contact');
+	}
+	public function privacy_policy() {
+        $this->load->view('privacy_policy');
+	}
 
     public function get_direction() {
 

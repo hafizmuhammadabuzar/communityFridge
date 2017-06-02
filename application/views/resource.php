@@ -183,9 +183,9 @@
                         </div>
                         <div class="topnav" id="myTopnav">
                             <ul>
-                                <li class="active"><a href="<?php echo base_url(); ?>">Home</a></li>
+                                <li><a href="<?php echo base_url(); ?>">Home</a></li>
                                 <li><a href="#">About us</a></li>
-                                <li><a href="#">Resource</a></li>
+                                <li class="active"><a href="#">Resource</a></li>
                                 <li><a href="#">Press Release</a></li>
                                 <li><a href="#">Partner</a></li>
                                 <li><a href="#">FAQ's</a></li>
@@ -194,51 +194,75 @@
                             </ul>
                         </div>
                     </div>
-                </div>  
-                <div class="map">
-                    <?php echo $map['html']; ?>
-                </div>
-                <div class="search-area">
-                    <div class="holder">
-                        <form action="<?php echo base_url() . 'search'; ?>" method="post">
-                            <div class="input-wrap">
-                                <select id="country" name="country">
-                                    <option selected>Country</option>
-                                    <?php foreach ($countries as $cnt): ?>
-                                        <option value="<?php echo $cnt['country']; ?>"><?php echo $cnt['country']; ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                            <div class="input-wrap">
-                                <select id="city" name="city" disabled="disabled">
-                                    <option selected>City / Area</option>
-                                </select>
-                            </div>
-                            <input type="submit" value="Search" class="btn-submit">
-                        </form>
-                    </div>
                 </div>
             </header>
             <div id="main">
-                <section id="app">
+                <section id="resource">
                     <div class="holder">
-                        <h3>Download Our Mobile Apps</h3>
-                        <h4>To Keep track of every thing which happens around you</h4>
+                        <h2 class="section-head">Resources for fridge sharing</h2>
+                        <p>Download and print Quote for motivate peoples to help improve community fridge idea</p>
                         <ul>
                             <li>
-                                <a href="https://play.google.com/store/apps/details?id=com.synergistics.ramadanfridge" target="_blank"><img src="<?php echo base_url(); ?>assets/images/playstore.png" alt="googple play link"></a>
+                                <img src="<?php echo base_url(); ?>assets/images/thumb-img-1.jpg" alt="quote image">
+                                <a href="<?php echo base_url(); ?>assets/images/poster-img-1.jpg" class="link-download" download>Download</a>
                             </li>
                             <li>
-                                <a href="https://appsto.re/pk/pX2Sdb.i" target="_blank"><img src="<?php echo base_url(); ?>assets/images/appstore.png" alt="Apple store link"></a>
+                                <img src="<?php echo base_url(); ?>assets/images/thumb-img-2.jpg" alt="quote image">
+                                <a href="<?php echo base_url(); ?>assets/images/poster-img-2.jpg" class="link-download" download>Download</a>
+                            </li>
+                            <li>
+                                <img src="<?php echo base_url(); ?>assets/images/thumb-img-3.jpg" alt="quote image">
+                                <a href="<?php echo base_url(); ?>assets/images/poster-img-3.jpg" class="link-download" download>Download</a>
+                            </li>
+                            <li>
+                                <img src="<?php echo base_url(); ?>assets/images/thumb-img-4.jpg" alt="quote image">
+                                <a href="<?php echo base_url(); ?>assets/images/poster-img-4.jpg" class="link-download" download>Download</a>
+                            </li>
+                            <li>
+                                <img src="<?php echo base_url(); ?>assets/images/thumb-img-5.jpg" alt="quote image">
+                                <a href="<?php echo base_url(); ?>assets/images/poster-img-5.jpg" class="link-download" download>Download</a>
+                            </li>
+                            <li>
+                                <img src="<?php echo base_url(); ?>assets/images/thumb-img-6.jpg" alt="quote image">
+                                <a href="<?php echo base_url(); ?>assets/images/poster-img-6.jpg" class="link-download" download>Download</a>
+                            </li>
+                            <li>
+                                <img src="<?php echo base_url(); ?>assets/images/thumb-img-7.jpg" alt="quote image">
+                                <a href="<?php echo base_url(); ?>assets/images/poster-img-7.jpg" class="link-download" download>Download</a>
+                            </li>
+                            <li>
+                                <img src="<?php echo base_url(); ?>assets/images/thumb-img-8.jpg" alt="quote image">
+                                <a href="<?php echo base_url(); ?>assets/images/poster-img-8.jpg" class="link-download" download>Download</a>
+                            </li>
+                            <li>
+                                <img src="<?php echo base_url(); ?>assets/images/thumb-img-9.jpg" alt="quote image">
+                                <a href="<?php echo base_url(); ?>assets/images/poster-img-9.jpg" class="link-download" download>Download</a>
+                            </li>
+                            <li>
+                                <img src="<?php echo base_url(); ?>assets/images/thumb-img-10.jpg" alt="quote image">
+                                <a href="<?php echo base_url(); ?>assets/images/poster-img-10.jpg" class="link-download" download>Download</a>
+                            </li>
+                            <li>
+                                <img src="<?php echo base_url(); ?>assets/images/thumb-img-11.jpg" alt="quote image">
+                                <a href="<?php echo base_url(); ?>assets/images/poster-img-11.jpg" class="link-download" download>Download</a>
+                            </li>
+                            <li>
+                                <img src="<?php echo base_url(); ?>assets/images/thumb-img-12.jpg" alt="quote image">
+                                <a href="<?php echo base_url(); ?>assets/images/poster-img-12.jpg" class="link-download" download>Download</a>
+                            </li>
+                            <li>
+                                <img src="<?php echo base_url(); ?>assets/images/thumb-img-13.jpg" alt="quote image">
+                                <a href="<?php echo base_url(); ?>assets/images/poster-img-13.jpg" class="link-download" download>Download</a>
+                            </li>
+                            <li>
+                                <img src="<?php echo base_url(); ?>assets/images/thumb-img-14.jpg" alt="quote image">
+                                <a href="<?php echo base_url(); ?>assets/images/poster-img-14.jpg" class="link-download" download>Download</a>
+                            </li>
+                            <li>
+                                <img src="<?php echo base_url(); ?>assets/images/thumb-img-15.jpg" alt="quote image">
+                                <a href="<?php echo base_url(); ?>assets/images/poster-img-15.jpg" class="link-download" download>Download</a>
                             </li>
                         </ul>
-                        <img src="<?php echo base_url(); ?>assets/images/img7.png" alt="mobile image" class="mobile-img">
-                    </div>
-                </section>
-                <section id="Disclaimer">
-                	<div class="holder">
-                    	<p><strong>DISCLAIMER:</strong> We are not responsible for the food, drinks or anything placed in the fridge. We also take no responsibility of the fridge, we only provide a platform to the people to help make the community fridges much more organized and centralized.</p>
-                        <img src="<?php echo base_url(); ?>assets/images/qr-code.png" alt="QR Code">
                     </div>
                 </section>
             </div>

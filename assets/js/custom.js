@@ -1,4 +1,4 @@
-$(document).ready(function(){
+/*$(document).ready(function(){
     // handle links with @href started with '#' only
     $(".main-menu").on('click', 'a[href^="#"]', function(e) {
         // target element id
@@ -27,4 +27,5 @@ $(document).ready(function(){
         $(this).text($(this).text() == 'Read More >>' ? 'Read Less <<' : 'Read More >>');
         //$(this).text("Read Less <");
     })
-})
+})*/
+

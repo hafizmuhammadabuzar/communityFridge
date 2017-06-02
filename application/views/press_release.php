@@ -39,17 +39,6 @@
         fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));      
     </script>
-    
-    <script>
-		function myFunction() {
-			var x = document.getElementById("myTopnav");
-			if (x.className === "topnav") {
-				x.className += " responsive";
-			} else {
-				x.className = "topnav";
-			}
-		}
-	</script>
 
     <body>
         <div id="wrapper">
@@ -181,45 +170,48 @@
 </g>
 </svg></a>
                         </div>
-                        <div class="topnav" id="myTopnav">
+                        <div class="main-menu">
                             <ul>
-                                <li class="active"><a href="<?php echo base_url(); ?>">Home</a></li>
+                                <li><a href="<?php echo base_url(); ?>">Home</a></li>
                                 <li><a href="#">About us</a></li>
                                 <li><a href="#">Resource</a></li>
-                                <li><a href="#">Press Release</a></li>
-                                <li><a href="#">Partner</a></li>
+                                <li class="active"><a href="#">Press Release</a></li>
+                                <li><a href="#">Partners</a></li>
                                 <li><a href="#">FAQ's</a></li>
                                 <li><a href="#">Contact Us</a></li>
-                                <li class="icon"><a href="javascript:void(0);" onclick="myFunction()">&#9776;</a></li>
                             </ul>
                         </div>
                     </div>
                 </div>  
-                <div class="map">
-                    <?php echo $map['html']; ?>
-                </div>
-                <div class="search-area">
-                    <div class="holder">
-                        <form action="<?php echo base_url() . 'search'; ?>" method="post">
-                            <div class="input-wrap">
-                                <select id="country" name="country">
-                                    <option selected>Country</option>
-                                    <?php foreach ($countries as $cnt): ?>
-                                        <option value="<?php echo $cnt['country']; ?>"><?php echo $cnt['country']; ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                            <div class="input-wrap">
-                                <select id="city" name="city" disabled="disabled">
-                                    <option selected>City / Area</option>
-                                </select>
-                            </div>
-                            <input type="submit" value="Search" class="btn-submit">
-                        </form>
-                    </div>
-                </div>
+                
             </header>
             <div id="main">
+                <section id="contact">
+                    <div class="holder">
+                        <div class="boxes">
+                            <div class="box">
+                                <h3>Community Fridge</h3>
+                                <p>We started out a need to contribute to such wonderful initiatives around the world. We are a non-profit setup with a simple aim; to provide an easy to use mapping platform.</p>
+                                <p> If you a corporate and wish to support us, please drop us an email.</p>
+                                <!--<a href="#">Read More ></a>-->
+                            </div>
+                            <div class="box">
+                                <h3>Contact Info</h3>
+                                
+								<!--<span class="phone">+971(000) 123-4567</span>-->
+                                
+                                <address>Delaware, USA</address>
+                                <a href="mailto:hello@example.com">info@communityfridge.org</a>
+                            </div>
+                            <div class="box socialLink">
+                                <h3>Social Links</h3>
+                                <a href="http://facebook.com/communityfridge/" class="facebook" target="_blank"></a>
+                                <a href="http://twitter.com/FridgeCommunity" class="twitter" target="_blank"></a>
+                                <a href="http://instagram.com/communityfridge/" class="insta" target="_blank"></a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
                 <section id="app">
                     <div class="holder">
                         <h3>Download Our Mobile Apps</h3>
@@ -233,12 +225,6 @@
                             </li>
                         </ul>
                         <img src="<?php echo base_url(); ?>assets/images/img7.png" alt="mobile image" class="mobile-img">
-                    </div>
-                </section>
-                <section id="Disclaimer">
-                	<div class="holder">
-                    	<p><strong>DISCLAIMER:</strong> We are not responsible for the food, drinks or anything placed in the fridge. We also take no responsibility of the fridge, we only provide a platform to the people to help make the community fridges much more organized and centralized.</p>
-                        <img src="<?php echo base_url(); ?>assets/images/qr-code.png" alt="QR Code">
                     </div>
                 </section>
             </div>
