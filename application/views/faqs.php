@@ -1,5 +1,3 @@
-
-</header>
 <div class="holder">
     <section id="faq">
         <h2 class="section-head">FAQ's</h2>

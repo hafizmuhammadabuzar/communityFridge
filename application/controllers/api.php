@@ -16,6 +16,8 @@ class Api extends CI_Controller {
 
         define('success', 'Success');
         define('error', 'Error');
+        
+	date_default_timezone_set('Asia/Dubai');
     }
 
     public function save_user() {
