@@ -36,7 +36,7 @@ class Home extends CI_Controller {
             else
                 $ipaddress = 'UNKNOWN';
 
-//            $ipaddress = '103.255.4.66';
+            $ipaddress = '103.255.4.66';
 
             $json = json_decode(file_get_contents("http://ip-api.com/json/$ipaddress"));
 
@@ -243,7 +243,7 @@ class Home extends CI_Controller {
         $body .= '<br/><b>Phone: </b>'.$_POST['phone'];
         $body .= '<br/><b>Message: </b>'.wordwrap($_POST['message']);
 
-        if(mail('hafizmabuzar@synergistics.pk', 'Communtiy Fridge Contact - '.$_POST['subject'], $body, $headers)){
+        if(mail('info@communityfridge.org', 'Communtiy Fridge Contact - '.$_POST['subject'], $body, $headers)){
             die('1');
         }
         else{
