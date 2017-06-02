@@ -4,7 +4,7 @@
                 <section id="resource">
                     <div class="holder">
                         <h2 class="section-head">Resources for fridge sharing</h2>
-                        <p>Download and print Quote for motivate peoples to help improve community fridge idea</p>
+                        <p>Download and Print resources to motivate society for the improvement of community fridge concept</p>
                         <ul>
                             <li>
                                 <img src="<?php echo base_url(); ?>assets/images/thumb-img-1.jpg" alt="quote image">

@@ -1,4 +1,4 @@
-  
+  </header>
                 <div class="map">
                     <?php echo $map['html']; ?>
                 </div>
@@ -22,7 +22,6 @@
                         </form>
                     </div>
                 </div>
-            </header>
             <div id="main">
                 <section id="app">
                     <div class="holder">
