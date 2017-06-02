@@ -196,5 +196,6 @@
                                 <li class="icon"><a href="javascript:void(0);" onclick="myFunction()">&#9776;</a></li>
                             </ul>
                         </div>
+                        <div class="clear"></div>
                     </div>
                 </div>

@@ -91,6 +91,23 @@ h1, h2, h3, h4, h5, h6 {
 	overflow: hidden;
 }
 
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    /* Safari and Chrome, if Chrome rule needed 
+    .someClass {
+     	color:#c00;
+    }*/
+    /* Safari 5+ ONLY */
+    ::i-block-chrome, .head-bottom .logo {
+		float:left;
+		height:70px;
+    }
+	
+	::i-block-chrome, .head-bottom .topnav {
+		float:right;
+		margin-top:17px;
+	}
+}
+
 .head-bottom .topnav {
 	-webkit-flex: 0 auto;
 	-ms-flex: 0 auto;
@@ -332,7 +349,7 @@ h1, h2, h3, h4, h5, h6 {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 14px;
     color: #212121;
-    padding: 0.5278em;
+    padding:0 0.5278em;
 }
 
 #contact .LeftBox .inputbox.message {
@@ -343,6 +360,17 @@ h1, h2, h3, h4, h5, h6 {
     background: url(../images/bg-shadow-message.png) no-repeat right bottom;
     padding-bottom: 8px;
     height: auto;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    /* Safari and Chrome, if Chrome rule needed 
+    .someClass {
+     	color:#c00;
+    }*/
+    /* Safari 5+ ONLY */
+    ::i-block-chrome, #contact .LeftBox .inputbox.message {
+     padding-bottom: 3px;
+    }
 }
 
 #contact .LeftBox .inputbox.message textarea {
