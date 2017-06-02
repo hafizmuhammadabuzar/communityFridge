@@ -53,7 +53,9 @@
                                         <td><?php echo $row['account_type']; ?></td>
                                         <td>
                                             <a href="javascript:" class="f-status" data-value="<?php echo bin2hex($row['user_id']); ?>">
-                                            <?php if($row['status'] == 1 || $row['account_type'] == 'facebook'){ echo 'Active'; }else{ echo 'Pending'; } ?>
+                                            <?php if($row['status'] == 1 || $row['account_type'] == 'facebook'){ echo 'Active'; }
+                                            else if($row['status'] == 2){ echo 'Inactive'; }
+                                            else{ echo 'Pending'; } ?>
                                             </a>
                                             </td>
                                         <td><?php echo date('d-m-Y h:i a', strtotime($row['created_at'])); ?></td>

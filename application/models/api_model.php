@@ -114,6 +114,27 @@ class Api_model extends CI_Model {
         $query = $this->db->query("select token, player_id from tokens where player_id is not null and date(`updated_date`) > '2016-05-01' $email");
         return $query->result_array();
     }
+        
+    function getFridgesByPolygon($limit = '', $polygon=''){
+       
+//      SET @bbox = 'POLYGON((0 0, 10 0, 10 10, 0 10, 0 0))';
+//      SELECT name, AsText(location) FROM Points WHERE Intersects( location, GeomFromText(@bbox) )
+        
+        $this->db->select('*, AsText(point)');
+        $this->db->join('users', 'users.user_id = items.user_id', 'inner');
+        $this->db->order_by("item_id DESC");
+        if($this->session->userdata('manager_id') == TRUE){
+            $this->db->where('manager_id', $this->session->userdata('manager_id'));
+        }
+        $this->db->where("Intersects(point, GeomFromText('POLYGON(($polygon))'))");
+        if ($limit != '') {
+            $offset = $this->uri->segment(4);
+            $query = $this->db->limit($limit, $offset);
+        }
+        $query = $this->db->get('items');
+
+        return $query->result_array();
+    }
     
 
 }

@@ -11,6 +11,7 @@ class Api extends CI_Controller {
 
         $this->load->model('Home_model');
         $this->load->model('Api_model');
+        $this->load->model('Admin_model');
         $this->load->library('form_validation');
 
         define('success', 'Success');
@@ -32,10 +33,20 @@ class Api extends CI_Controller {
             if ($account_type == 'facebook') {
                 $check_fb = $this->Home_model->checkRecord('users', ['email' => $email]);
                 if ($check_fb) {
-                    $this->Home_model->updateRecord('tokens', ['token' => "$token"], ['user_email' => $email]);
+                    if ($res->status == 0) {
+                        $result['status'] = 'pending';
+                        $result['msg'] = 'Email already exists, Please verify your account';
+                    }
+                    if ($res->status == 2) {
+                        $result['status'] = error;
+                        $result['msg'] = 'Inactive account, Please contact with Administrator';
+                    }
+                    else{
+                        $this->Home_model->updateRecord('tokens', ['token' => "$token"], ['user_email' => $email]);
 
-                    $result['status'] = success;
-                    $result['msg'] = 'Successfully Saved';
+                        $result['status'] = success;
+                        $result['msg'] = 'Successfully Saved';
+                    }
 
                     header('Content-Type: application/json');
                     echo json_encode($result);
@@ -87,7 +98,7 @@ class Api extends CI_Controller {
                                     'device_os' => "",
                                     'device_type' => "0",
                                     'device_model' => "iPhone",
-                                    'test_type' => 1
+                                    'test_type' => 2
                                 );
 
                                 $fields = json_encode($fields);
@@ -117,6 +128,8 @@ class Api extends CI_Controller {
                     }
                 }
 
+                $result['status'] = success;
+                
                 if ($account_type != 'facebook') {
                     $msg = 'Dear User, <br><br>
                             Confirm your email address to complete your Fridge account. Its easy &#45 just click on the button below.</p>
@@ -126,10 +139,12 @@ class Api extends CI_Controller {
                             </html>';
 
                     $this->new_send_email($email, $username, 'Fridge Account Verification', $msg);
+                    
+                    $result['msg'] = 'Successfully signed up, Please check your email for verification';
                 }
-
-                $result['status'] = success;
-                $result['msg'] = 'Successfully signed up, Please check your email for verification';
+                else{
+                    $result['msg'] = 'Successfully signed up';
+                }
             } else {
                 $result['status'] = error;
                 $result['msg'] = 'Some error Occurred';
@@ -215,7 +230,11 @@ class Api extends CI_Controller {
                 if ($res->status == 0) {
                     $result['status'] = 'pending';
                     $result['msg'] = 'Not verified';
-                } else {
+                }
+                else if ($res->status == 2) {
+                    $result['status'] = error;
+                    $result['msg'] = 'Inactive account, Please contact with Administrator';
+                }else {
                     $token = $this->input->get_post('deviceToken');
                     $device_id = $this->input->get_post('device_id');
 
@@ -235,7 +254,7 @@ class Api extends CI_Controller {
                                     'device_os' => "",
                                     'device_type' => "0",
                                     'device_model' => "iPhone",
-                                    'test_type' => 1
+                                    'test_type' => 2
                                 );
 
                                 $fields = json_encode($fields);
@@ -821,6 +840,31 @@ class Api extends CI_Controller {
                 }
                 
                 $this->new_send_email($check->email, '', ucwords($type), $body);
+                
+                if($check->manager_id > 0){
+                    $zone_manager = $this->Home_model->checkRecord('managers', ['manager_id' => $check->manager_id]);
+                    $this->new_send_email($zone_manager->email, '', ucwords($type), $body);
+                }
+                
+//                $managers = $this->Admin_model->getAllManagers();
+//                if(count($managers) > 0){
+//                    foreach($managers as $key => $mng){
+//                        $array = array();
+//                        $poly = explode(',', $mng['polygon']);
+//                        foreach($poly as $p){
+//                            $latLng = explode(' ', $p);
+//                            $array[] = array($latLng[1],$latLng[2]);
+//                        }
+//
+//                        $point = array($check->latitude, $check->longitude);
+//
+//                        $res = $this->contains($point,$array)?'IN':'OUT';
+//                        if($res == 'IN'){
+//                            $this->new_send_email($mng['email'], '', ucwords($type), $body);
+//                            break;
+//                        }
+//                    }
+//                }
 
                 $result['status'] = success;
                 $result['msg'] = 'Email Sent';
@@ -1127,6 +1171,35 @@ class Api extends CI_Controller {
         curl_close($ch);
         echo $response;
     }*/
+        
+    function contains($point, $polygon)
+    {
+        if($polygon[0] != $polygon[count($polygon)-1])
+            $polygon[count($polygon)] = $polygon[0];
+        $j = 0;
+        $oddNodes = false;
+        $x = $point[1];
+        $y = $point[0];
+        $n = count($polygon);
+        for ($i = 0; $i < $n; $i++)
+        {
+            $j++;
+            if ($j == $n)
+            {
+                $j = 0;
+            }
+            if ((($polygon[$i][0] < $y) && ($polygon[$j][0] >= $y)) || (($polygon[$j][0] < $y) && ($polygon[$i][0] >=
+                $y)))
+            {
+                if ($polygon[$i][1] + ($y - $polygon[$i][0]) / ($polygon[$j][0] - $polygon[$i][0]) * ($polygon[$j][1] -
+                    $polygon[$i][1]) < $x)
+                {
+                    $oddNodes = !$oddNodes;
+                }
+            }
+        }
+        return $oddNodes;
+    }
     
     
 }

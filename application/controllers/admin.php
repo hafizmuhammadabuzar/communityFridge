@@ -370,6 +370,7 @@ class Admin extends CI_Controller {
 
     public function update_fridge() {
 
+        $this->form_validation->set_rules('country', 'Country', 'required');
         $this->form_validation->set_rules('services', 'Services', 'required');
         $this->form_validation->set_rules('lat', 'Latitude', 'required');
         $this->form_validation->set_rules('lng', 'Longitude', 'required');
@@ -377,38 +378,46 @@ class Admin extends CI_Controller {
         $this->form_validation->set_rules('streetAddress', 'Street Address', 'required');
         $this->form_validation->set_rules('accessTime', 'Access Time', 'required');
         $this->form_validation->set_rules('preferredFillTime', 'Preferred Fill Time', 'required');
-
+        
         if ($this->form_validation->run() == FALSE) {
 
-            redirect('admin/edit_fridge/' . $_POST['firdge_id']);
-        } else {
+            $id = pack("H*", $id);
+            $result['fridge'] = $this->Home_model->checkRecord('items', ['item_id' => $id]);
+            $this->load->view('admin/header');
+            $this->load->view('admin/edit_fridge', $result);
+            $this->load->view('admin/footer');
+        } 
+        else {
             $fridge_id = pack("H*", $_POST['fridge_id']);
 
             $lat = $this->input->post('lat');
             $lng = $this->input->post('lng');
-            $country = json_decode(file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lng&sensor=true"));
+//            $country = json_decode(file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lng&sensor=true"));
 
             $fridge_data = array(
                 'services' => $this->input->post('services'),
-                'latitude' => $this->input->post('lat'),
-                'longitude' => $this->input->post('lng'),
-                'country' => $country->results[count($country->results) - 1]->formatted_address,
+                'latitude' => $lat,
+                'longitude' => $lng,
+                'country' => $this->input->post('country'),
                 'area' => $this->input->post('area'),
                 'address' => $this->input->post('streetAddress'),
                 'access_time' => $this->input->post('accessTime'),
                 'preferred_filling_time' => $this->input->post('preferredFillTime'),
             );
 
-//            echo '<pre>'; print_r($fridge_data); die;
-
             $res = $this->Home_model->updateRecord('items', ['item_id' => $fridge_id], $fridge_data);
-
+            
             if ($res > 0) {
                 $this->session->set_userdata('msg', "Successfully updated!");
                 redirect('admin/view_fridges');
             } else {
                 $this->session->set_userdata('msg', "Could not be updated!");
-                redirect('admin/edit_fridge/' . $id);
+                
+                $id = pack("H*", $id);
+                $result['fridge'] = $this->Home_model->checkRecord('items', ['item_id' => $fridge_id]);
+                $this->load->view('admin/header');
+                $this->load->view('admin/edit_fridge', $result);
+                $this->load->view('admin/footer');
             }
         }
     }
@@ -480,7 +489,7 @@ class Admin extends CI_Controller {
     public function user_status() {
 
         $id = pack("H*", $_POST['id']);
-        $status = (trim($_POST['status']) == 'Active') ? 0 : 1;
+        $status = (trim($_POST['status']) == 'Active') ? 2 : 1;
 
         $res = $this->Home_model->updateRecord('users', ['user_id' => $id], ['status' => $status]);
 
