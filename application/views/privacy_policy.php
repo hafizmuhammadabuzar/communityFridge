@@ -1,4 +1,3 @@
-</header>
 <div id="main">
     <section id="faq">
         <div class="holder">

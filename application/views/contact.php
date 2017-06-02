@@ -1,5 +1,3 @@
-
-</header>
 <div id="main">
     <section id="contact">
         <div class="holder">

@@ -15,6 +15,8 @@ class Home extends CI_Controller {
         $this->load->helper(array('form', 'url'));
         $this->load->library('googlemaps');
         $this->load->library('form_validation');
+        
+	date_default_timezone_set('Asia/Dubai');
     }
 
     public function index() {
@@ -36,7 +38,7 @@ class Home extends CI_Controller {
             else
                 $ipaddress = 'UNKNOWN';
 
-            $ipaddress = '103.255.4.66';
+//            $ipaddress = '103.255.4.66';
 
             $json = json_decode(file_get_contents("http://ip-api.com/json/$ipaddress"));
 

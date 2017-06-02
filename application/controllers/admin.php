@@ -19,8 +19,8 @@ class Admin extends CI_Controller {
         $this->load->library('form_validation');
         $this->load->library('pagination');
 //        $this->load->library('encrypt');
-
-        date_default_timezone_set('America/New_York');
+        
+	date_default_timezone_set('Asia/Dubai');
     }
 
     public function index() {
