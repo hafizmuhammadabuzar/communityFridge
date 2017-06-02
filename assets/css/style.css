@@ -251,15 +251,15 @@ h1, h2, h3, h4, h5, h6 {
     display:block;
     line-height:16px;
 	font-size:18px;
-    background:#8d545c;
+    background:#fff;
     border:1px solid #542437;
-    color:#fff;
+    color:#8d545c;
     font-weight:bold;
     cursor:pointer;
     text-transform:uppercase;
 }
 .accordion ul li label:hover, .accordion [type=radio]:checked ~ label, .accordion [type=checkbox]:checked ~ label {
-    background:#565656;
+    background:#8d545c;
     color:#FFF;
 }
 .accordion .content {

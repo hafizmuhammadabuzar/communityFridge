@@ -332,7 +332,7 @@
                             $('#city').replaceWith(response);
                         }
                     })
-                });
+                });		
             </script>
         </div>
     </body>
