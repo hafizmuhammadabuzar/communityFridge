@@ -15,8 +15,8 @@ class Admin_model extends CI_Model {
     
     function getAllUsers($limit = '', $sort = ''){
         
-        $this->db->where('status', 0);
-        $this->db->or_where('status', 1);
+//        $this->db->where('status', 0);
+//        $this->db->or_where('status', 1);
         if(!empty($sort)){
             $this->db->order_by("$sort");
         }else{
@@ -141,7 +141,7 @@ class Admin_model extends CI_Model {
     
     function getFridgesByPolygon($limit = '', $polygon=''){
        
-//      SET @bbox = 'POLYGON((0 0, 10 0, 10 10, 0 10, 0 0))'; 
+//      SET @bbox = 'POLYGON((0 0, 10 0, 10 10, 0 10, 0 0))';
 //      SELECT name, AsText(location) FROM Points WHERE Intersects( location, GeomFromText(@bbox) )
         
         $this->db->select('*, AsText(point)');
@@ -156,8 +156,6 @@ class Admin_model extends CI_Model {
             $query = $this->db->limit($limit, $offset);
         }
         $query = $this->db->get('items');
-        
-//        die($this->db->last_query());
 
         return $query->result_array();
     }
@@ -220,7 +218,7 @@ class Admin_model extends CI_Model {
 
     function getAllSubManagers($limit = ''){
 
-        $this->db->select('m2.manager_id, m2.name, m2.email, m2.mobile m1.name as created_by, m1.email as am_email');
+        $this->db->select('m2.manager_id, m2.name, m2.email, m2.mobile, m1.name as created_by, m1.email as am_email');
         $this->db->join('managers as m2', 'm1.manager_id = m2.super_manager', 'inner');
         $this->db->order_by('m1.name', 'ASC');
         if ($limit != '') {

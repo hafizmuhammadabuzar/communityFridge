@@ -528,7 +528,18 @@ h1, h2, h3, h4, h5, h6 {
 	-webkit-flex: 0 auto;
 	-ms-flex: 0 auto;
 	flex: 0 auto;
-	margin:0;
+	margin:0 auto 0 auto;
+}
+
+.contact-msg {
+	color: green;
+    display: block;
+    text-transform: capitalize;
+}
+
+#footer .copyright a {
+	color:#fff;
+	text-decoration:none;
 }
 
 .Direction {

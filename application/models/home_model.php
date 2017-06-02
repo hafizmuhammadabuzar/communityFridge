@@ -115,7 +115,7 @@ class Home_model extends CI_Model {
     
     function getUserByFridgeId($fridge_id){
         
-        $this->db->select('email');
+        $this->db->select('email, latitude, longitude, manager_id');
         $this->db->where('item_id', $fridge_id);
         $this->db->join('users', 'users.user_id = items.user_id', 'inner');
         $query = $this->db->get('items');

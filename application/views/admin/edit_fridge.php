@@ -21,7 +21,7 @@
                         <form role="form" action="<?php echo base_url().'admin/update_fridge' ?>" method="post" id="myForm">
                             <div class="form-group">
                                 <label>Country</label>
-                                <input class="form-control" name="services" value="<?php echo $fridge->country; ?>" disabled="disabled">
+                                <input class="form-control" name="country" value="<?php echo $fridge->country; ?>" required="required">
                             </div>
                             <div class="form-group">
                                 <label>Services</label>

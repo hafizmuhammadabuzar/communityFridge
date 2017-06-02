@@ -18,82 +18,65 @@ class Home extends CI_Controller {
     }
 
     public function index() {
-        
-        if($this->session->userdata('latitude') == FALSE){
+
+        if ($this->session->userdata('latitude') == FALSE) {
             $ipaddress = '';
             if ($_SERVER['HTTP_CLIENT_IP'])
                 $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
-            else if($_SERVER['HTTP_X_FORWARDED_FOR'])
+            else if ($_SERVER['HTTP_X_FORWARDED_FOR'])
                 $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
-            else if($_SERVER['HTTP_X_FORWARDED'])
+            else if ($_SERVER['HTTP_X_FORWARDED'])
                 $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
-            else if($_SERVER['HTTP_FORWARDED_FOR'])
+            else if ($_SERVER['HTTP_FORWARDED_FOR'])
                 $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
-            else if($_SERVER['HTTP_FORWARDED'])
+            else if ($_SERVER['HTTP_FORWARDED'])
                 $ipaddress = $_SERVER['HTTP_FORWARDED'];
-            else if($_SERVER['REMOTE_ADDR'])
+            else if ($_SERVER['REMOTE_ADDR'])
                 $ipaddress = $_SERVER['REMOTE_ADDR'];
             else
                 $ipaddress = 'UNKNOWN';
-            
-           $ipaddress = '103.255.4.66';
-            
+
+//            $ipaddress = '103.255.4.66';
+
             $json = json_decode(file_get_contents("http://ip-api.com/json/$ipaddress"));
-                        
+
             $this->session->set_userdata('country', $json->country);
             $this->session->set_userdata('latitude', $json->lat);
             $this->session->set_userdata('longitude', $json->lon);
         }
-                
+
         $pins = $this->Home_model->getFridgesByRadius($this->session->userdata('latitude'), $this->session->userdata('longitude'));
-        
-        $config['center'] = $this->session->userdata('latitude').','.$this->session->userdata('longitude');
+
+        $config['center'] = $this->session->userdata('latitude') . ',' . $this->session->userdata('longitude');
         $config['zoom'] = '14';
         $config['scrollwheel'] = FALSE;
         $config['sensor'] = FALSE;
         $this->googlemaps->initialize($config);
-               
+
         $marker = array();
-        $marker['position'] = $this->session->userdata('latitude').','.$this->session->userdata('longitude');
+        $marker['position'] = $this->session->userdata('latitude') . ',' . $this->session->userdata('longitude');
         $marker['infowindow_content'] = 'Current Location';
         $marker['animation'] = 'DROP';
         $this->googlemaps->add_marker($marker);
-        
+
         foreach ($pins as $pin) {
-            
+
             $marker = array();
             $marker['position'] = $pin['latitude'] . ',' . $pin['longitude'];
 
-            $marker['infowindow_content'] = '<b><a href="'. base_url().'get_direction?sLat='.$this->session->userdata('latitude').'&sLng='.$this->session->userdata('longitude').'&eLat='.$pin['latitude'].'&eLng='.$pin['longitude'].'" class="Direction" target="_blank"><img src="assets/images/sign-direction.png" alt="Direction"/></a>'.$pin['area'].'</b><br>'.ucfirst(str_replace('null', '', $pin['address'])).'<br>'.join(', ', array_map('ucfirst', explode(',', $pin['services']))) . '<br>' . $pin['latitude'] . ', ' . $pin['longitude'];
-            
+            $marker['infowindow_content'] = '<b><a href="' . base_url() . 'get_direction?sLat=' . $this->session->userdata('latitude') . '&sLng=' . $this->session->userdata('longitude') . '&eLat=' . $pin['latitude'] . '&eLng=' . $pin['longitude'] . '" class="Direction" target="_blank"><img src="assets/images/sign-direction.png" alt="Direction"/></a>' . $pin['area'] . '</b><br>' . preg_replace('!\s+!', ' ', $pin['address']) . '<br>' . join(', ', array_map('ucfirst', explode(',', $pin['services']))) . '<br>' . $pin['latitude'] . ', ' . $pin['longitude'];
+
             $marker['icon'] = 'assets/images/icon-fridge.png';
             $this->googlemaps->add_marker($marker);
         }
         $data['map'] = $this->googlemaps->create_map();
 
         $data['countries'] = $this->Home_model->getFridgeCountries();
-        
+
+        $this->load->view('header', $data);
         $this->load->view('index', $data);
+        $this->load->view('footer');
     }
-	
-	public function about() {
-        $this->load->view('about');
-	}
-	public function resource() {
-        $this->load->view('resource');
-	}
-	public function press_release() {
-        $this->load->view('press_release');
-	}
-	public function faqs() {
-        $this->load->view('faqs');
-	}
-	public function contact() {
-        $this->load->view('contact');
-	}
-	public function privacy_policy() {
-        $this->load->view('privacy_policy');
-	}
 
     public function get_direction() {
 
@@ -106,7 +89,7 @@ class Home extends CI_Controller {
         $config['directionsDivID'] = 'directionsDiv';
         $this->googlemaps->initialize($config);
         $data['map'] = $this->googlemaps->create_map();
-        
+
         $this->load->view('get_direction', $data);
     }
 
@@ -122,7 +105,7 @@ class Home extends CI_Controller {
         $data['countries'] = $this->Home_model->getFridgeCountries();
 
         $config['center'] = $pins[0]['latitude'] . ',' . $pins[0]['longitude'];
-        $config['zoom'] = '12';
+        $config['zoom'] = 'auto';
         $config['scrollwheel'] = FALSE;
         $config['sensor'] = FALSE;
         $this->googlemaps->initialize($config);
@@ -130,13 +113,15 @@ class Home extends CI_Controller {
         foreach ($pins as $pin) {
             $marker = array();
             $marker['position'] = $pin['latitude'] . ',' . $pin['longitude'];
-            $marker['infowindow_content'] = '<b><a href="'. base_url().'get_direction?sLat='.$this->session->userdata('latitude').'&sLng='.$this->session->userdata('longitude').'&eLat='.$pin['latitude'].'&eLng='.$pin['longitude'].'" class="Direction" target="_blank"><img src="assets/images/sign-direction.png" alt="Direction"/></a>'.$pin['area'].'</b><br>'.ucfirst(str_replace('null', '', $pin['address'])).'<br>'.join(', ', array_map('ucfirst', explode(',', $pin['services']))) . '<br>' . $pin['latitude'] . ', ' . $pin['longitude'];
+            $marker['infowindow_content'] = '<b><a href="' . base_url() . 'get_direction?sLat=' . $this->session->userdata('latitude') . '&sLng=' . $this->session->userdata('longitude') . '&eLat=' . $pin['latitude'] . '&eLng=' . $pin['longitude'] . '" class="Direction" target="_blank"><img src="assets/images/sign-direction.png" alt="Direction"/></a>' . $pin['area'] . '</b><br>' . preg_replace('!\s+!', ' ', $pin['address']) . '<br>' . join(', ', array_map('ucfirst', explode(',', $pin['services']))) . '<br>' . $pin['latitude'] . ', ' . $pin['longitude'];
             $marker['icon'] = 'assets/images/icon-fridge.png';
             $this->googlemaps->add_marker($marker);
         }
         $data['map'] = $this->googlemaps->create_map();
 
+        $this->load->view('header', $data);
         $this->load->view('index', $data);
+        $this->load->view('footer');
     }
 
     function image_download($image) {
@@ -209,6 +194,61 @@ class Home extends CI_Controller {
 
         $this->load->view('admin_header');
         $this->load->view('admin_footer');
+    }
+
+    public function about() {
+        $this->load->view('header');
+        $this->load->view('about');
+        $this->load->view('footer');
+    }
+
+    public function resource() {
+        $this->load->view('header');
+        $this->load->view('resource');
+        $this->load->view('footer');
+    }
+
+    public function press_release() {
+        $this->load->view('header');
+        $this->load->view('press_release');
+        $this->load->view('footer');
+    }
+
+    public function faqs() {
+        $this->load->view('header');
+        $this->load->view('faqs');
+        $this->load->view('footer');
+    }
+
+    public function contact() {
+        $this->load->view('header');
+        $this->load->view('contact');
+        $this->load->view('footer');
+    }
+
+    public function privacy_policy() {
+        $this->load->view('header');
+        $this->load->view('privacy_policy');
+        $this->load->view('footer');
+    }
+    
+    function send_email() {
+
+        $headers = 'From: '. $_POST['email'] . "\r\n" .
+                'Reply-To: '. $_POST['email']."\r\n" .
+                'Content-type: text/html; charset=iso-8859-1' . "\r\n" .
+                'X-Mailer: PHP/' . phpversion();
+        
+        $body = '<b>Name: </b>'.$_POST['username'];
+        $body .= '<br/><b>Phone: </b>'.$_POST['phone'];
+        $body .= '<br/><b>Message: </b>'.wordwrap($_POST['message']);
+
+        if(mail('hafizmabuzar@synergistics.pk', 'Communtiy Fridge Contact - '.$_POST['subject'], $body, $headers)){
+            die('1');
+        }
+        else{
+            die('Email could not be sent');
+        }
     }
 
 }
