@@ -363,10 +363,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @media screen and (-webkit-min-device-pixel-ratio:0) {
-    /* Safari and Chrome, if Chrome rule needed 
-    .someClass {
-     	color:#c00;
-    }*/
+    /* Safari and Chrome, if Chrome rule needed */
+     #contact .LeftBox .inputbox.message {
+     	padding-bottom: 3px;
+    }
     /* Safari 5+ ONLY */
     ::i-block-chrome, #contact .LeftBox .inputbox.message {
      padding-bottom: 3px;
