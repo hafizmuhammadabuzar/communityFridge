@@ -183,62 +183,63 @@
                         </div>
                         <div class="topnav" id="myTopnav">
                             <ul>
-                                <li class="active"><a href="<?php echo base_url(); ?>">Home</a></li>
+                                <li><a href="<?php echo base_url(); ?>">Home</a></li>
                                 <li><a href="#">About us</a></li>
                                 <li><a href="#">Resource</a></li>
                                 <li><a href="#">Press Release</a></li>
                                 <li><a href="#">Partner</a></li>
                                 <li><a href="#">FAQ's</a></li>
-                                <li><a href="#">Contact Us</a></li>
+                                <li class="active"><a href="#">Contact Us</a></li>
                                 <li class="icon"><a href="javascript:void(0);" onclick="myFunction()">&#9776;</a></li>
                             </ul>
                         </div>
                     </div>
-                </div>  
-                <div class="map">
-                    <?php echo $map['html']; ?>
-                </div>
-                <div class="search-area">
-                    <div class="holder">
-                        <form action="<?php echo base_url() . 'search'; ?>" method="post">
-                            <div class="input-wrap">
-                                <select id="country" name="country">
-                                    <option selected>Country</option>
-                                    <?php foreach ($countries as $cnt): ?>
-                                        <option value="<?php echo $cnt['country']; ?>"><?php echo $cnt['country']; ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                            <div class="input-wrap">
-                                <select id="city" name="city" disabled="disabled">
-                                    <option selected>City / Area</option>
-                                </select>
-                            </div>
-                            <input type="submit" value="Search" class="btn-submit">
-                        </form>
-                    </div>
                 </div>
             </header>
             <div id="main">
-                <section id="app">
+                <section id="contact">
                     <div class="holder">
-                        <h3>Download Our Mobile Apps</h3>
-                        <h4>To Keep track of every thing which happens around you</h4>
-                        <ul>
-                            <li>
-                                <a href="https://play.google.com/store/apps/details?id=com.synergistics.ramadanfridge" target="_blank"><img src="<?php echo base_url(); ?>assets/images/playstore.png" alt="googple play link"></a>
-                            </li>
-                            <li>
-                                <a href="https://appsto.re/pk/pX2Sdb.i" target="_blank"><img src="<?php echo base_url(); ?>assets/images/appstore.png" alt="Apple store link"></a>
-                            </li>
-                        </ul>
-                        <img src="<?php echo base_url(); ?>assets/images/img7.png" alt="mobile image" class="mobile-img">
-                    </div>
-                </section>
-                <section id="Disclaimer">
-                	<div class="holder">
-                    	<p><strong>DISCLAIMER:</strong> We are not responsible for the food, drinks or anything placed in the fridge. We also take no responsibility of the fridge, we only provide a platform to the people to help make the community fridges much more organized and centralized.</p>
-                        <img src="<?php echo base_url(); ?>assets/images/qr-code.png" alt="QR Code">
+                    	<h2 class="section-head">Contact us</h2>
+                    	<div class="LeftBox">
+                            <div class="inputbox">
+                                 <label>Name:</label>
+                                 <input type="text" />
+                            </div>
+                            <div class="inputbox last">
+                                 <label>Phone:</label>
+                                 <input type="text" />
+                            </div>
+                            <div class="inputbox">
+                                 <label>Email:</label>
+                                 <input type="text" />
+                            </div>
+                            <div class="inputbox last">
+                                 <label>Subject:</label>
+                                 <input type="text" />
+                            </div>
+                            <div class="inputbox message">
+                                 <label>Message:</label>
+                                 <textarea cols="0" rows=""></textarea>
+                            </div>
+	                        
+                            <input type="submit" value="submit" />
+                            
+                        </div>
+                        
+                        <div class="RightBox">
+                            <div class="box">
+                                <h3>Contact Info</h3>                                
+                                <address class="address">Delaware, USA</address>
+                                <p class="email"><a href="mailto:hello@example.com">info@communityfridge.org</a></p>
+                            </div>
+                            <div class="socialLink">
+                                <h3>Social Links</h3>
+                                <a href="http://facebook.com/communityfridge/" class="facebook" target="_blank"></a>
+                                <a href="http://twitter.com/FridgeCommunity" class="twitter" target="_blank"></a>
+                                <a href="http://instagram.com/communityfridge/" class="insta" target="_blank"></a>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
                     </div>
                 </section>
             </div>
@@ -247,7 +248,7 @@
                 	<ul>
                         <li><a href="#">Privacy Policy</a></li>
                         <li><a href="#">FAQ's</a></li>
-                        <li><a href="#">Contact Us</a></li>
+                        <li class="active"><a href="#">Contact Us</a></li>
                     </ul>
                     <p class="copyright">&copy Synergistics.ae All rights reserved.</p>
                 </div>
