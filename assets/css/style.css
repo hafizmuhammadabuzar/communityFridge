@@ -73,6 +73,8 @@ h1, h2, h3, h4, h5, h6 {
 .read-more {
 	color:#8e555d;
 	text-decoration:none;
+	margin-bottom:20px;
+	display:inline-block;
 }
 .read-more:hover {
 	color:#000;
