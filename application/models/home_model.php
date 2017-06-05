@@ -87,9 +87,9 @@ class Home_model extends CI_Model {
     function getFridges($country, $area){
         
         $this->db->select('*');
-        if(empty($country) && empty($area)){
-            $this->db->where('country', $this->session->userdata('country'));
-        }
+//        if(empty($country) && empty($area)){
+//            $this->db->where('country', $this->session->userdata('country'));
+//        }
         if(!empty($country)){
             $this->db->where('country', $country);
         }
