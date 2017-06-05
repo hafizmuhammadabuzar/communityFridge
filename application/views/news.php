@@ -30,7 +30,7 @@
 
 				<div class="clear"></div>
                 
-                <p><strong><em>Ref :</em></strong><br>
+                <p><strong><em>Reference :</em></strong><br>
                 <a href="http://www.gulftoday.ae/portal/3d9c0b29-1f60-4cc5-a15f-d19de362415b.aspx" target="_blank">http://www.gulftoday.ae/portal/3d9c0b29-1f60-4cc5-a15f-d19de362415b.aspx</a></p>
 			</div>
             
@@ -69,7 +69,7 @@
 				<a href="javascript:void(0);" class="read-more">Read more</a>
 
 				<div class="clear"></div>
-                <p><strong><em>Ref :</em></strong><br>
+                <p><strong><em>Reference :</em></strong><br>
                 <a href="http://gulfnews.com/news/uae/society/aus-faculty-launches-app-to-back-ramadan-fridge-initiative-1.2037829" target="_blank">http://gulfnews.com/news/uae/society/aus-faculty-launches-app-to-back-ramadan-fridge-initiative-1.2037829</a></p>
 			</div>
         </div>
