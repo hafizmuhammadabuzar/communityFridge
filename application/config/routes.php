@@ -65,6 +65,7 @@ $route['search'] = "home/search";
 $route['download/(:any)'] = "home/image_download/$1";
 $route['get_direction'] = "home/get_direction";
 $route['about-us'] = "home/about";
+$route['news'] = "home/news";
 $route['privacy-policy'] = "home/privacy_policy";
 $route['resources'] = "home/resource";
 $route['faq'] = "home/faqs";

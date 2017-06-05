@@ -24,8 +24,8 @@
 <div id="main">
     <section id="app">
         <div class="holder">
-            <h3>Download Our Mobile Apps</h3>
-            <h4>To Keep track of every thing which happens around you</h4>
+            <h3>DOWNLOAD MOBILE APPS</h3>
+            <h4>MAPPING SHARING POINTS GLOBALLY</h4>
             <ul>
                 <li>
                     <a href="https://play.google.com/store/apps/details?id=com.synergistics.ramadanfridge" target="_blank"><img src="<?php echo base_url(); ?>assets/images/playstore.png" alt="googple play link"></a>
@@ -39,7 +39,7 @@
     </section>
     <section id="Disclaimer">
         <div class="holder">
-            <p><strong>DISCLAIMER:</strong> We are not responsible for the food, drinks or anything placed in the fridge. We also take no responsibility of the fridge, we only provide a platform to the people to help make the community fridges much more organized and centralized.</p>
+            <p><strong>DISCLAIMER:</strong> Community Fridge is not responsible for the food, drinks or any content placed in the fridge / shelf. Additionally, Community Fridge does not take any responsibility of the fridge. We only provide a platform that enables community sourced mapping. </p>
             <img src="<?php echo base_url(); ?>assets/images/qr-code.png" alt="QR Code">
         </div>
     </section>

@@ -40,6 +40,7 @@ h1, h2, h3, h4, h5, h6 {
     font-family: inherit;
     font-size: inherit;
     line-height: inherit;
+	margin-bottom:20px;
 }
 .holder {
     max-width: 1100px;
@@ -68,6 +69,13 @@ h1, h2, h3, h4, h5, h6 {
 .head-bottom {
     padding: 10px 0;
 	border-bottom:solid 2px #8e555d;
+}
+.read-more {
+	color:#8e555d;
+	text-decoration:none;
+}
+.read-more:hover {
+	color:#000;
 }
 .head-bottom .holder,
 #footer .holder,
@@ -114,6 +122,12 @@ h1, h2, h3, h4, h5, h6 {
 	flex: 0 auto;
 }
 
+.Right {
+	float:right;
+	margin-left:15px;
+	margin-bottom:15px;
+}
+
 .topnav {
   overflow: hidden;
 }
@@ -138,13 +152,14 @@ h1, h2, h3, h4, h5, h6 {
     vertical-align: middle;
 	margin-right:10px;
 	padding-right:10px;
-	border-right:dashed 1px #8e555d;
+	border-right:solid 1px #8e555d;
 	font-size:14px;
 	line-height:14px;
 }
 .topnav ul li a {
   color: #2a2a2a;
   text-decoration: none;
+  outline:none;
 }
 .topnav ul li:last-child,
 .topnav ul li:nth-last-child(2) {
@@ -579,6 +594,10 @@ h1, h2, h3, h4, h5, h6 {
 	display:inline-block;
 }
 
+.NewsBox {
+	margin-bottom:40px;
+}
+
 /*----- Responsive -----*/
 
 @media screen and (max-width: 1090px){
@@ -641,7 +660,7 @@ h1, h2, h3, h4, h5, h6 {
 		line-height:30px;
 		text-align: left;
 		border-right:none;
-		border-bottom:1px dashed #8e555d;
+		border-bottom:1px solid #8e555d;
 	}
 	
 	.topnav.responsive ul li:last-child,

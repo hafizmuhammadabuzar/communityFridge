@@ -1,6 +1,6 @@
-/*$(document).ready(function(){
+$(document).ready(function(){
     // handle links with @href started with '#' only
-    $(".main-menu").on('click', 'a[href^="#"]', function(e) {
+   /* $(".main-menu").on('click', 'a[href^="#"]', function(e) {
         // target element id
         var id = $(this).attr('href');
 
@@ -18,14 +18,13 @@
 
         // animated top scrolling
         $('body, html').animate({scrollTop: pos});
-    });
+    });*/
 
     $(".more-text").hide();
     $(".read-more").click(function(e){
         e.preventDefault();
         $(this).siblings(".more-text").toggle(200);
-        $(this).text($(this).text() == 'Read More >>' ? 'Read Less <<' : 'Read More >>');
+        $(this).text($(this).text() == 'Read less' ? 'Read more' : 'Read less')
         //$(this).text("Read Less <");
-    })
-})*/
-
+    });
+});

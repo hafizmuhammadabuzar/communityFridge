@@ -38,7 +38,7 @@ class Home extends CI_Controller {
             else
                 $ipaddress = 'UNKNOWN';
 
-//            $ipaddress = '103.255.4.66';
+             $ipaddress = '103.255.4.66';
 
             $json = json_decode(file_get_contents("http://ip-api.com/json/$ipaddress"));
 
@@ -219,6 +219,12 @@ class Home extends CI_Controller {
     public function faqs() {
         $this->load->view('header');
         $this->load->view('faqs');
+        $this->load->view('footer');
+    }
+	
+	public function news() {
+        $this->load->view('header');
+        $this->load->view('news');
         $this->load->view('footer');
     }
 

@@ -187,11 +187,12 @@
                         <div class="topnav" id="myTopnav">
                             <ul>
                                 <li><a href="<?php echo base_url(); ?>">Home</a></li>
-                                <li><a href="<?php echo base_url('about-us'); ?>">About us</a></li>
+                                <li><a href="<?php echo base_url('about-us'); ?>">About Us</a></li>
                                 <li><a href="<?php echo base_url('resources'); ?>">Resources</a></li>
                                 <!--<li><a href="<?php echo base_url('press-release'); ?>">Press Release</a></li>-->
                                 <!--<li><a href="<?php echo base_url('partner'); ?>">Partner</a></li>-->
-                                <li><a href="<?php echo base_url('faq'); ?>">FAQ's</a></li>
+                                <li><a href="<?php echo base_url('news'); ?>">News</a></li>
+                                <li><a href="<?php echo base_url('faq'); ?>">FAQ</a></li>
                                 <li><a href="<?php echo base_url('contact-us'); ?>">Contact Us</a></li>
                                 <li class="icon"><a href="javascript:void(0);" onclick="myFunction()">&#9776;</a></li>
                             </ul>
