@@ -75,4 +75,3 @@
         </div>
     </section>
 </div>
-correct word bata do.. kiya use kry gy
