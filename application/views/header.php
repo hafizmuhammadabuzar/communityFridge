@@ -186,13 +186,13 @@
                         </div>
                         <div class="topnav" id="myTopnav">
                             <ul>
-                                <li><a href="<?php echo base_url(); ?>">Home</a></li>
-                                <li><a href="<?php echo base_url('about-us'); ?>">About us</a></li>
-                                <li><a href="<?php echo base_url('resources'); ?>">Resources</a></li>
+                                <li <?php if($this->uri->segment(1) == '') echo 'class="active"'; ?>><a href="<?php echo base_url(); ?>">Home</a></li>
+                                <li <?php if($this->uri->segment(1) == 'about-us') echo 'class="active"'; ?>><a href="<?php echo base_url('about-us'); ?>">About us</a></li>
+                                <li <?php if($this->uri->segment(1) == 'resources') echo 'class="active"'; ?>><a href="<?php echo base_url('resources'); ?>">Resources</a></li>
                                 <!--<li><a href="<?php echo base_url('press-release'); ?>">Press Release</a></li>-->
                                 <!--<li><a href="<?php echo base_url('partner'); ?>">Partner</a></li>-->
-                                <li><a href="<?php echo base_url('faq'); ?>">FAQ's</a></li>
-                                <li><a href="<?php echo base_url('contact-us'); ?>">Contact Us</a></li>
+                                <li <?php if($this->uri->segment(1) == 'faq') echo 'class="active"'; ?>><a href="<?php echo base_url('faq'); ?>">FAQ's</a></li>
+                                <li <?php if($this->uri->segment(1) == 'contact-us') echo 'class="active"'; ?>><a href="<?php echo base_url('contact-us'); ?>">Contact Us</a></li>
                                 <li class="icon"><a href="javascript:void(0);" onclick="myFunction()">&#9776;</a></li>
                             </ul>
                         </div>

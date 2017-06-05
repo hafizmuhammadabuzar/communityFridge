@@ -4,7 +4,6 @@
 <meta charset="utf-8">
 <title>Support Links</title>
 </head>
-
  <script>      
       window.fbAsyncInit = function() {
         FB.init({
@@ -24,6 +23,7 @@
     </script>
 <body>
 
+<div class="holder">
 
 <h1>Support</h1>
 
@@ -37,7 +37,7 @@
     
     https://chat.whatsapp.com/DggsF1xDMP42aekZRsknUz
 </a>
-
+</div>
                         
 </body>
 </html>

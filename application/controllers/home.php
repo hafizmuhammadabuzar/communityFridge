@@ -20,7 +20,7 @@ class Home extends CI_Controller {
     }
 
     public function index() {
-
+        
         if ($this->session->userdata('latitude') == FALSE) {
             $ipaddress = '';
             if ($_SERVER['HTTP_CLIENT_IP'])
@@ -46,9 +46,14 @@ class Home extends CI_Controller {
             $this->session->set_userdata('latitude', $json->lat);
             $this->session->set_userdata('longitude', $json->lon);
         }
-
+        
+        if ($this->session->userdata('latitude') == '') {
+            $this->session->set_userdata('latitude', '25.2048');
+            $this->session->set_userdata('longitude', '55.2708');
+        }
+        
         $pins = $this->Home_model->getFridgesByRadius($this->session->userdata('latitude'), $this->session->userdata('longitude'));
-
+        
         $config['center'] = $this->session->userdata('latitude') . ',' . $this->session->userdata('longitude');
         $config['zoom'] = '14';
         $config['scrollwheel'] = FALSE;
@@ -65,7 +70,6 @@ class Home extends CI_Controller {
 
             $marker = array();
             $marker['position'] = $pin['latitude'] . ',' . $pin['longitude'];
-
             $marker['infowindow_content'] = '<b><a href="' . base_url() . 'get_direction?sLat=' . $this->session->userdata('latitude') . '&sLng=' . $this->session->userdata('longitude') . '&eLat=' . $pin['latitude'] . '&eLng=' . $pin['longitude'] . '" class="Direction" target="_blank"><img src="assets/images/sign-direction.png" alt="Direction"/></a>' . $pin['area'] . '</b><br>' . preg_replace('!\s+!', ' ', $pin['address']) . '<br>' . join(', ', array_map('ucfirst', explode(',', $pin['services']))) . '<br>' . $pin['latitude'] . ', ' . $pin['longitude'];
 
             $marker['icon'] = 'assets/images/icon-fridge.png';
@@ -104,10 +108,11 @@ class Home extends CI_Controller {
     function search() {
 
         $pins = $this->Home_model->getFridges($_POST['country'], $_POST['city']);
+        $zoom = (count($pins) > 1) ? 'auto' : '14';
         $data['countries'] = $this->Home_model->getFridgeCountries();
 
         $config['center'] = $pins[0]['latitude'] . ',' . $pins[0]['longitude'];
-        $config['zoom'] = 'auto';
+        $config['zoom'] = $zoom;
         $config['scrollwheel'] = FALSE;
         $config['sensor'] = FALSE;
         $this->googlemaps->initialize($config);
