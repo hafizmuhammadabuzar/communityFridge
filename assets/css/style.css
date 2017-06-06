@@ -50,6 +50,9 @@ h1, h2, h3, h4, h5, h6 {
 #header {
     overflow: hidden;
 }
+.MobileBanner {
+	display:none;
+}
 .topbar {
     overflow: hidden;
     background:#8e555d;
@@ -632,6 +635,13 @@ h1, h2, h3, h4, h5, h6 {
 	.topbar {
 		font-size: 15px;
 		text-align: center;
+	}
+	
+	.MobileBanner {
+		display:block;
+		position:fixed;
+		bottom:20px;
+		z-index:1;
 	}
 	
 	.head-bottom .logo {
