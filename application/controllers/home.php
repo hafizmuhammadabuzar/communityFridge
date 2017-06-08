@@ -250,12 +250,6 @@ class Home extends CI_Controller {
         $this->load->view('privacy_policy');
         $this->load->view('footer');
     }
-
-    public function support() {
-        $this->load->view('header');
-        $this->load->view('support');
-        $this->load->view('footer');
-    }
     
     function send_email() {
 
