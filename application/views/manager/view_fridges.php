@@ -10,7 +10,8 @@
             </div>
             <!-- /.col-lg-12 -->
         </div>
-        <?php echo $this->session->userdata('msg');
+        <?php
+        echo $this->session->userdata('msg');
         $this->session->unset_userdata('msg');
         ?>
 
@@ -50,12 +51,13 @@
                                             <td><?php echo $item['email']; ?></td>
                                             <td>
                                                 <a href="javascript:" class="f-status" data-value="<?php echo bin2hex($item['item_id']); ?>">
-                                                <?php if ($item['is_active'] == 0) {
-                                                    echo 'Inactive';
-                                                }else{
-                                                    echo 'Active';
-                                                }
-                                                ?>
+                                                    <?php
+                                                    if ($item['is_active'] == 0) {
+                                                        echo 'Inactive';
+                                                    } else {
+                                                        echo 'Active';
+                                                    }
+                                                    ?>
                                                 </a>
                                             </td>
                                             <td>
@@ -76,10 +78,10 @@
                         <!-- /.panel-body -->
                     </div>
                     <div style="text-align: right;">
-                        <?php echo $links; ?>
+<?php echo $links; ?>
                     </div>
-                        
-                    
+
+
 
                 </div>
                 <!-- /#page-wrapper -->
@@ -103,10 +105,10 @@
                                     if ($.trim(status) == 'Active') {
                                         alert('Successfully Inactive');
                                         $(newStatus).text('Inactive');
-                                    }else{
+                                    } else {
                                         alert('Successfully Active');
                                         $(newStatus).text('Active');
-                                    }   
+                                    }
                                 }
                             }
                         });

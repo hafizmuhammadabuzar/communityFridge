@@ -841,6 +841,7 @@ class Api extends CI_Controller {
     public function report() {
 
         $this->form_validation->set_rules('fridgeId', 'Fridge Id', 'required');
+        $this->form_validation->set_rules('userId', 'User Id', 'required');
         $this->form_validation->set_rules('type', 'Type', 'required');
         $this->form_validation->set_rules('message', 'Message', 'required');
 
@@ -857,16 +858,28 @@ class Api extends CI_Controller {
             $type = $this->input->post('type');
             $message = $this->input->post('message');
             $fridge_id = $this->input->post('fridgeId');
+            $user_email = $this->input->post('userId');
 
             $check = $this->Home_model->getUserByFridgeId($fridge_id);
             if ($check) {
+                    $user = $this->Home_model->checkRecord('users', ['email' => $user_email]);
+                    
                 if (strpos($type, 'eport') !== false) {
-                    $body = "Dear User,<br/><br/>Your listed fridge is &#8220;$message&#8221;. Kindly check.<br/><br/><br/>
+                    $body = "Dear User,<br/><br/>Your listed fridge is &#8220;$message&#8221;. Kindly check.<br/><br/>
+                            Sent by: <br/>
+                            Name : $user->username<br/>
+                            Phone : $user->mobile<br/>
+                            Email : $user->email
+                            <br/><br/><br/>
                             Regards,<br/>Community Fridge";
                 }
                 else{
                     $body = "Dear User,<br/><br/>Someone wrote regarding your fridge.<br/>
-                            &#8220;$message&#8221;<br/><br/><br/>
+                            &#8220;$message&#8221;<br/><br/>
+                            Sent by: <br/>
+                            Name : $user->username<br/>
+                            Phone : $user->mobile<br/>
+                            Email : $user->email<br/><br/>
                             Regards,<br/>Community Fridge";
                 }
                 

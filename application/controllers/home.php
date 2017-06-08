@@ -20,8 +20,10 @@ class Home extends CI_Controller {
     }
 
     public function index() {
+                        
+        ini_set('max_execution_time', 300);
         
-        if ($this->session->userdata('latitude') == FALSE) {
+//        if ($this->session->userdata('latitude') == FALSE) {
             $ipaddress = '';
             if ($_SERVER['HTTP_CLIENT_IP'])
                 $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
@@ -37,15 +39,21 @@ class Home extends CI_Controller {
                 $ipaddress = $_SERVER['REMOTE_ADDR'];
             else
                 $ipaddress = 'UNKNOWN';
-
-             $ipaddress = '103.255.4.66';
-
-            $json = json_decode(file_get_contents("http://ip-api.com/json/$ipaddress"));
-
-            $this->session->set_userdata('country', $json->country);
-            $this->session->set_userdata('latitude', $json->lat);
-            $this->session->set_userdata('longitude', $json->lon);
-        }
+            
+//             $ipaddress = '103.255.4.81';
+            
+            if ($ipaddress == 'UNKNOWN') {
+                $this->session->set_userdata('latitude', '25.2048');
+                $this->session->set_userdata('longitude', '55.2708');
+            }
+            else{
+                $json = json_decode(file_get_contents("http://ip-api.com/json/$ipaddress"));
+                                
+                $this->session->set_userdata('country', $json->country);
+                $this->session->set_userdata('latitude', $json->lat);
+                $this->session->set_userdata('longitude', $json->lon);
+            }
+//        }
         
         if ($this->session->userdata('latitude') == '') {
             $this->session->set_userdata('latitude', '25.2048');
