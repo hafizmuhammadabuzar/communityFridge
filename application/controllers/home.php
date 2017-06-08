@@ -220,6 +220,12 @@ class Home extends CI_Controller {
         $this->load->view('press_release');
         $this->load->view('footer');
     }
+	
+	public function host_fridge() {
+        $this->load->view('header');
+        $this->load->view('host_fridge');
+        $this->load->view('footer');
+    }
 
     public function faqs() {
         $this->load->view('header');
