@@ -52,7 +52,27 @@ h1, h2, h3, h4, h5, h6 {
 }
 .MobileBanner {
 	display:none;
+	position:relative;
 }
+
+.MobileBanner a {
+	display:inline-block;
+}
+
+.MobileBanner .close {
+	background:url(../images/cancel.png) no-repeat left top;
+	background-size: 100% 100%;
+	width:30px;
+	height:30px;
+	display:inline-block;
+	position:absolute;
+	top:-20px;
+	right:0;
+	z-index:2;
+	content:"";
+	cursor:pointer;
+}
+
 .topbar {
     overflow: hidden;
     background:#8e555d;
@@ -68,6 +88,7 @@ h1, h2, h3, h4, h5, h6 {
 	width:auto !important;
 	vertical-align:top;
 	margin:0 3px;
+	text-decoration:none;
 }
 .head-bottom {
     padding: 10px 0;
@@ -773,5 +794,11 @@ h1, h2, h3, h4, h5, h6 {
 	#contact .LeftBox .inputbox.message {
 		width:100%;
 		margin-right:0;
+	}
+	
+	.MobileBanner .close {
+		width:25px;
+		height:25px;
+		top:-17px;
 	}
 }

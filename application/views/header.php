@@ -64,7 +64,17 @@
                         <a href="https://chat.whatsapp.com/DggsF1xDMP42aekZRsknUz" target="_blank"><img src="<?php echo base_url(); ?>assets/images/support-whatap.png" alt="Whatapp Support"></a>
                     </div>
                 </div>
-                <a class="MobileBanner" href="http://sylink.co/cf" target="_blank"><img src="<?php echo base_url(); ?>assets/images/mobilebanner.jpg" alt="Mobile Banner"></a>
+                <script>
+					$(document).ready(function(){
+						$(".close").click(function(){
+							$(".MobileBanner").hide();
+						});
+					});
+				</script>
+                <div class="MobileBanner">
+                	<span class="close"></span>
+	                <a href="http://sylink.co/cf" target="_blank"><img src="<?php echo base_url(); ?>assets/images/mobilebanner.jpg" alt="Mobile Banner"></a>
+                </div>
                 <div class="head-bottom">
                     <div class="holder">
                         <div class="logo">
