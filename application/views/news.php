@@ -29,6 +29,9 @@
 				<a href="javascript:void(0);" class="read-more">Read more</a>
 
 				<div class="clear"></div>
+                
+                <p><strong><em>Source :</em></strong><br>
+                <a href="http://www.gulftoday.ae/portal/3d9c0b29-1f60-4cc5-a15f-d19de362415b.aspx" target="_blank">http://www.gulftoday.ae/portal/3d9c0b29-1f60-4cc5-a15f-d19de362415b.aspx</a></p>
 			</div>
             
             <div class="NewsBox">
@@ -43,7 +46,6 @@
 <p>Ali Khawaja, Instructor in MIS at the university’s School of Business Administration (SBA), and Founder of the app said his research, which led him to accumulate a database of community fridges in over 15 countries across the world, showed a number of problems related to the maintenance of the fridges.</p>
 
 <p>Describing it as “a Global Database of Sharing,” Khawaja said the Community Fridge app provides a very simple, clean, and easy to use platform that can be operated by anyone around the world, whether they are an individual, an organisation, or a group of volunteers such as the Ramadan Sharing Fridge Initiative in Dubai.</p>
-
 
                 <div class="more-text">
                     <p>“The app will not only help those that are in need, but will also aid those individuals that are interested in stocking the fridges,” he said.</p>
@@ -67,6 +69,8 @@
 				<a href="javascript:void(0);" class="read-more">Read more</a>
 
 				<div class="clear"></div>
+                <p><strong><em>Source :</em></strong><br>
+                <a href="http://gulfnews.com/news/uae/society/aus-faculty-launches-app-to-back-ramadan-fridge-initiative-1.2037829" target="_blank">http://gulfnews.com/news/uae/society/aus-faculty-launches-app-to-back-ramadan-fridge-initiative-1.2037829</a></p>
 			</div>
         </div>
     </section>

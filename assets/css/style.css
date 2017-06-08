@@ -50,6 +50,9 @@ h1, h2, h3, h4, h5, h6 {
 #header {
     overflow: hidden;
 }
+.MobileBanner {
+	display:none;
+}
 .topbar {
     overflow: hidden;
     background:#8e555d;
@@ -73,6 +76,8 @@ h1, h2, h3, h4, h5, h6 {
 .read-more {
 	color:#8e555d;
 	text-decoration:none;
+	margin-bottom:20px;
+	display:inline-block;
 }
 .read-more:hover {
 	color:#000;
@@ -630,6 +635,13 @@ h1, h2, h3, h4, h5, h6 {
 	.topbar {
 		font-size: 15px;
 		text-align: center;
+	}
+	
+	.MobileBanner {
+		display:block;
+		position:fixed;
+		bottom:0px;
+		z-index:1;
 	}
 	
 	.head-bottom .logo {

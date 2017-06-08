@@ -64,6 +64,7 @@
                         <a href="https://chat.whatsapp.com/DggsF1xDMP42aekZRsknUz" target="_blank"><img src="<?php echo base_url(); ?>assets/images/support-whatap.png" alt="Whatapp Support"></a>
                     </div>
                 </div>
+                <a class="MobileBanner" href="http://sylink.co/cf" target="_blank"><img src="<?php echo base_url(); ?>assets/images/mobilebanner.jpg" alt="Mobile Banner"></a>
                 <div class="head-bottom">
                     <div class="holder">
                         <div class="logo">
@@ -192,7 +193,8 @@
                                 <!--<li><a href="<?php echo base_url('press-release'); ?>">Press Release</a></li>-->
                                 <!--<li><a href="<?php echo base_url('partner'); ?>">Partner</a></li>-->
                                 <li <?php if($this->uri->segment(1) == 'news') echo 'class="active"'; ?>><a href="<?php echo base_url('news'); ?>">News</a></li>
-                                <li <?php if($this->uri->segment(1) == 'faq') echo 'class="active"'; ?>><a href="<?php echo base_url('faq'); ?>">FAQ's</a></li>
+                                <li <?php if($this->uri->segment(1) == 'host-fridge') echo 'class="active"'; ?>><a href="<?php echo base_url('host-fridge'); ?>">Host Fridge</a></li>
+                                <li <?php if($this->uri->segment(1) == 'faq') echo 'class="active"'; ?>><a href="<?php echo base_url('faq'); ?>">FAQ</a></li>
                                 <li <?php if($this->uri->segment(1) == 'contact-us') echo 'class="active"'; ?>><a href="<?php echo base_url('contact-us'); ?>">Contact Us</a></li>
                                 <li class="icon"><a href="javascript:void(0);" onclick="myFunction()">&#9776;</a></li>
                             </ul>

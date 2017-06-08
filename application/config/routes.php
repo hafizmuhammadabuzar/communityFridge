@@ -72,7 +72,7 @@ $route['faq'] = "home/faqs";
 $route['contact-us'] = "home/contact";
 $route['contact-form'] = "home/send_email";
 $route['press-release'] = "home/press_release";
-$route['support'] = "home/support";
+$route['host-fridge'] = "home/host_fridge";
 
 //Admin
 $route['dashboard'] = "admin/dashboard";

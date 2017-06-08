@@ -228,6 +228,12 @@ class Home extends CI_Controller {
         $this->load->view('press_release');
         $this->load->view('footer');
     }
+	
+	public function host_fridge() {
+        $this->load->view('header');
+        $this->load->view('host_fridge');
+        $this->load->view('footer');
+    }
 
     public function faqs() {
         $this->load->view('header');
@@ -250,12 +256,6 @@ class Home extends CI_Controller {
     public function privacy_policy() {
         $this->load->view('header');
         $this->load->view('privacy_policy');
-        $this->load->view('footer');
-    }
-
-    public function support() {
-        $this->load->view('header');
-        $this->load->view('support');
         $this->load->view('footer');
     }
     
