@@ -66,6 +66,10 @@ class Admin extends CI_Controller {
 
     public function dashboard() {
         $this->login_check();
+        
+        $result['total'] = $this->Admin_model->getAdminCounts();
+        
+//        echo '<pre>'; print_r($result); die;
 
         $this->load->view('admin/header');
         $this->load->view('admin/dashboard');

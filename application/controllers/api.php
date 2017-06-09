@@ -27,6 +27,7 @@ class Api extends CI_Controller {
         $password = trim($this->input->get_post('password'));
         $account_type = trim($this->input->get_post('accountType'));
         $token = $this->input->get_post('deviceToken');
+        $status = $account_type == 'facebook' ? '1' : '0';
 
         if (empty($username) || empty($email) || empty($password)) {
             $result['status'] = error;
@@ -35,11 +36,11 @@ class Api extends CI_Controller {
             if ($account_type == 'facebook') {
                 $check_fb = $this->Home_model->checkRecord('users', ['email' => $email]);
                 if ($check_fb) {
-                    if ($res->status == 0) {
-                        $result['status'] = 'pending';
+                    if ($check_fb->status == 0) {
+                        $result['status'] = error;
                         $result['msg'] = 'Email already exists, Please verify your account';
                     }
-                    if ($res->status == 2) {
+                    else if ($check_fb->status == 2) {
                         $result['status'] = error;
                         $result['msg'] = 'Inactive account, Please contact with Administrator';
                     }
@@ -76,6 +77,7 @@ class Api extends CI_Controller {
                 'mobile' => $this->input->get_post('mobile'),
                 'remember_token' => $enc_token,
                 'account_type' => $account_type,
+                'status' => $status,
                 'created_at' => date('Y-m-d H:i:s')
             );
 
@@ -312,14 +314,15 @@ class Api extends CI_Controller {
             $result['msg'] = 'Successfully logged out';
         } else {
             $res = $this->Home_model->updateRecord('tokens', ['token' => "$token"], ['user_email' => '']);
+            
+            $result['status'] = success;
+            $result['msg'] = 'Successfully logged out';
 
-            if ($res > 0) {
-                $result['status'] = success;
-                $result['msg'] = 'Successfully logged out';
-            } else {
-                $result['status'] = error;
-                $result['msg'] = 'Some error occurred';
-            }
+//            if ($res > 0) {
+//            } else {
+//                $result['status'] = error;
+//                $result['msg'] = 'Some error occurred';
+//            }
         }
 
         header('Content-Type: application/json');
@@ -521,6 +524,23 @@ class Api extends CI_Controller {
 
             $check = $this->Home_model->checkRecord('users', array('email' => $user_email));
             if ($check) {
+                if ($check->status == 0) {
+                    $result['status'] = error;
+                    $result['msg'] = 'Verification pending, Please verify your account';
+                    
+                    header('Content-Type: application/json');
+                    echo json_encode($result);
+                    exit;
+                }
+                else if ($check->status == 2) {
+                    $result['status'] = error;
+                    $result['msg'] = 'Inactive account, Please contact with Administrator';
+                    
+                    header('Content-Type: application/json');
+                    echo json_encode($result);
+                    exit;
+                }
+                
                 $lat = $this->input->post('lat');
                 $lng = $this->input->post('lng');
                 $country = json_decode(file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lng&sensor=true"));
@@ -841,6 +861,7 @@ class Api extends CI_Controller {
     public function report() {
 
         $this->form_validation->set_rules('fridgeId', 'Fridge Id', 'required');
+        $this->form_validation->set_rules('userId', 'User Id', 'required');
         $this->form_validation->set_rules('type', 'Type', 'required');
         $this->form_validation->set_rules('message', 'Message', 'required');
 
@@ -857,16 +878,28 @@ class Api extends CI_Controller {
             $type = $this->input->post('type');
             $message = $this->input->post('message');
             $fridge_id = $this->input->post('fridgeId');
+            $user_email = $this->input->post('userId');
 
             $check = $this->Home_model->getUserByFridgeId($fridge_id);
             if ($check) {
+                    $user = $this->Home_model->checkRecord('users', ['email' => $user_email]);
+                    
                 if (strpos($type, 'eport') !== false) {
-                    $body = "Dear User,<br/><br/>Your listed fridge is &#8220;$message&#8221;. Kindly check.<br/><br/><br/>
+                    $body = "Dear User,<br/><br/>Your listed fridge is &#8220;$message&#8221;. Kindly check.<br/><br/>
+                            Sent by: <br/>
+                            Name : $user->username<br/>
+                            Phone : $user->mobile<br/>
+                            Email : $user->email
+                            <br/><br/><br/>
                             Regards,<br/>Community Fridge";
                 }
                 else{
                     $body = "Dear User,<br/><br/>Someone wrote regarding your fridge.<br/>
-                            &#8220;$message&#8221;<br/><br/><br/>
+                            &#8220;$message&#8221;<br/><br/>
+                            Sent by: <br/>
+                            Name : $user->username<br/>
+                            Phone : $user->mobile<br/>
+                            Email : $user->email<br/><br/>
                             Regards,<br/>Community Fridge";
                 }
                 

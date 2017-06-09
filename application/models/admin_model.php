@@ -13,6 +13,38 @@ class Admin_model extends CI_Model {
         return $query->row();      
     }
     
+    function getAdminCounts(){
+        
+        $query = $this->db->query('SELECT 
+                        (SELECT COUNT(*) FROM users) as users,
+                        (SELECT COUNT(*) FROM items) as fridges,
+                        (SELECT COUNT(*) FROM managers WHERE is_area_manager = 1) as amanagers, 
+                        (SELECT COUNT(*) FROM managers WHERE is_area_manager = 0) as zmanagers
+                    ');
+        
+        return $query->row();
+    }
+    
+    function getAreaManagerCounts(){
+        
+        $query = $this->db->query('SELECT 
+                        (SELECT COUNT(*) FROM items) as fridges,
+                        (SELECT COUNT(*) FROM managers WHERE is_area_manager = 0) as zmanagers
+                    ');
+        
+        return $query->row();
+    }
+    
+    function getZoneManagerCounts(){
+        
+        $query = $this->db->query('SELECT 
+                        (SELECT COUNT(*) FROM items) as fridges,
+                    ');
+        
+        return $query->row();
+    }
+        
+    
     function getAllUsers($limit = '', $sort = ''){
         
 //        $this->db->where('status', 0);

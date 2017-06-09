@@ -21,7 +21,6 @@
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
-                <form action="<?php echo base_url('admin/save_fridge_manager'); ?>" method="post">
                 
                 <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
                     <div class="row">
@@ -84,9 +83,7 @@
                         
                 </div>
                 <!-- /#page-wrapper -->
-                <button type="submit" class="btn btn-default" name="add">Submit</button>
 
-                </form>
             </div><!-- /#wrapper -->
 
             <script type="text/javascript">
