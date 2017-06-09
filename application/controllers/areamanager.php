@@ -69,10 +69,11 @@ class AreaManager extends CI_Controller {
     public function dashboard() {
         $this->login_check();
         
-        $result['total'] = $this->Admin_model->getAreaManagerCounts();
-
+        $polygon = $this->Admin_model->getPolygon();
+        $result['total'] = $this->Admin_model->getAreaManagerCounts($polygon->polygon);
+        
         $this->load->view('areamanager/header');
-        $this->load->view('areamanager/dashboard');
+        $this->load->view('areamanager/dashboard', $result);
         $this->load->view('areamanager/footer');
     }
     

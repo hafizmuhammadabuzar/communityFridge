@@ -71,7 +71,7 @@ class Manager extends CI_Controller {
         $result['total'] = $this->Admin_model->getZoneManagerCounts();
 
         $this->load->view('manager/header');
-        $this->load->view('manager/dashboard');
+        $this->load->view('manager/dashboard', $result);
         $this->load->view('manager/footer');
     }
 

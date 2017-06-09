@@ -13,7 +13,7 @@
                     	<div class="BoderBox">
                             <h4>Fridge</h4>
                             <img src="<?php echo base_url(); ?>assets/dashboard/dist/images/fridge.png" class="img-responsive" alt="Fridge" />
-						<p>001</p>
+						<p><?php echo $total->fridges; ?></p>
 						</div>
                     </div>
                 </div>

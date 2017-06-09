@@ -25,12 +25,16 @@ class Admin_model extends CI_Model {
         return $query->row();
     }
     
-    function getAreaManagerCounts(){
+    function getAreaManagerCounts($polygon){
         
-        $query = $this->db->query('SELECT 
-                        (SELECT COUNT(*) FROM items) as fridges,
+//        $this->db->where('manager_id', $this->session->userdata('manager_id'));
+//        }
+//        $this->db->where("Intersects(point, GeomFromText('POLYGON(($polygon))'))");
+        
+        $query = $this->db->query("SELECT 
+                        (SELECT COUNT(*) FROM items where Intersects(point, GeomFromText('POLYGON(($polygon))'))) as fridges,
                         (SELECT COUNT(*) FROM managers WHERE is_area_manager = 0) as zmanagers
-                    ');
+                    ");
         
         return $query->row();
     }
@@ -38,7 +42,7 @@ class Admin_model extends CI_Model {
     function getZoneManagerCounts(){
         
         $query = $this->db->query('SELECT 
-                        (SELECT COUNT(*) FROM items) as fridges,
+                        (SELECT COUNT(*) FROM items where manager_id = '.$this->session->userdata('manager_id').') as fridges
                     ');
         
         return $query->row();

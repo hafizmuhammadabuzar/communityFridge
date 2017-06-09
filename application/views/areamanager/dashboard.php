@@ -13,14 +13,14 @@
                     	<div class="BoderBox">
                             <h4>Fridge</h4>
                             <img src="<?php echo base_url(); ?>assets/dashboard/dist/images/fridge.png" class="img-responsive" alt="Fridge" />
-						<p>001</p>
+						<p><?php echo $total->fridges; ?></p>
 						</div>
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 mobilefull">
                     	<div class="BoderBox">
                             <h4>Zone Manger</h4>
                             <img src="<?php echo base_url(); ?>assets/dashboard/dist/images/zone-manager.png" class="img-responsive" alt="Zone Manger" />
-						<p>003</p>
+						<p><?php echo $total->zmanagers; ?></p>
                         </div>
                     </div>
                 </div>
