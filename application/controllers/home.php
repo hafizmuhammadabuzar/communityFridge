@@ -47,11 +47,17 @@ class Home extends CI_Controller {
                 $this->session->set_userdata('longitude', '55.2708');
             }
             else{
-                $json = json_decode(file_get_contents("http://ip-api.com/json/$ipaddress"));
-                                
+                $json = json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=$ipaddress"));
+//                $json = json_decode(file_get_contents("http://freegeoip.net/json"));
+//                $json = json_decode(file_get_contents("http://ipinfo.io/$ip/json"));
+//                $json = json_decode(file_get_contents("http://ip-api.com/json/$ipaddress"));
+               
+//                echo $json->geoplugin_latitude;
+//                echo json_encode($json); die;
+                
                 $this->session->set_userdata('country', $json->country);
-                $this->session->set_userdata('latitude', $json->lat);
-                $this->session->set_userdata('longitude', $json->lon);
+                $this->session->set_userdata('latitude', $json->geoplugin_latitude);
+                $this->session->set_userdata('longitude', $json->geoplugin_longitude);
             }
 //        }
         
@@ -276,6 +282,25 @@ class Home extends CI_Controller {
         else{
             die('Email could not be sent');
         }
+    }
+    
+    function test(){
+        
+        $ch = curl_init();
+
+        // set URL and other appropriate options
+        curl_setopt($ch, CURLOPT_URL, "http://www.geoplugin.net/json.gp?ip=1811.176.98.233");
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+//        CURLOPT_CONNECTTIMEOUT	($ch, 2);
+
+        // grab URL and pass it to the browser
+        $res = curl_exec($ch);
+
+        // close cURL resource, and free up system resources
+        curl_close($ch);
+        
+        echo json_encode($res);
+        
     }
 
 }

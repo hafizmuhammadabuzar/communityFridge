@@ -67,6 +67,8 @@ class Manager extends CI_Controller {
 
     public function dashboard() {
         $this->login_check();
+        
+        $result['total'] = $this->Admin_model->getZoneManagerCounts();
 
         $this->load->view('manager/header');
         $this->load->view('manager/dashboard');

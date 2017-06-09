@@ -27,6 +27,7 @@ class Api extends CI_Controller {
         $password = trim($this->input->get_post('password'));
         $account_type = trim($this->input->get_post('accountType'));
         $token = $this->input->get_post('deviceToken');
+        $status = $account_type == 'facebook' ? '1' : '0';
 
         if (empty($username) || empty($email) || empty($password)) {
             $result['status'] = error;
@@ -35,11 +36,11 @@ class Api extends CI_Controller {
             if ($account_type == 'facebook') {
                 $check_fb = $this->Home_model->checkRecord('users', ['email' => $email]);
                 if ($check_fb) {
-                    if ($res->status == 0) {
-                        $result['status'] = 'pending';
+                    if ($check_fb->status == 0) {
+                        $result['status'] = error;
                         $result['msg'] = 'Email already exists, Please verify your account';
                     }
-                    if ($res->status == 2) {
+                    else if ($check_fb->status == 2) {
                         $result['status'] = error;
                         $result['msg'] = 'Inactive account, Please contact with Administrator';
                     }
@@ -76,6 +77,7 @@ class Api extends CI_Controller {
                 'mobile' => $this->input->get_post('mobile'),
                 'remember_token' => $enc_token,
                 'account_type' => $account_type,
+                'status' => $status,
                 'created_at' => date('Y-m-d H:i:s')
             );
 
@@ -312,14 +314,15 @@ class Api extends CI_Controller {
             $result['msg'] = 'Successfully logged out';
         } else {
             $res = $this->Home_model->updateRecord('tokens', ['token' => "$token"], ['user_email' => '']);
+            
+            $result['status'] = success;
+            $result['msg'] = 'Successfully logged out';
 
-            if ($res > 0) {
-                $result['status'] = success;
-                $result['msg'] = 'Successfully logged out';
-            } else {
-                $result['status'] = error;
-                $result['msg'] = 'Some error occurred';
-            }
+//            if ($res > 0) {
+//            } else {
+//                $result['status'] = error;
+//                $result['msg'] = 'Some error occurred';
+//            }
         }
 
         header('Content-Type: application/json');
@@ -521,6 +524,23 @@ class Api extends CI_Controller {
 
             $check = $this->Home_model->checkRecord('users', array('email' => $user_email));
             if ($check) {
+                if ($check->status == 0) {
+                    $result['status'] = error;
+                    $result['msg'] = 'Verification pending, Please verify your account';
+                    
+                    header('Content-Type: application/json');
+                    echo json_encode($result);
+                    exit;
+                }
+                else if ($check->status == 2) {
+                    $result['status'] = error;
+                    $result['msg'] = 'Inactive account, Please contact with Administrator';
+                    
+                    header('Content-Type: application/json');
+                    echo json_encode($result);
+                    exit;
+                }
+                
                 $lat = $this->input->post('lat');
                 $lng = $this->input->post('lng');
                 $country = json_decode(file_get_contents("http://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lng&sensor=true"));
