@@ -29,6 +29,33 @@ body {
 	background-color:#a8a8a8;
 }
 
+.BoderBox {
+	border-radius:10px;
+	padding:10px 0;
+	text-align:center;
+	font-size:24px;
+	border:solid 1px #a8a8a8;
+	margin-bottom:20px;
+}
+
+.BoderBox img {
+	display:inline-block;
+	margin-bottom:20px;
+}
+
+.BoderBox p {
+	border-top:solid 1px #a8a8a8;
+	margin-bottom:0;
+	padding-top:10px;
+}
+
+.BoderBox h4 {
+	border-bottom:solid 1px #a8a8a8;
+	margin-bottom:20px;
+	padding-bottom:10px;
+	text-transform:uppercase;
+}
+
 .areamanager .navbar.navbar-default.navbar-static-top {
     background-color: #7896ac;
 }
@@ -475,4 +502,10 @@ table.dataTable thead .sorting:after {
     border-right-width: 14px;
     border-left-width: 0;
   }
+}
+
+@media only screen and (max-width: 479px) {
+	.mobilefull {
+		width:100%;
+	}
 }
