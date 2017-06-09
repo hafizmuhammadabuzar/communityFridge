@@ -21,45 +21,46 @@ class Home extends CI_Controller {
 
     public function index() {
                         
-        ini_set('max_execution_time', 300);
+        $ipaddress = '';
+        if ($_SERVER['HTTP_CLIENT_IP'])
+            $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
+        else if ($_SERVER['HTTP_X_FORWARDED_FOR'])
+            $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        else if ($_SERVER['HTTP_X_FORWARDED'])
+            $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
+        else if ($_SERVER['HTTP_FORWARDED_FOR'])
+            $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
+        else if ($_SERVER['HTTP_FORWARDED'])
+            $ipaddress = $_SERVER['HTTP_FORWARDED'];
+        else if ($_SERVER['REMOTE_ADDR'])
+            $ipaddress = $_SERVER['REMOTE_ADDR'];
+        else
+            $ipaddress = 'UNKNOWN';
         
-//        if ($this->session->userdata('latitude') == FALSE) {
-            $ipaddress = '';
-            if ($_SERVER['HTTP_CLIENT_IP'])
-                $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
-            else if ($_SERVER['HTTP_X_FORWARDED_FOR'])
-                $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
-            else if ($_SERVER['HTTP_X_FORWARDED'])
-                $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
-            else if ($_SERVER['HTTP_FORWARDED_FOR'])
-                $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
-            else if ($_SERVER['HTTP_FORWARDED'])
-                $ipaddress = $_SERVER['HTTP_FORWARDED'];
-            else if ($_SERVER['REMOTE_ADDR'])
-                $ipaddress = $_SERVER['REMOTE_ADDR'];
-            else
-                $ipaddress = 'UNKNOWN';
-            
-//             $ipaddress = '103.255.4.81';
-            
-            if ($ipaddress == 'UNKNOWN') {
-                $this->session->set_userdata('latitude', '25.2048');
-                $this->session->set_userdata('longitude', '55.2708');
-            }
-            else{
-                $json = json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=$ipaddress"));
-//                $json = json_decode(file_get_contents("http://freegeoip.net/json"));
-//                $json = json_decode(file_get_contents("http://ipinfo.io/$ip/json"));
-//                $json = json_decode(file_get_contents("http://ip-api.com/json/$ipaddress"));
-               
-//                echo $json->geoplugin_latitude;
-//                echo json_encode($json); die;
-                
-                $this->session->set_userdata('country', $json->country);
-                $this->session->set_userdata('latitude', $json->geoplugin_latitude);
-                $this->session->set_userdata('longitude', $json->geoplugin_longitude);
-            }
-//        }
+        $ch = curl_init();
+
+        // set URL and other appropriate options
+        curl_setopt($ch, CURLOPT_URL, "http://www.geoplugin.net/json.gp?ip=$ipaddress");
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 3);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $res = curl_exec($ch);
+        curl_close($ch);
+        
+        if($res == false){
+            $this->session->set_userdata('latitude', '25.2048');
+            $this->session->set_userdata('longitude', '55.2708');
+        }
+        else{
+            $this->session->set_userdata('latitude', $json->geoplugin_latitude);
+            $this->session->set_userdata('longitude', $json->geoplugin_longitude);
+        }
+
+//            $json = json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=$ipaddress"));
+//            $json = json_decode(file_get_contents("http://freegeoip.net/json"));
+//            $json = json_decode(file_get_contents("http://ipinfo.io/$ip/json"));
+//            $json = json_decode(file_get_contents("http://ip-api.com/json/$ipaddress"));
+
         
         if ($this->session->userdata('latitude') == '') {
             $this->session->set_userdata('latitude', '25.2048');
@@ -84,7 +85,7 @@ class Home extends CI_Controller {
 
             $marker = array();
             $marker['position'] = $pin['latitude'] . ',' . $pin['longitude'];
-            $marker['infowindow_content'] = '<b><a href="' . base_url() . 'get_direction?sLat=' . $this->session->userdata('latitude') . '&sLng=' . $this->session->userdata('longitude') . '&eLat=' . $pin['latitude'] . '&eLng=' . $pin['longitude'] . '" class="Direction" target="_blank"><img src="assets/images/sign-direction.png" alt="Direction"/></a>' . $pin['area'] . '</b><br>' . preg_replace('!\s+!', ' ', $pin['address']) . '<br>' . join(', ', array_map('ucfirst', explode(',', $pin['services']))) . '<br>' . $pin['latitude'] . ', ' . $pin['longitude'];
+            $marker['infowindow_content'] = '<b><a href="' . base_url() . 'get_direction?sLat=' . $this->session->userdata('latitude') . '&sLng=' . $this->session->userdata('longitude') . '&eLat=' . $pin['latitude'] . '&eLng=' . $pin['longitude'] . '" class="Direction" target="_blank"><img src="assets/images/sign-direction.png" alt="Direction" title="Get Direction" /></a>' . $pin['area'] . '</b><br>' . preg_replace('!\s+!', ' ', $pin['address']) . '<br>' . join(', ', array_map('ucfirst', explode(',', $pin['services']))) . '<br>' . $pin['latitude'] . ', ' . $pin['longitude'];
 
             $marker['icon'] = 'assets/images/icon-fridge.png';
             $this->googlemaps->add_marker($marker);
@@ -134,7 +135,7 @@ class Home extends CI_Controller {
         foreach ($pins as $pin) {
             $marker = array();
             $marker['position'] = $pin['latitude'] . ',' . $pin['longitude'];
-            $marker['infowindow_content'] = '<b><a href="' . base_url() . 'get_direction?sLat=' . $this->session->userdata('latitude') . '&sLng=' . $this->session->userdata('longitude') . '&eLat=' . $pin['latitude'] . '&eLng=' . $pin['longitude'] . '" class="Direction" target="_blank"><img src="assets/images/sign-direction.png" alt="Direction"/></a>' . $pin['area'] . '</b><br>' . preg_replace('!\s+!', ' ', $pin['address']) . '<br>' . join(', ', array_map('ucfirst', explode(',', $pin['services']))) . '<br>' . $pin['latitude'] . ', ' . $pin['longitude'];
+            $marker['infowindow_content'] = '<b><a href="' . base_url() . 'get_direction?sLat=' . $this->session->userdata('latitude') . '&sLng=' . $this->session->userdata('longitude') . '&eLat=' . $pin['latitude'] . '&eLng=' . $pin['longitude'] . '" class="Direction" target="_blank"><img src="assets/images/sign-direction.png" alt="Direction" title="Get Direction" /></a>' . $pin['area'] . '</b><br>' . preg_replace('!\s+!', ' ', $pin['address']) . '<br>' . join(', ', array_map('ucfirst', explode(',', $pin['services']))) . '<br>' . $pin['latitude'] . ', ' . $pin['longitude'];
             $marker['icon'] = 'assets/images/icon-fridge.png';
             $this->googlemaps->add_marker($marker);
         }
@@ -289,18 +290,19 @@ class Home extends CI_Controller {
         $ch = curl_init();
 
         // set URL and other appropriate options
-        curl_setopt($ch, CURLOPT_URL, "http://www.geoplugin.net/json.gp?ip=1811.176.98.233");
+//        curl_setopt($ch, CURLOPT_URL, "http://www.geoplugin.net/json.gp?ip=181.176.98.233");
+        curl_setopt($ch, CURLOPT_URL, "http://ip-api.com/json/$ipaddress");
         curl_setopt($ch, CURLOPT_HEADER, 0);
-//        CURLOPT_CONNECTTIMEOUT	($ch, 2);
-
-        // grab URL and pass it to the browser
+        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
         $res = curl_exec($ch);
-
-        // close cURL resource, and free up system resources
         curl_close($ch);
         
-        echo json_encode($res);
+        if($res == false){
+            echo 'Time out';
+            die;
+        }
         
+        echo json_encode($res);
     }
 
 }

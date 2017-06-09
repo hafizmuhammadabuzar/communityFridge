@@ -69,8 +69,6 @@ class Admin extends CI_Controller {
         
         $result['total'] = $this->Admin_model->getAdminCounts();
         
-//        echo '<pre>'; print_r($result); die;
-
         $this->load->view('admin/header');
         $this->load->view('admin/dashboard');
         $this->load->view('admin/footer');
@@ -324,6 +322,22 @@ class Admin extends CI_Controller {
         $config['total_rows'] = $total_row;
         $config['per_page'] = $limit;
         $config['uri_segment'] = 4;
+        $config['full_tag_open'] = '<ul class="pagination">';
+        $config['full_tag_close'] = '</ul>';
+        $config['prev_link'] = '&lt;&lt; Previous';
+        $config['prev_tag_open'] = '<li class="prev">';
+        $config['prev_tag_close'] = '</li>';
+        $config['next_link'] = 'Next &gt;&gt;';
+        $config['next_tag_open'] = '<li class="next">';
+        $config['next_tag_close'] = '</li>';
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_close'] = '</li>';
+        $config['cur_tag_open'] = '<li class="active"><a href="">';
+        $config['cur_tag_close'] = '</a></li>';
+        $config['first_tag_open'] = '<li>';
+        $config['first_tag_close'] = '</li>';
+        $config['last_tag_open'] = '<li>';
+        $config['last_tag_close'] = '</li>';
 
         $this->pagination->initialize($config);
 
@@ -339,8 +353,6 @@ class Admin extends CI_Controller {
     function view_fridges() {
         $this->login_check();
 
-//        $result['managers'] = $this->Admin_model->getAllManagers();
-
         $limit = 20;
         $result['items'] = $this->Admin_model->getAllFridges($limit);
 
@@ -350,6 +362,22 @@ class Admin extends CI_Controller {
         $config['total_rows'] = $total_row;
         $config['per_page'] = $limit;
         $config['uri_segment'] = 4;
+        $config['full_tag_open'] = '<ul class="pagination">';
+        $config['full_tag_close'] = '</ul>';
+        $config['prev_link'] = '&lt;&lt; Previous';
+        $config['prev_tag_open'] = '<li class="prev">';
+        $config['prev_tag_close'] = '</li>';
+        $config['next_link'] = 'Next &gt;&gt;';
+        $config['next_tag_open'] = '<li class="next">';
+        $config['next_tag_close'] = '</li>';
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_close'] = '</li>';
+        $config['cur_tag_open'] = '<li class="active"><a href="">';
+        $config['cur_tag_close'] = '</a></li>';
+        $config['first_tag_open'] = '<li>';
+        $config['first_tag_close'] = '</li>';
+        $config['last_tag_open'] = '<li>';
+        $config['last_tag_close'] = '</li>';
 
         $this->pagination->initialize($config);
 
