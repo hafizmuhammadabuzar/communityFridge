@@ -10,6 +10,7 @@
     font-weight: normal;
     font-style: normal;
 }
+
 body {
     background: #fff;
     font: 17px/23px 'open_sansregular';
@@ -71,6 +72,46 @@ h1, h2, h3, h4, h5, h6 {
 	z-index:2;
 	content:"";
 	cursor:pointer;
+}
+
+.leftHeader:after {
+    width: 5000%;
+    content: "";
+    height: 44px;
+    -webkit-transform: skew(50deg);
+    -moz-transform: skew(50deg);
+    -o-transform: skew(50deg);
+    background: #dedede;
+    position: absolute;
+    right: -20%;
+    top: -5px;
+}
+
+.leftHeader {
+	position: relative;
+    float: left;
+    width: 100%;
+    max-width: 300px;
+    color: #000;
+	font-size:14px;
+}
+
+.leftHeader span {
+	display:inline-block;
+	margin-left:10px;
+	position:relative;
+	z-index:1;
+}
+
+.leftHeader img {
+	display:inline-block;
+	vertical-align:middle;
+	margin-right:5px;
+	max-width:30px;
+}
+
+.RightHeader {
+	float:right;
 }
 
 .topbar {
@@ -758,6 +799,26 @@ h1, h2, h3, h4, h5, h6 {
 	.vertical ul li label {
 		padding: 15px;
 		font-size:14px;
+	}
+	
+	.RightHeader,
+	.leftHeader {
+		float:none;
+		max-width:100%;
+		width:100%;
+	}
+	
+	.RightHeader {
+		margin-bottom:5px;
+	}
+	
+	.leftHeader {
+		color:#fff;
+		text-align:center;
+	}
+	
+	.leftHeader::after {
+		display:none;
 	}
 }
 
