@@ -68,8 +68,8 @@
                             <a href="https://chat.whatsapp.com/DggsF1xDMP42aekZRsknUz" target="_blank"><img src="<?php echo base_url(); ?>assets/images/support-whatap.png" alt="Whatapp Support"></a>
                         </div>
                         <div class="leftHeader">
-                        	<span><img src="<?php echo base_url(); ?>assets/images/red_pin_web.png" alt="Need fill pin" />Fridge Needs Refill</span>
-                            <span><img src="<?php echo base_url(); ?>assets/images/map_pin.png" alt="Need fill pin" />Fridge Full</span>
+                        	<span><img src="<?php echo base_url(); ?>assets/images/red_pin_web.png" alt="Fridge Needs Refill" />Fridge Needs Refill</span>
+                            <span><img src="<?php echo base_url(); ?>assets/images/map_pin.png" alt="Fridge Full" />Fridge Full</span>
                         </div>
 						<div class="clear"></div>
                     </div>
