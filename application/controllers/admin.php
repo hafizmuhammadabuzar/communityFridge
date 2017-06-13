@@ -531,6 +531,111 @@ class Admin extends CI_Controller {
             echo 'Error';
         }
     }
+    
+    
+    
+    function add_area() {
+        $this->login_check();
+
+        $this->load->view('admin/header');
+        $this->load->view('admin/add_area', $result);
+        $this->load->view('admin/footer');
+    }
+
+    function view_areas() {
+        $this->login_check();
+
+        $result['areas'] = $this->Admin_model->getAllAreas();
+
+        $this->load->view('admin/header');
+        $this->load->view('admin/view_areas', $result);
+        $this->load->view('admin/footer');
+    }
+
+    public function save_area() {
+
+        $this->form_validation->set_rules('area', 'Area Name', 'required');
+        $this->form_validation->set_rules('polygon', 'Polygon', 'required');
+
+        if ($this->form_validation->run() == FALSE) {
+
+            redirect('admin/add_area');
+        } 
+        else {
+            $area_data = array(
+                'area' => $this->input->post('area'),
+                'polygon' => $this->input->post('polygon'),
+                'is_restricted' => $this->input->post('restricted'),
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            );
+
+            $res = $this->Home_model->saveRecord('areas', $area_data);
+
+            if ($res > 0) {
+                $this->session->set_userdata('msg', "Successfully saved!");
+                redirect('admin/view_areas');
+            } else {
+                $this->session->set_userdata('msg', "Could not be saved!");
+                redirect('admin/add_area');
+            }
+        }
+    }
+
+    function edit_area($id) {
+        $this->login_check();
+
+        $id = pack("H*", $id);
+
+        $result['area'] = $this->Home_model->checkRecord('areas', array('area_id' => $id));
+        $this->load->view('admin/header');
+        $this->load->view('admin/add_area', $result);
+        $this->load->view('admin/footer');
+    }
+
+    public function update_area() {
+
+        $this->form_validation->set_rules('area', 'Area Name', 'required');
+        $this->form_validation->set_rules('polygon', 'Polygon', 'required');
+
+        if ($this->form_validation->run() == FALSE) {
+
+            redirect('admin/edit_area/' . $_POST['area_id']);
+        } else {            
+            $id = pack("H*", $_POST['area_id']);
+
+            $area_data = array(
+                'area' => $this->input->post('area'),
+                'polygon' => $this->input->post('polygon'),
+                'is_restricted' => $this->input->post('restricted'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            );
+            
+            $res = $this->Home_model->updateRecord('areas', ['area_id' => $id], $area_data);
+
+            if ($res > 0) {
+                $this->session->set_userdata('msg', "Successfully saved!");
+                redirect('admin/view_areas');
+            } else {
+                $this->session->set_userdata('msg', "Could not be saved!");
+                redirect('admin/edit_area/' . $_POST['area_id']);
+            }
+        }
+    }
+
+    function delete_area($id) {
+        $this->login_check();
+
+        $id = pack("H*", $id);
+
+        $res = $this->Home_model->deleteRecord('areas', array('area_id' => $id));
+        if ($res) {
+            $this->session->set_userdata('msg', "Successfully Deleted!");
+        } else {
+            $this->session->set_userdata('msg', "Could not be Deleted!");
+        }
+        redirect('admin/view_areas');
+    }
 
     function send_email($to, $f_name, $subject, $msg, $from = '') {
 
@@ -565,45 +670,7 @@ class Admin extends CI_Controller {
         $mail->MsgHTML($body);
         $mail->Send();
     }
-    
-    
-    // Manager Functions
-    public function manager_login() {
         
-        $result['manager'] = true;
-        
-        if(!isset($_POST['submit'])){    
-            
-            $this->load->view('admin/header');
-            $this->load->view('admin/admin_login', $result);
-            $this->load->view('admin/footer');
-        } 
-        else{
-            $this->form_validation->set_rules('email', 'Email', 'required');
-            $this->form_validation->set_rules('password', 'Password', 'required');
-
-            if ($this->form_validation->run() == FALSE) {
-                $this->load->view('admin/header');
-                $this->load->view('admin/admin_login', $result);
-                $this->load->view('admin/footer');
-            }else{
-                
-                $res = $this->Home_model->checkRecord('managers', ['email' => $_POST['email'], 'password' => $_POST['password']]);
-                if($res){
-                    $this->session->set_userdata('manager_username', $_POST['username']);
-                    redirect('manager/');
-                }
-            }
-
-            if ($_POST['password'] == 'admin') {
-                redirect('admin/dashboard');
-            } else {
-                $this->session->set_userdata('error', 'Incorrect Username or Password');
-                redirect('admin/index');
-            }
-        }
-    }
-    
     public function push_form() {
 
         $this->load->view('admin/header');

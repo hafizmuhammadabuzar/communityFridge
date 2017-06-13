@@ -38,16 +38,16 @@ class Home extends CI_Controller {
             $ipaddress = 'UNKNOWN';
         
         $ch = curl_init();
-
-        // set URL and other appropriate options
         curl_setopt($ch, CURLOPT_URL, "http://www.geoplugin.net/json.gp?ip=$ipaddress");
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_TIMEOUT, 3);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $res = curl_exec($ch);
+        $json = curl_exec($ch);
         curl_close($ch);
         
-        if($res == false){
+        $json = json_decode($json);
+        
+        if($json == false){
             $this->session->set_userdata('latitude', '25.2048');
             $this->session->set_userdata('longitude', '55.2708');
         }
@@ -87,7 +87,8 @@ class Home extends CI_Controller {
             $marker['position'] = $pin['latitude'] . ',' . $pin['longitude'];
             $marker['infowindow_content'] = '<b><a href="' . base_url() . 'get_direction?sLat=' . $this->session->userdata('latitude') . '&sLng=' . $this->session->userdata('longitude') . '&eLat=' . $pin['latitude'] . '&eLng=' . $pin['longitude'] . '" class="Direction" target="_blank"><img src="assets/images/sign-direction.png" alt="Direction" title="Get Direction" /></a>' . $pin['area'] . '</b><br>' . preg_replace('!\s+!', ' ', $pin['address']) . '<br>' . join(', ', array_map('ucfirst', explode(',', $pin['services']))) . '<br>' . $pin['latitude'] . ', ' . $pin['longitude'];
 
-            $marker['icon'] = 'assets/images/icon-fridge.png';
+            $icon = ($pin['status'] == 'Needs Refill') ? 'nr-icon.png' : 'icon-fridge.png';
+            $marker['icon'] = "assets/images/$icon";
             $this->googlemaps->add_marker($marker);
         }
         $data['map'] = $this->googlemaps->create_map();
@@ -136,7 +137,8 @@ class Home extends CI_Controller {
             $marker = array();
             $marker['position'] = $pin['latitude'] . ',' . $pin['longitude'];
             $marker['infowindow_content'] = '<b><a href="' . base_url() . 'get_direction?sLat=' . $this->session->userdata('latitude') . '&sLng=' . $this->session->userdata('longitude') . '&eLat=' . $pin['latitude'] . '&eLng=' . $pin['longitude'] . '" class="Direction" target="_blank"><img src="assets/images/sign-direction.png" alt="Direction" title="Get Direction" /></a>' . $pin['area'] . '</b><br>' . preg_replace('!\s+!', ' ', $pin['address']) . '<br>' . join(', ', array_map('ucfirst', explode(',', $pin['services']))) . '<br>' . $pin['latitude'] . ', ' . $pin['longitude'];
-            $marker['icon'] = 'assets/images/icon-fridge.png';
+            $icon = ($pin['status'] == 'Needs Refill') ? 'nr-icon.png' : 'icon-fridge.png';
+            $marker['icon'] = "assets/images/$icon";
             $this->googlemaps->add_marker($marker);
         }
         $data['map'] = $this->googlemaps->create_map();

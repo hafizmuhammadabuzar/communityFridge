@@ -68,6 +68,7 @@ class Home_model extends CI_Model {
     function getFridgeCountries(){
         
         $this->db->select('country');
+        $this->db->where('is_active' , 1);
         $this->db->group_by('country');
         $query = $this->db->get('items');
         
@@ -115,7 +116,7 @@ class Home_model extends CI_Model {
     
     function getUserByFridgeId($fridge_id){
         
-        $this->db->select('email, latitude, longitude, manager_id');
+        $this->db->select('username, email, latitude, longitude, manager_id, address, area');
         $this->db->where('item_id', $fridge_id);
         $this->db->join('users', 'users.user_id = items.user_id', 'inner');
         $query = $this->db->get('items');

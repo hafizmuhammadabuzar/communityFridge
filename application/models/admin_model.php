@@ -19,21 +19,19 @@ class Admin_model extends CI_Model {
                         (SELECT COUNT(*) FROM users) as users,
                         (SELECT COUNT(*) FROM items) as fridges,
                         (SELECT COUNT(*) FROM managers WHERE is_area_manager = 1) as amanagers, 
-                        (SELECT COUNT(*) FROM managers WHERE is_area_manager = 0) as zmanagers
+                        (SELECT COUNT(*) FROM managers as m1
+                            inner join managers as m2 on m1.super_manager = m2.manager_id
+                            WHERE m1.is_area_manager = 0) as zmanagers
                     ');
         
         return $query->row();
     }
     
     function getAreaManagerCounts($polygon){
-        
-//        $this->db->where('manager_id', $this->session->userdata('manager_id'));
-//        }
-//        $this->db->where("Intersects(point, GeomFromText('POLYGON(($polygon))'))");
-        
+                
         $query = $this->db->query("SELECT 
                         (SELECT COUNT(*) FROM items where Intersects(point, GeomFromText('POLYGON(($polygon))'))) as fridges,
-                        (SELECT COUNT(*) FROM managers WHERE is_area_manager = 0) as zmanagers
+                        (SELECT COUNT(*) FROM managers WHERE is_area_manager = 0 and super_manager = ".$this->session->userdata('areamanager_id').") as zmanagers
                     ");
         
         return $query->row();
@@ -262,6 +260,18 @@ class Admin_model extends CI_Model {
             $query = $this->db->limit($limit, $offset);
         }
         $query = $this->db->get('managers as m1');
+
+        return $query->result_array();
+    }
+    
+    function getAllAreas($where){
+
+        $this->db->select('*');
+        foreach ($where as $key => $field) {
+            $this->db->where($key, $field);
+        }
+        $this->db->order_by('area', 'ASC');
+        $query = $this->db->get('areas');
 
         return $query->result_array();
     }

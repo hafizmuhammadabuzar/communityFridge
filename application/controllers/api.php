@@ -882,17 +882,30 @@ class Api extends CI_Controller {
 
             $check = $this->Home_model->getUserByFridgeId($fridge_id);
             if ($check) {
-                    $user = $this->Home_model->checkRecord('users', ['email' => $user_email]);
-                    
-                if (strpos($type, 'eport') !== false) {
-                    $body = "Dear User,<br/><br/>Your listed fridge is &#8220;$message&#8221;. Kindly check.<br/><br/>
-                            Sent by: <br/>
+                $user = $this->Home_model->checkRecord('users', ['email' => $user_email]);
+                $zone_manager = $this->Home_model->checkRecord('managers', ['manager_id' => $check->manager_id]);
+                                    
+//                if (strpos($type, 'eport') !== false) {
+                    $body = "Dear User,<br/><br/>This email is generated from our app.<br/>
+                            The following message was written regarding your fridge.<br/><br/> &#8220;$message&#8221;<br/><br/><br/>
+                            Fridge Info:- <br/>
+                            Location : $check->address<br/><br/><br/>
+                            City : $check->area<br/><br/><br/>
+                            Fridge Manager : $check->username<br/><br/><br/>
+                            Fridge Zone Manager : $zone_manager->name<br/><br/><br/>
+                                
+                            Sent by:- <br/>
                             Name : $user->username<br/>
                             Phone : $user->mobile<br/>
                             Email : $user->email
-                            <br/><br/><br/>
-                            Regards,<br/>Community Fridge";
-                }
+                            <br/><br/>
+                            Kindly email / call sender directly
+                            <br/><br/>
+                            Regards,<br/>Community Fridge<br/><br/>";
+                    
+                    $sign = $this->load->view('signature','',true);                    
+                    $body .= $sign;
+                /*}
                 else{
                     $body = "Dear User,<br/><br/>Someone wrote regarding your fridge.<br/>
                             &#8220;$message&#8221;<br/><br/>
@@ -901,12 +914,11 @@ class Api extends CI_Controller {
                             Phone : $user->mobile<br/>
                             Email : $user->email<br/><br/>
                             Regards,<br/>Community Fridge";
-                }
+                }*/
                 
                 $this->new_send_email($check->email, '', ucwords($type), $body);
                 
                 if($check->manager_id > 0){
-                    $zone_manager = $this->Home_model->checkRecord('managers', ['manager_id' => $check->manager_id]);
                     $this->new_send_email($zone_manager->email, '', ucwords($type), $body);
                 }
                 
@@ -1018,6 +1030,34 @@ class Api extends CI_Controller {
                 $result['status'] = error;
                 $result['msg'] = 'No record found';
             }
+        }
+
+        header('Content-Type: application/json');
+        echo json_encode($result);
+        exit;
+    }
+
+    public function get_areas() {
+
+        $rest_areas = $this->Admin_model->getAllAreas(['is_restricted' => 0]);
+        $unrest_areas = $this->Admin_model->getAllAreas(['is_restricted' => 1]);
+
+        if (count($rest_areas) || count($unrest_areas)) {
+            $result['status'] = success;
+            $result['msg'] = 'Areas List';
+
+            foreach ($rest_areas as $key => $rest) {
+                $result['unrestricted'][$key]['area'] = $rest['area'];
+                $result['unrestricted'][$key]['points'] = explode(PHP_EOL, $rest['polygon']);
+            }
+
+            foreach ($unrest_areas as $key => $unrest) {
+                $result['restricted'][$key]['area'] = $unrest['area'];
+                $result['restricted'][$key]['points'] = explode(PHP_EOL, $unrest['polygon']);
+            }
+        } else {
+            $result['status'] = error;
+            $result['msg'] = 'No record found';
         }
 
         header('Content-Type: application/json');

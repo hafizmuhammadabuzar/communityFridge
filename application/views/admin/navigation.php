@@ -55,6 +55,18 @@
                     <a href="<?php echo base_url().'admin/view_users'; ?>"><i class="fa fa-users fa-fw"></i> Users</a>
                 </li>
                 <li>
+                    <a href="#"><i class="fa fa-map-o" aria-hidden="true"></i> Area<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="<?php echo base_url().'admin/add_area'; ?>" <?php if($method=='add_area') echo "class='active'" ?>>Add Area</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo base_url().'admin/view_areas'; ?>" <?php if($method=='view_areas') echo "class='active'" ?>>View Areas</a>
+                        </li>
+                    </ul>
+                    <!-- /.nav-second-level -->
+                </li>
+                <li>
                     <a href="<?php echo base_url().'push_form'; ?>" <?php if($method=='push_form') echo "class='active'" ?>><i class="fa fa-bell fa-fw"></i> Push Notification</a>
                 </li>
             </ul>
