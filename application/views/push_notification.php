@@ -81,7 +81,8 @@ $this->session->unset_userdata('error');
         <input type="text" id="title" name="title" class="form-control" required="required">
 
         <label><b>Message</b></label>
-        <textarea id="msg" name="msg" class="form-control" rows="5" required="required"></textarea>
+        <textarea id="msg" name="msg" class="form-control" rows="5" required="required" maxlength="255"></textarea>
+        <h6 class="pull-right" id="count_message"></h6>
 
         <input type="checkbox" id="send_to_android" name="send_to_android" class="form-control" checked="checked">Android
         <input type="checkbox" id="send_to_ios" name="send_to_ios" class="form-control" checked="checked">iOS

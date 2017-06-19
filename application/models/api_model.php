@@ -135,6 +135,14 @@ class Api_model extends CI_Model {
 
         return $query->result_array();
     }
-    
+
+    function getManagersPolygon(){
+        
+        $this->db->select('name, polygon');
+        $this->db->where("polygon iS NOT NULL");
+        $query = $this->db->get('managers');
+
+        return $query->result_array();
+    }
 
 }

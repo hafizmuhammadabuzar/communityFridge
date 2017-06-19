@@ -69,6 +69,7 @@ class Home_model extends CI_Model {
         
         $this->db->select('country');
         $this->db->where('is_active' , 1);
+        $this->db->where('items.condition' , 'Active');
         $this->db->group_by('country');
         $query = $this->db->get('items');
         

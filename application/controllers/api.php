@@ -1039,6 +1039,7 @@ class Api extends CI_Controller {
 
     public function get_areas() {
 
+        $manager_areas = $this->Api_model->getManagersPolygon();
         $rest_areas = $this->Admin_model->getAllAreas(['is_restricted' => 0]);
         $unrest_areas = $this->Admin_model->getAllAreas(['is_restricted' => 1]);
 
@@ -1049,6 +1050,12 @@ class Api extends CI_Controller {
             foreach ($rest_areas as $key => $rest) {
                 $result['unrestricted'][$key]['area'] = $rest['area'];
                 $result['unrestricted'][$key]['points'] = explode(PHP_EOL, $rest['polygon']);
+                $index = $key+1;
+            }
+            foreach ($manager_areas as $mng) {
+                $result['unrestricted'][$index]['manager'] = $mng['name'];
+                $result['unrestricted'][$index]['points'] = str_replace(' ', ', ', array_map('trim', explode(',', $mng['polygon'])));
+                $index++;
             }
 
             foreach ($unrest_areas as $key => $unrest) {
@@ -1165,17 +1172,20 @@ class Api extends CI_Controller {
         echo json_encode($result);
     }
 
-    /*public function test_android_push() {
+    public function test_android_push() {
 
-        $ids[] = 'APA91bFQRtY8SCD4e6j1YeGKX-4GOQrF-2teOUF7TPuVhKmLNkLkMtAEdYnGyiqtaJwp7Opo5mDqANc7-SeuNrw5Cz5gIfl3E3MxEQa4SdvhB-Et_5RmtK7NoI9i99DjuPrGGfjZxh4V';
+        $noti_title = 'Dear Fridge App User';
+        $body = 'Welcome to Fridge App';
+        
+        $ids[] = 'APA91bFp1ClfAmOTZPpf7gCgvNKmw__Xtb6BB7_MoPiXj4FrGC7e61b5mndCzS8YVsRUPeK2U0XYEHSnAKBDdArnoXazyMDQZ5SeJTWuETpJ6Fx6tbGJschE17J4APw48DVaBa_8zBZD';
 
         define('API_ACCESS_KEY', 'AIzaSyAq208nQaq4tYa5ODrfbyiINwxfKO0qrwg');
         $registrationIds = $ids;
 
         $msg['notification'] = array
             (
-            'title' => $_GET['title'],
-            'message' => $_GET['msg']
+            'title' => $noti_title,
+            'message' => $body
         );
 
         $fields = array
@@ -1200,21 +1210,21 @@ class Api extends CI_Controller {
         $result = curl_exec($ch);
         curl_close($ch);
         echo $result;
-    }*/    
+    }    
     
     
-    /*public function test_save_token() {
+    public function test_save_token() {
 
         $fields = array(
             'app_id' => "3f639b9a-f9cd-4c81-8bc9-80ff744ec0c4",
-            'identifier' => '5da8a29523bcd16ae5508cf58cb3b3f4e6ee459d4588503e4fe22e2e36565624',
+            'identifier' => '6915f407fd4846da9191ed9e6ed6f45399dcdd1deea509dac95f3945637c12e0',
             'language' => "en",
             'timezone' => "-28800",
             'game_version' => "1.0",
             'device_os' => "",
             'device_type' => "0",
             'device_model' => "iPhone",
-            'test_type' => 1
+            'test_type' => 2
         );
 
         $fields = json_encode($fields);
@@ -1239,8 +1249,8 @@ class Api extends CI_Controller {
     
     public function test_ios_notification() {
 
-        $noti_title = 'Dear User';
-        $msg = 'Welcome to Fridge App';
+        $noti_title = 'Test Fridge2';
+        $msg = 'Fridge App2';
         
         $title = array(
             "en" => $noti_title
@@ -1249,9 +1259,10 @@ class Api extends CI_Controller {
             "en" => $msg
         );
 
+//        'include_ios_tokens' => ['17215c186b0511ee097000fb5170d5b3f4f60ef7f5fe5201348f9aa5f6f83608'],
         $fields = array(
             'app_id' => "3f639b9a-f9cd-4c81-8bc9-80ff744ec0c4",
-            'include_ios_tokens' => ['5da8a29523bcd16ae5508cf58cb3b3f4e6ee459d4588503e4fe22e2e36565624'],
+            'include_player_ids' => ["2ca66db4-397c-426a-b096-808a29bc1ee8"],
             'contents' => $content,
             'heading' => $title,
             'data' => ['title' => $noti_title, 'body' => $msg],
@@ -1274,7 +1285,7 @@ class Api extends CI_Controller {
         $response = curl_exec($ch);
         curl_close($ch);
         echo $response;
-    }*/
+    }
         
     function contains($point, $polygon)
     {

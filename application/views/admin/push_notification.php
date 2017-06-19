@@ -26,7 +26,8 @@
                             </div>
                             <div class="form-group">
                                 <label>Message *</label>
-                                <textarea id="msg" name="msg" class="form-control" rows="5" required="required"></textarea>
+                                <textarea id="msg" name="msg" class="form-control" rows="5" required="required" maxlength="255"></textarea>
+                                <h6 class="pull-right" id="count_message"></h6>
                             </div>
                             <div class="form-group">
                                 <input type="checkbox" id="send_to_android" name="send_to_android" class="form-control" checked="checked">Android
@@ -46,3 +47,16 @@
     <!-- /#page-wrapper -->
 
 </div><!-- /#wrapper -->
+<script type="text/javascript">
+    $(document).ready(function(){
+        var text_max = 255;
+        $('#count_message').html(text_max + ' remaining');
+        
+        $('#msg').keyup(function() {
+          var text_length = $('#msg').val().length;
+          var text_remaining = text_max - text_length;
+
+          $('#count_message').html(text_remaining + ' remaining');
+        }); 
+    });
+</script>
